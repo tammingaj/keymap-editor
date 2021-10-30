@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import {KeyMap} from "../classes/key-map";
 import {RepositoryService} from "./repository.service";
+import {KeyMapConfig} from "../classes/key-map-config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class KeyMapService {
 
-  public keyMap: KeyMap = new KeyMap();
+  public keyMap: KeyMapConfig = new KeyMapConfig();
 
   constructor(private repositoryService: RepositoryService) {
 
