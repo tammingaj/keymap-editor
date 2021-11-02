@@ -1,8 +1,7 @@
 
 <div class="toolbar" role="banner">
   app component toolbar
-  <button *ngIf="!isDark()" type="button" class="btn btn-primary float-right" (click)="toggleTheme()">Dark</button>
-  <button *ngIf="isDark()" type="button" class="btn btn-primary float-right" (click)="toggleTheme()">Light</button>
+  <button type="button" class="btn btn-primary float-right" (click)="toggleTheme()">{{otherThemeName()}}</button>
 </div>
 
 <div class="container" role="main">

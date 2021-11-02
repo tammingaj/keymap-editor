@@ -29,4 +29,11 @@ export class AppComponent {
   isDark(): boolean {
     return this.theme === AppComponent.DARK;
   }
+
+  otherThemeName(): string {
+    if (this.isDark()) {
+      return 'Light';
+    }
+    return 'Dark';
+  }
 }
