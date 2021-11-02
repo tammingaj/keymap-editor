@@ -27,6 +27,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.css",
+              "node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.css",
               "src/styles.css"
             ],
             "scripts": []

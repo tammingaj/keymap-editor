@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Renderer2} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'keymap-editor';
+  public title: string = 'keymap-editor';
+  private static readonly DARK: string = 'bootstrap-dark'
+  private static readonly LIGHT: string = 'bootstrap'
+
+  private theme: string = AppComponent.DARK;
+
+  constructor(private renderer: Renderer2) {
+    this.renderer.addClass(document.body, this.theme);
+  }
+
+  toggleTheme(): void {
+    this.renderer.removeClass(document.body, this.theme);
+    if (this.theme === AppComponent.DARK) {
+      this.theme = AppComponent.LIGHT;
+    } else {
+      this.theme = AppComponent.DARK;
+    }
+    this.renderer.addClass(document.body, this.theme);
+  }
+
+  isDark(): boolean {
+    return this.theme === AppComponent.DARK;
+  }
 }
