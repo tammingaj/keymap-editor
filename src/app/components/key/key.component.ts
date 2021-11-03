@@ -41,20 +41,6 @@ export class KeyComponent implements OnInit {
     }
   }
 
-  // deltaX(delta: number):void {
-  //   if (this.config.active) {
-  //     this.config.x = this.config.x + delta;
-  //     console.log('new x: ' + this.config.x);
-  //   }
-  // }
-  //
-  // deltaY(delta: number):void {
-  //   if (this.config.active) {
-  //     this.config.y = this.config.y + delta;
-  //     console.log('new y: ' + this.config.y);
-  //   }
-  // }
-
   getStyle(): object {
     return {
       'position': 'absolute',
