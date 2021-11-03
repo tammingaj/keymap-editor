@@ -6,19 +6,24 @@ import { KeyConfig } from "./classes/key-config";
 import { KeyComponent } from './components/key/key.component';
 import { KeyDetailsComponent } from './components/key-details/key-details.component';
 import { LayoutEditorComponent } from './components/layout-editor/layout-editor.component';
-import { KeyMap } from "./classes/key-map";
+import { KeyMapComponent } from './components/key-map/key-map.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     KeyComponent,
     KeyDetailsComponent,
-    LayoutEditorComponent
+    LayoutEditorComponent,
+    KeyMapComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule,
+    FormsModule
   ],
-  providers: [KeyConfig,KeyMap],
+  providers: [KeyConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
+import {KeyMapService} from "../../services/key-map.service";
 
 @Component({
   selector: 'key',
@@ -9,11 +10,12 @@ import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.ser
 })
 export class KeyComponent implements OnInit {
 
-  @Input() config: KeyConfig;
+  private width: number = 50;
+
+  @Input() config: KeyConfig = new KeyConfig();
   @Output() selected = new EventEmitter();
 
-  constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService) {
-    this.config = new KeyConfig();
+  constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService, private keyMapService: KeyMapService) {
   }
 
   ngOnInit() {
@@ -21,19 +23,21 @@ export class KeyComponent implements OnInit {
 
   @HostListener('dblclick',['$event'])
   onDoubleClick($event:any): void {
-    this.zmkConfigGeneratorService.remove(this.config);
     $event.stopPropagation();
+    console.log('double clicked');
   }
 
-  delete(): void {
-    this.zmkConfigGeneratorService.remove(this.config);
+  delete(): boolean {
+    console.log('deleting');
+    this.keyMapService.deleteConfig(this.config);
+    return false;
   }
 
   toggleActive(): void {
     this.config.active = !this.config.active;
     console.log('toggled active to ' + this.config.active, this);
     if (this.config.active) {
-      this.selected.emit(this.config);
+      this.keyMapService.selectConfig(this.config);
     }
   }
 
@@ -53,13 +57,12 @@ export class KeyComponent implements OnInit {
 
   getStyle(): object {
     return {
-      'top': this.config.x,
-      'left': this.config.y,
-      'rotation': this.config.angle,
-      'background-color': this.config.active?'red':'',
-      'border': '1px solid black',
-      'width': '30px',
-      'height': '30px'
+      'position': 'absolute',
+      'top': this.config.y + 'px',
+      'left': this.config.x + 'px',
+      'transform': 'rotate(' + this.config.angle + 'deg)',
+      'aspect-ratio': 1,
+      'width': this.width + 'px',
     }
   }
 }

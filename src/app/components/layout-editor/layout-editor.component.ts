@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {KeyComponent} from "../key/key.component";
 import {KeyConfig} from "../../classes/key-config";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
+import {KeyMapService} from "../../services/key-map.service";
 
 @Component({
   selector: 'layout-editor',
@@ -10,50 +11,49 @@ import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.ser
 })
 export class LayoutEditorComponent implements OnInit {
 
-  private codeFile: String[] = new Array();
-  keys: KeyComponent[] = new Array();
+  private STEP: number = 2;
 
-  private keyWidth: number = 32;
-  private keyHeight: number = 32;
-  private xInterval: number = this.keyWidth / 4;
-  private yInterval: number = this.keyHeight / 4;
-  private lastSelected: KeyConfig = new KeyConfig();
+  constructor(private keyMapService: KeyMapService){}
 
-  constructor(public zmkConfigGeneratorService: ZmkConfigGeneratorService) { }
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+
+    console.log('keycode: ' + event.key);
+
+    if (event.key === 'ArrowRight') {
+      console.log('rechts');
+      this.keyMapService.right(this.STEP);
+    }
+
+    if (event.key === 'ArrowLeft') {
+      console.log('links');
+      this.keyMapService.left(this.STEP);
+    }
+
+    if (event.key === 'ArrowUp') {
+      console.log('up');
+      this.keyMapService.up(this.STEP);
+    }
+
+    if (event.key === 'ArrowDown') {
+      console.log('down');
+      this.keyMapService.down(this.STEP);
+    }
+
+    if (event.key === 'Escape') {
+      console.log('escape');
+      this.keyMapService.deselect();
+    }
+  }
 
   ngOnInit(): void{
   }
 
-  startGeneration(): void {
-    this.codeFile = this.zmkConfigGeneratorService.generate();
+  registerSelected(keyConfig: KeyConfig) {
+    this.keyMapService.selectConfig(keyConfig)
   }
 
-  getCodeFile(): String[] {
-    return this.codeFile;
+  getKeyConfigs(): Array<KeyConfig> {
+    return this.keyMapService.getKeyConfigs();
   }
-
-  buildFirmware():void {
-    console.log('Building firmware');
-  }
-
-  addKey(): void {
-    this.zmkConfigGeneratorService.addNewKeyConfig();
-  }
-
-  getKeyConfigs(): KeyConfig[] {
-    return this.zmkConfigGeneratorService.getKeyConfigs();
-  }
-
-  getLastSelected(): KeyConfig {
-    return this.lastSelected;
-  }
-
-  registerSelected(keyConfig: KeyConfig): void {
-    this.lastSelected = keyConfig;
-  }
-
-  save(): void {
-    this.zmkConfigGeneratorService.save();
-  }
-
 }

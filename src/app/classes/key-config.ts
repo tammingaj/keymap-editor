@@ -7,5 +7,6 @@ export class KeyConfig {
   public active: boolean = false;
   public row: number = 0;
   public column: number = 0;
+  public label: string = '';
 
 }

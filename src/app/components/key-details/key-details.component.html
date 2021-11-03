@@ -1,4 +1,26 @@
-<p>key-details works! This should have a form to enter key details for key {{config?config.id : '-'}}</p>
-<form action="">
+<div style="position: relative">
+  <div class="col-sm-4">
+    <form>
+      <div class="form-group">
+        <label for="label">Label</label>
+        <input class="form-control" type="text" [(ngModel)]="config.label" id="label" name="label">
+      </div>
 
-</form>
+      <div class="form-group">
+        <label for="x">X</label>
+        <input class="form-control" type="text" [(ngModel)]="config.x" id="x" name="x">
+      </div>
+
+      <div class="form-group">
+        <label for="y">Y</label>
+        <input class="form-control" type="text" [(ngModel)]="config.y" id="y" name="y">
+      </div>
+
+      <div class="form-group">
+        <label for="angle">Angle</label>
+        <input class="form-control" type="text" [(ngModel)]="config.angle" id="angle" name="angle">
+      </div>
+
+    </form>
+  </div>
+</div>

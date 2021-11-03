@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import {KeyConfig} from "../classes/key-config";
+import {KeyMapConfig} from "../classes/key-map-config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepositoryService {
 
-  constructor() {
-    this.load();
+  constructor() {}
+
+  // temporary function, remove when github functionality works
+  saveKeyMapConfig = function(keyMapConfig: KeyMapConfig) {
+    localStorage.setItem('keyMapConfig', JSON.stringify(keyMapConfig));
   }
 
   // temporary function, remove when github functionality works
-  save = function(keyConfigs: KeyConfig[]): void {
-    localStorage.setItem('keyConfigs', JSON.stringify(keyConfigs));
-  }
-
-  // temporary function, remove when github functionality works
-  load = function(): KeyConfig[] {
-    let saved: string = localStorage["keyConfigs"];
-    if ( typeof saved === 'undefined') {
-      return new Array<KeyConfig>();
+  loadKeyMapConfig = function(): KeyMapConfig {
+    let retrievedString: string = localStorage["keyMapConfig"];
+    if ( typeof retrievedString === 'undefined') {
+      console.log('creating dummy keymapconfig');
+      return new KeyMapConfig('Dummy');
     }
-    console.log(saved);
-    return JSON.parse(saved);
+    let retrieved: KeyMapConfig = Object.assign(new KeyMapConfig(''), JSON.parse(retrievedString));
+    return retrieved;
   }
+
 }

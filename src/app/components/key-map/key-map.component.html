@@ -1,0 +1,19 @@
+<div class="row" style="height: 210px">
+  <layout-editor></layout-editor>
+</div>
+
+<div class="row" style="height: 330px">
+  <key-details></key-details>
+</div>
+
+<div class="row">
+  <button (click)="startGeneration()">Generate</button><br>
+  <button (click)="save()">Commit and push to github</button>
+  <hr>
+  <p>
+    This is the generated code file: <br>
+    <span *ngFor="let line of getCodeFile()">{{line}}<br></span>
+  </p>
+  <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()">Build firmware</button>
+</div>
+
