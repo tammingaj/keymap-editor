@@ -11,10 +11,12 @@ import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.ser
 export class KeyMapComponent implements OnInit {
 
   private codeFile: String[] = new Array();
+  public activeLayer: string = '';
 
   constructor(private keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) { }
 
   ngOnInit(): void {
+    this.activeLayer = this.keyMapService.getLayers()[0];
   }
 
   buildFirmware():void {
@@ -33,4 +35,17 @@ export class KeyMapComponent implements OnInit {
     return this.codeFile;
   }
 
+  getLayers(): string[]{
+    return this.keyMapService.getLayers().filter((l)=>{return l !== this.activeLayer});
+  }
+
+  addLayer(): void {
+    console.log('adding new layer');
+    // todo: add a new layer via keymapservice
+  }
+
+  selectLayer(layer:string): void{
+    this.activeLayer = layer;
+    // todo: select the active layer via keymapservice
+  }
 }

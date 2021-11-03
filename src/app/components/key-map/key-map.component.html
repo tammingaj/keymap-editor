@@ -4,7 +4,11 @@
     <layout-editor></layout-editor>
   </div>
   <div class="col-lg-2">
-    layer controls
+    layer
+    <h1>{{activeLayer}}</h1>
+<!--    <input class="form-control" type="text" [(ngModel)]="activeLayer" id="activeLayer" name="activeLayer">-->
+    <button *ngFor="let layer of getLayers()" class="btn btn-primary btn-block" (click)="selectLayer(layer)">{{layer}}</button>
+    <button class="btn btn-info btn-block" (click)="addLayer()">+</button>
   </div>
 </div>
 

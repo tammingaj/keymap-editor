@@ -78,4 +78,9 @@ export class KeyMapService {
   public deselect():void {
     this.keyMapConfig.deselect();
   }
+
+  public getLayers(): Array<string> {
+    return ['base','lower','raise'];
+  }
+
 }
