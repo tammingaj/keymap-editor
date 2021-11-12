@@ -59,4 +59,27 @@ export class Behavior {
     } else this.type = Behavior.BEHAVIOR_TYPE_NONE;
   }
 
+  public getLabel(): string {
+    let label: string = '';
+    switch (this.type) {
+      case Behavior.BEHAVIOR_TYPE_NONE :
+        label = 'None';
+        break;
+      case Behavior.BEHAVIOR_TYPE_COMBO :
+        label = 'Combo';
+        break;
+      case Behavior.BEHAVIOR_TYPE_KEYPRESS :
+        label = 'Keypress';
+        break;
+      case Behavior.BEHAVIOR_TYPE_TRANSPARENT :
+        label = 'Transparent';
+        break;
+      case Behavior.BEHAVIOR_TYPE_MODIFIER :
+        label = 'Modifier';
+        break;
+      default:
+        label = 'None';
+    }
+    return label;
+  }
 }

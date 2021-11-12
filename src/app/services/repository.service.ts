@@ -22,8 +22,8 @@ export class RepositoryService {
     localStorage.setItem('zmk-keyConfigs', JSON.stringify(keyMapConfig.getKeyConfigs()));
     localStorage.setItem('zmk-behaviors', JSON.stringify(keyMapConfig.getBehaviors()));
     let copy = Object.assign({}, keyMapConfig);
-    copy.setKeyConfigs(new Array<KeyConfig>());
-    copy.setBehaviors(new Array<Behavior>());
+    copy.keyConfigs = new Array<KeyConfig>();
+    copy.behaviors = new Array<Behavior>();
     localStorage.setItem('zmk-keymapConfig', JSON.stringify(copy));
   }
 

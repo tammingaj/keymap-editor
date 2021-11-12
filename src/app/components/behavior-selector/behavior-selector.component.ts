@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {KeyConfig} from "../../classes/key-config";
+import {Behavior} from "../../classes/behavior";
 
 @Component({
   selector: 'behavior-selector',
@@ -9,16 +11,19 @@ export class BehaviorSelectorComponent implements OnInit {
 
   public _selectedBehavior: string = 'Choose behavior';
 
+  @Input() behavior: Behavior = new Behavior(0,'','',[],[]);
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  public selectBehavior(behavior: string): void {
-    this._selectedBehavior = behavior;
+  public selectBehavior(type: string): void {
+    this.behavior.type = type;
   }
 
   deleteSelectedBehavior(): void {
     console.log('delete behavior');
   }
+
 }

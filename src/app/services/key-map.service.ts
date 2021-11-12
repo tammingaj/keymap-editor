@@ -85,4 +85,10 @@ export class KeyMapService {
   addBehavior(newBehavior: Behavior) {
     this.keyMapConfig.addBehavior(newBehavior);
   }
+
+  getBehaviorsForKey(keyNumber: number): Array<Behavior> {
+    return this.keyMapConfig.behaviors.filter((behavior) => {
+      return behavior.keyNumber === keyNumber;
+    });
+  }
 }
