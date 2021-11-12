@@ -1,6 +1,6 @@
 export class KeyConfig {
 
-  public id: number = 0;
+  public keyNumber: number = 0;
   public x: number = 0;
   public y: number = 0;
   public angle: number = 0;
@@ -9,4 +9,14 @@ export class KeyConfig {
   public column: number = 0;
   public label: string = '';
 
+  constructor(keyNumber: number, x: number, y: number, angle: number, active: boolean, row: number, column: number, label: string) {
+    this.keyNumber = keyNumber;
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.active = active;
+    this.row = row;
+    this.column = column;
+    this.label = label;
+  }
 }

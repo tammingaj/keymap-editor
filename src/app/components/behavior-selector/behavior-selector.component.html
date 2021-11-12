@@ -1,0 +1,12 @@
+<h3>{{_selectedBehavior}}</h3>
+<div ngbDropdown class="d-inline-block">
+  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{_selectedBehavior}}</button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem (click)="selectBehavior('Combo')">Combo</button>
+    <button ngbDropdownItem (click)="selectBehavior('Keypress')">Keypress</button>
+    <button ngbDropdownItem (click)="selectBehavior('Modifier')">Modifier</button>
+    <button ngbDropdownItem (click)="selectBehavior('None')">None</button>
+    <button ngbDropdownItem (click)="selectBehavior('Transparent')">Transparent</button>
+  </div>
+</div>
+<button class="btn btn-info btn-block" (click)="deleteSelectedBehavior()">Delete</button>

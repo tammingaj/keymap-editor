@@ -3,6 +3,7 @@ import {RepositoryService} from "./repository.service";
 import {KeyMapConfig} from "../classes/key-map-config";
 import {KeyConfig} from "../classes/key-config";
 import {Subject} from "rxjs";
+import {Behavior} from "../classes/behavior";
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +30,7 @@ export class KeyMapService {
     let index: number = 0;
     for(let row=0; row < 4; row++) {
       for(let col=0; col < 12; col++) {
-        let keyConfig = new KeyConfig();
-        keyConfig.label = '' + index;
-        keyConfig.id = index++;
-        keyConfig.row = row;
-        keyConfig.column = col;
-        keyConfig.x = col * 50;
-        keyConfig.y = row * 50;
+        let keyConfig = new KeyConfig(index,col*50,row*50,0,false,row,col,''+index);
         this.keyMapConfig.addKeyConfig(row,col,keyConfig);
       }
     }
@@ -83,4 +78,11 @@ export class KeyMapService {
     return ['base','lower','raise'];
   }
 
+  getKeymapName() {
+    return this.keyMapConfig.name;
+  }
+
+  addBehavior(newBehavior: Behavior) {
+    this.keyMapConfig.addBehavior(newBehavior);
+  }
 }

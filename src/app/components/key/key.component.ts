@@ -12,7 +12,7 @@ export class KeyComponent implements OnInit {
 
   private width: number = 50;
 
-  @Input() config: KeyConfig = new KeyConfig();
+  @Input() config: KeyConfig = new KeyConfig(0,0,0, 0,false,0,0,'dummy');
   @Output() selected = new EventEmitter();
 
   constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService, private keyMapService: KeyMapService) {

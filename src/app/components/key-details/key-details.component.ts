@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {KeyMapService} from "../../services/key-map.service";
 import {Subscription} from "rxjs";
+import {Behavior} from "../../classes/behavior";
 
 @Component({
   selector: 'key-details',
@@ -10,14 +11,17 @@ import {Subscription} from "rxjs";
 })
 export class KeyDetailsComponent implements OnInit {
 
-  public config: KeyConfig = new KeyConfig();
+  public config: KeyConfig = new KeyConfig(0,0,0, 0,false,0,0,'dummy');
   private subscription: Subscription = new Subscription();
+  public selectedBehavior: Behavior|undefined = undefined;
+
+  private index: number = 0;
 
   constructor(private keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
-    this.subscription = this.keyMapService.selected$.subscribe((keyConfig) => {
-      console.log('detailscomponent received selected key: ',keyConfig);
+    this.subscription = this.keyMapService.selected$.subscribe((keyConfig: KeyConfig) => {
+      console.log('detailscomponent received selected keyConfig: ',keyConfig);
       this.config = keyConfig;
     });
   }
@@ -25,6 +29,30 @@ export class KeyDetailsComponent implements OnInit {
   ngOnDestroy() {
     // prevent memory leak when component destroyed
     this.subscription.unsubscribe();
+  }
+
+  selectBehavior(behavior: Behavior) {
+    console.log('behavior selected: ',behavior);
+    this.selectedBehavior = behavior;
+  }
+
+  addBehavior():void {
+    console.log('add behavior');
+    let newBehavior: Behavior = new Behavior(this.config.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], []);
+    this.keyMapService.addBehavior(newBehavior);
+    this.selectedBehavior = newBehavior;
+  }
+
+  deleteSelectedBehavior():void {
+    if(this.selectedBehavior) {
+      // let index: number = this.config.behaviors.indexOf(this.selectedBehavior);
+      // this.config.behaviors.splice(index,1);
+      // this.selectedBehavior = undefined;
+    }
+  }
+
+  getBehaviors():Array<Behavior> {
+    return new Array<Behavior>();
   }
 
 }

@@ -9,6 +9,7 @@ import { LayoutEditorComponent } from './components/layout-editor/layout-editor.
 import { KeyMapComponent } from './components/key-map/key-map.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from "@angular/forms";
+import { BehaviorSelectorComponent } from './components/behavior-selector/behavior-selector.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +17,15 @@ import { FormsModule } from "@angular/forms";
     KeyComponent,
     KeyDetailsComponent,
     LayoutEditorComponent,
-    KeyMapComponent
+    KeyMapComponent,
+    BehaviorSelectorComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule
   ],
-  providers: [KeyConfig],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

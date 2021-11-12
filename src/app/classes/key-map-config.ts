@@ -1,11 +1,14 @@
 import {KeyConfig} from "./key-config";
+import {Behavior} from "./behavior";
 
 export class KeyMapConfig {
 
   public name: string;
-  private keyConfigs: Array<KeyConfig> = new Array<KeyConfig>();
   public rows: number = 0;
   public cols: number = 0;
+
+  public keyConfigs: Array<KeyConfig> = new Array<KeyConfig>();
+  public behaviors: Array<Behavior> = new Array<Behavior>();
 
   constructor(name: string) {
     this.name = name;
@@ -15,16 +18,24 @@ export class KeyMapConfig {
     return this.keyConfigs;
   }
 
+  setKeyConfigs(value: Array<KeyConfig>) {
+    this.keyConfigs = value;
+  }
+
+  public getBehaviors(): Array<Behavior> {
+    return this.behaviors;
+  }
+
+  setBehaviors(value: Array<Behavior>) {
+    this.behaviors = value;
+  }
+
+  addBehavior(behavior: Behavior) {
+    this.behaviors.push(behavior);
+  }
+
   addKeyConfig(row: number, column: number, keyConfig: KeyConfig): void  {
     // todo: overwrite if exists for the same row, column (row and column params are obsolete, can be extracted from the keyconfig).
-    // keyConfig.row = row;
-    // keyConfig.column = column;
-    // let theMap = this.rows[row] || new KeyConfigMap();
-    // theMap.keyConfigs[column] = keyConfig;
-    // this.rows[row] = theMap;
-    // theMap = this.columns[column] || new KeyConfigMap();
-    // theMap.keyConfigs[row] = keyConfig;
-    // this.columns[column] = theMap;
     this.keyConfigs.push(keyConfig);
   }
 

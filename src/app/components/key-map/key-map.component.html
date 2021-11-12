@@ -1,29 +1,35 @@
 <!--<div class="row" style="height: 210px">-->
 <div class="row">
+  <div class="col-lg-6">
+    <h2>{{getKeymapName()}}</h2>
+  </div>
+</div>
+<div class="row">
   <div class="col-lg-10">
     <layout-editor></layout-editor>
   </div>
   <div class="col-lg-2">
-    layer
-    <h1>{{activeLayer}}</h1>
-<!--    <input class="form-control" type="text" [(ngModel)]="activeLayer" id="activeLayer" name="activeLayer">-->
+    <h2>{{activeLayer}}</h2>
+    Layer
     <button *ngFor="let layer of getLayers()" class="btn btn-primary btn-block" (click)="selectLayer(layer)">{{layer}}</button>
     <button class="btn btn-info btn-block" (click)="addLayer()">+</button>
   </div>
 </div>
 
-<div class="row" style="height: 330px">
-  <key-details></key-details>
-</div>
+
+  <key-details class="w-100"></key-details>
+
 
 <div class="row">
-  <button (click)="startGeneration()">Generate</button><br>
-  <button (click)="save()">Commit and push to github</button>
-  <hr>
-  <p>
-    This is the generated code file: <br>
-    <span *ngFor="let line of getCodeFile()">{{line}}<br></span>
-  </p>
-  <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()">Build firmware</button>
+  <div class="col">
+    <button (click)="startGeneration()" class="btn btn-secondary m-1">Generate</button><br>
+    <button (click)="save()" class="btn btn-secondary m-1">Commit and push to github</button>
+    <hr>
+    <p>
+      This is the generated code file: <br>
+      <span *ngFor="let line of getCodeFile()">{{line}}<br></span>
+    </p>
+    <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()" class="btn btn-secondary m-1">Build firmware</button>
+  </div>
 </div>
 

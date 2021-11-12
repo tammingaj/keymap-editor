@@ -48,4 +48,8 @@ export class KeyMapComponent implements OnInit {
     this.activeLayer = layer;
     // todo: select the active layer via keymapservice
   }
+
+  getKeymapName(): string {
+    return this.keyMapService.getKeymapName();
+  }
 }
