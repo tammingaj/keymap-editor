@@ -13,12 +13,16 @@ export class KeyMapService {
   private selectedSource = new Subject<KeyConfig>();
   public selected$ = this.selectedSource.asObservable();
 
+  private selectedBehaviorSource = new Subject<Behavior>();
+  public selectedBehavior$ = this.selectedBehaviorSource.asObservable();
+
+  private activeKeysSource = new Subject<KeyConfig[]>();
+  public activeKeys$ = this.activeKeysSource.asObservable();
+
   private readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne')
 
   constructor(private repositoryService: RepositoryService) {
-
     this.keyMapConfig = repositoryService.loadKeyMapConfig();
-
     if(this.keyMapConfig.name === 'Dummy') {
       this.createInitialKeyMapConfig();
     }
@@ -41,6 +45,12 @@ export class KeyMapService {
     this.repositoryService.saveKeyMapConfig(this.keyMapConfig);
   }
 
+  public toggleActive(keyConfig: KeyConfig): void {
+    keyConfig.active = !keyConfig.active;
+    let activeKeys = this.keyMapConfig.getKeyConfigs().filter(keyConfig => keyConfig.active);
+    this.activeKeysSource.next(activeKeys);
+  }
+
   public getKeyConfigs(): Array<KeyConfig> {
     return this.keyMapConfig.getKeyConfigs();
   }
@@ -48,6 +58,11 @@ export class KeyMapService {
   public selectConfig(config: KeyConfig): void {
     console.log('service signals selection of: ',config);
     this.selectedSource.next(config);
+  }
+
+  public selectBehavior(behavior: Behavior): void {
+    console.log('service signals selection of: ',behavior);
+    this.selectedBehaviorSource.next(behavior);
   }
 
   public deleteConfig(config: KeyConfig): void {
