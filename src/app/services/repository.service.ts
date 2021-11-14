@@ -41,7 +41,7 @@ export class RepositoryService {
     let keyConfigsString: string = localStorage["zmk-keyConfigs"];
     let jsKeyConfigObjects: KeyConfig[] = JSON.parse(keyConfigsString);
     jsKeyConfigObjects.forEach((obj)=>{
-      let keyConfig: KeyConfig = new KeyConfig(obj.keyNumber,obj.x,obj.y,obj.angle,obj.active,obj.row,obj.column,obj.label);
+      let keyConfig: KeyConfig = new KeyConfig(obj.keyNumber,obj.x,obj.y,obj.angle,obj.active,obj.row,obj.column,obj.side || KeyConfig.SIDELEFT,obj.label);
       retrievedKeyMapConfig.addKeyConfig(keyConfig.row,keyConfig.column,keyConfig);
     });
 

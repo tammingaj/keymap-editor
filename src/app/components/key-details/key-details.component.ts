@@ -11,7 +11,7 @@ import {Behavior} from "../../classes/behavior";
 })
 export class KeyDetailsComponent implements OnInit {
 
-  public config: KeyConfig = new KeyConfig(0,0,0, 0,false,0,0,'dummy');
+  public config: KeyConfig = KeyConfig.getInstance();
   private subscription: Subscription = new Subscription();
   public selectedBehavior: Behavior|undefined = undefined;
 
@@ -20,7 +20,7 @@ export class KeyDetailsComponent implements OnInit {
   constructor(private keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
-    this.subscription = this.keyMapService.selected$.subscribe((keyConfig: KeyConfig) => {
+    this.subscription = this.keyMapService.currentKey$.subscribe((keyConfig: KeyConfig) => {
       console.log('detailscomponent received selected keyConfig: ',keyConfig);
       this.config = keyConfig;
     });

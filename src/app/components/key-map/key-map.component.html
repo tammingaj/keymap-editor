@@ -20,6 +20,8 @@
 
 <div class="row">
   <div class="col">
+    <p>Active keys: <span *ngFor="let activeKey of getActiveKeys()">{{activeKey.keyNumber}}&nbsp;</span></p>
+    <p>Current key: {{getCurrentKey().keyNumber}}</p>
     <button (click)="startGeneration()" class="btn btn-secondary m-1">Generate</button><br>
     <button (click)="save()" class="btn btn-secondary m-1">Commit and push to github</button>
     <hr>

@@ -12,11 +12,25 @@ export class KeyMapComponent implements OnInit {
 
   private codeFile: String[] = new Array();
   public activeLayer: string = '';
+  private activeKeys: KeyConfig[] = new Array();
+  private currentKey: KeyConfig = KeyConfig.getInstance();
 
-  constructor(private keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) { }
+  constructor(private keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) {
+
+  }
 
   ngOnInit(): void {
     this.activeLayer = this.keyMapService.getLayers()[0];
+    this.keyMapService.activeKeys$.subscribe(
+      activeKeys => {
+        this.activeKeys = activeKeys;
+      }
+    );
+    this.keyMapService.currentKey$.subscribe(
+      currentKey => {
+        this.currentKey = currentKey;
+      }
+    );
   }
 
   buildFirmware():void {
@@ -33,6 +47,14 @@ export class KeyMapComponent implements OnInit {
 
   getCodeFile(): String[] {
     return this.codeFile;
+  }
+
+  getActiveKeys(): KeyConfig[] {
+    return this.activeKeys;
+  }
+
+  getCurrentKey(): KeyConfig {
+    return this.currentKey;
   }
 
   getLayers(): string[]{

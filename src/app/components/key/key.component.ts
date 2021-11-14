@@ -12,7 +12,7 @@ export class KeyComponent implements OnInit {
 
   private width: number = 50;
 
-  @Input() config: KeyConfig = new KeyConfig(0,0,0, 0,false,0,0,'dummy');
+  @Input() config: KeyConfig = KeyConfig.getInstance();
   @Output() selected = new EventEmitter();
 
   constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService, private keyMapService: KeyMapService) {
@@ -34,11 +34,12 @@ export class KeyComponent implements OnInit {
   }
 
   toggleActive(): void {
-    this.config.active = !this.config.active;
-    console.log('toggled active to ' + this.config.active, this);
-    if (this.config.active) {
-      this.keyMapService.selectConfig(this.config);
-    }
+    this.keyMapService.toggleActive(this.config);
+    // this.config.active = !this.config.active;
+    // console.log('toggled active to ' + this.config.active, this);
+    // if (this.config.active) {
+    //   this.keyMapService.selectConfig(this.config);
+    // }
   }
 
   getStyle(): object {

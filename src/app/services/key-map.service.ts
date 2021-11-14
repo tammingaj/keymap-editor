@@ -10,8 +10,8 @@ import {Behavior} from "../classes/behavior";
 })
 export class KeyMapService {
 
-  private selectedSource = new Subject<KeyConfig>();
-  public selected$ = this.selectedSource.asObservable();
+  private currentKeySource = new Subject<KeyConfig>();
+  public currentKey$ = this.currentKeySource.asObservable();
 
   private selectedBehaviorSource = new Subject<Behavior>();
   public selectedBehavior$ = this.selectedBehaviorSource.asObservable();
@@ -34,7 +34,7 @@ export class KeyMapService {
     let index: number = 0;
     for(let row=0; row < 4; row++) {
       for(let col=0; col < 12; col++) {
-        let keyConfig = new KeyConfig(index,col*50,row*50,0,false,row,col,''+index);
+        let keyConfig = new KeyConfig(index,col*50,row*50,0,false,row,col,KeyConfig.SIDELEFT ,''+index);
         this.keyMapConfig.addKeyConfig(row,col,keyConfig);
       }
     }
@@ -48,6 +48,9 @@ export class KeyMapService {
   public toggleActive(keyConfig: KeyConfig): void {
     keyConfig.active = !keyConfig.active;
     let activeKeys = this.keyMapConfig.getKeyConfigs().filter(keyConfig => keyConfig.active);
+    if (activeKeys.length === 1) {
+      this.currentKeySource.next(activeKeys[0]);
+    }
     this.activeKeysSource.next(activeKeys);
   }
 
@@ -57,7 +60,7 @@ export class KeyMapService {
 
   public selectConfig(config: KeyConfig): void {
     console.log('service signals selection of: ',config);
-    this.selectedSource.next(config);
+    this.currentKeySource.next(config);
   }
 
   public selectBehavior(behavior: Behavior): void {
