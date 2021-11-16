@@ -1,5 +1,6 @@
 import {KeyConfig} from "./key-config";
 import {Behavior} from "./behavior";
+import {Layer} from "./layer";
 
 export class KeyMapConfig {
 
@@ -7,11 +8,20 @@ export class KeyMapConfig {
   public rows: number = 0;
   public cols: number = 0;
 
+  public layers: Array<Layer> = new Array<Layer>();
   public keyConfigs: Array<KeyConfig> = new Array<KeyConfig>();
   public behaviors: Array<Behavior> = new Array<Behavior>();
 
   constructor(name: string) {
     this.name = name;
+  }
+
+  public addLayer(layer: Layer) {
+    this.layers.push(layer);
+  }
+
+  public getLayers(): Array<Layer> {
+    return this.layers;
   }
 
   public getKeyConfigs(): Array<KeyConfig> {
@@ -24,6 +34,11 @@ export class KeyMapConfig {
 
   public getBehaviors(): Array<Behavior> {
     return this.behaviors;
+  }
+
+  public getBehaviorsForKey(config: KeyConfig): Array<Behavior> {
+    let keyBehaviors: Array<Behavior> = this.behaviors.filter(behavior => behavior.keyNumber === config.keyNumber);
+    return keyBehaviors;
   }
 
   setBehaviors(value: Array<Behavior>) {

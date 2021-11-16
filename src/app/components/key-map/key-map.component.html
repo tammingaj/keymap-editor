@@ -9,9 +9,9 @@
     <layout-editor></layout-editor>
   </div>
   <div class="col-lg-2">
-    <h2>{{activeLayer}}</h2>
+    <h2>{{currentLayer.name}}</h2>
     Layer
-    <button *ngFor="let layer of getLayers()" class="btn btn-primary btn-block" (click)="selectLayer(layer)">{{layer}}</button>
+    <button *ngFor="let layer of getLayers()" class="btn btn-block" [ngClass]="layer.name===currentLayer.name?'btn-primary':'btn-secondary'" (click)="selectLayer(layer)">{{layer.name}}</button>
     <button class="btn btn-info btn-block" (click)="addLayer()">+</button>
   </div>
 </div>

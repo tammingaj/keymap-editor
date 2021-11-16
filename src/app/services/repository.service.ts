@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {KeyMapConfig} from "../classes/key-map-config";
 import {KeyConfig} from "../classes/key-config";
 import {Behavior} from "../classes/behavior";
+import {Layer} from "../classes/layer";
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,6 @@ import {Behavior} from "../classes/behavior";
 export class RepositoryService {
 
   constructor() {
-    // let retrievedString: string = localStorage["keyMapConfig"];
-    // let jsObject: Object = JSON.parse(retrievedString);
-    //
-    // let keyMapConfig: KeyMapConfig = jsObject as KeyMapConfig;
-    // console.log('retrieved from storage: ',keyMapConfig);
   }
 
   // temporary function, remove when github functionality works
@@ -21,9 +17,11 @@ export class RepositoryService {
     console.log('saving');
     localStorage.setItem('zmk-keyConfigs', JSON.stringify(keyMapConfig.getKeyConfigs()));
     localStorage.setItem('zmk-behaviors', JSON.stringify(keyMapConfig.getBehaviors()));
+    localStorage.setItem('zmk-layers', JSON.stringify(keyMapConfig.getLayers()));
     let copy = Object.assign({}, keyMapConfig);
     copy.keyConfigs = new Array<KeyConfig>();
     copy.behaviors = new Array<Behavior>();
+    copy.layers = new Array<Layer>();
     localStorage.setItem('zmk-keymapConfig', JSON.stringify(copy));
   }
 
@@ -45,7 +43,6 @@ export class RepositoryService {
       retrievedKeyMapConfig.addKeyConfig(keyConfig.row,keyConfig.column,keyConfig);
     });
 
-
     // the behaviors
     let behaviorsString: string = localStorage["zmk-behaviors"];
     let jsBehaviorObjects: Behavior[] = JSON.parse(behaviorsString);
@@ -53,6 +50,19 @@ export class RepositoryService {
       let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.value, obj.keys, obj.layers);
       retrievedKeyMapConfig.addBehavior(behavior);
     });
+
+    // the layers
+    let layersString: string = localStorage["zmk-layers"];
+    let jsLayerObjects: Layer[] = JSON.parse(layersString);
+    if (jsLayerObjects.length !== 0) {
+      jsLayerObjects.forEach((obj)=>{
+        let layer: Layer = new Layer(obj.name,obj.index);
+        retrievedKeyMapConfig.addLayer(layer);
+      });
+    } else {
+      let layer: Layer = new Layer('Base',0);
+      retrievedKeyMapConfig.addLayer(layer);
+    }
 
     console.log('forged from storage: ', retrievedKeyMapConfig);
     return retrievedKeyMapConfig;

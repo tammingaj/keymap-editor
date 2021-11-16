@@ -11,29 +11,45 @@ import {Behavior} from "../../classes/behavior";
 })
 export class KeyDetailsComponent implements OnInit {
 
+  private currentKeySubscription: Subscription = new Subscription();
+  private currentKeyBehaviorsSubscription: Subscription = new Subscription();
+  private selectedBehaviorSubscription: Subscription = new Subscription();
   public config: KeyConfig = KeyConfig.getInstance();
-  private subscription: Subscription = new Subscription();
   public selectedBehavior: Behavior|undefined = undefined;
+  public behaviors: Array<Behavior> = new Array<Behavior>();
 
   private index: number = 0;
 
   constructor(private keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
-    this.subscription = this.keyMapService.currentKey$.subscribe((keyConfig: KeyConfig) => {
+    // subscrige to the current key
+    this.currentKeySubscription = this.keyMapService.currentKey$.subscribe((keyConfig: KeyConfig) => {
       console.log('detailscomponent received selected keyConfig: ',keyConfig);
       this.config = keyConfig;
+    });
+    // subscribe to the current key behaviors
+    this.currentKeyBehaviorsSubscription = this.keyMapService.keyBehaviors$.subscribe((behaviors: Array<Behavior>) => {
+      console.log('detailscomponent received behaviors for current key: ',behaviors);
+      this.behaviors = behaviors;
+    });
+    // subscribe to the selected behavior
+    this.selectedBehaviorSubscription = this.keyMapService.selectedBehavior$.subscribe((behavior: Behavior) => {
+      console.log('detailscomponent received selected behavior: ',behavior);
+      this.selectedBehavior = behavior;
     });
   }
 
   ngOnDestroy() {
     // prevent memory leak when component destroyed
-    this.subscription.unsubscribe();
+    this.currentKeySubscription.unsubscribe();
+    this.selectedBehaviorSubscription.unsubscribe();
+    this.currentKeyBehaviorsSubscription.unsubscribe();
   }
 
   selectBehavior(behavior: Behavior) {
     console.log('behavior selected: ',behavior);
-    this.selectedBehavior = behavior;
+    this.keyMapService.selectBehavior(behavior);
   }
 
   addBehavior():void {
@@ -41,19 +57,10 @@ export class KeyDetailsComponent implements OnInit {
     let newBehavior: Behavior = new Behavior(this.config.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], []);
     console.log(newBehavior);
     this.keyMapService.addBehavior(newBehavior);
-    this.selectedBehavior = newBehavior;
   }
 
-  deleteSelectedBehavior():void {
-    if(this.selectedBehavior) {
-      // let index: number = this.config.behaviors.indexOf(this.selectedBehavior);
-      // this.config.behaviors.splice(index,1);
-      // this.selectedBehavior = undefined;
-    }
-  }
-
-  getBehaviors():Array<Behavior> {
-    return this.keyMapService.getBehaviorsForKey(this.config.keyNumber);
+  public getBehaviors(): Array<Behavior> {
+    return this.behaviors;
   }
 
 }
