@@ -8,6 +8,7 @@ export class KeyMapConfig {
   public rows: number = 0;
   public cols: number = 0;
 
+  // TODO: deprecate these arrays, they will be responsibility of the KeyMapService
   public layers: Array<Layer> = new Array<Layer>();
   public keyConfigs: Array<KeyConfig> = new Array<KeyConfig>();
   public behaviors: Array<Behavior> = new Array<Behavior>();
@@ -36,14 +37,14 @@ export class KeyMapConfig {
     return this.behaviors;
   }
 
-  public getBehaviorsForKey(config: KeyConfig): Array<Behavior> {
-    let keyBehaviors: Array<Behavior> = this.behaviors.filter(behavior => behavior.keyNumber === config.keyNumber);
-    return keyBehaviors;
-  }
+  // public getBehaviorsForKey(config: KeyConfig): Array<Behavior> {
+  //   let keyBehaviors: Array<Behavior> = this.behaviors.filter(behavior => behavior.keyNumber === config.keyNumber);
+  //   return keyBehaviors;
+  // }
 
-  setBehaviors(value: Array<Behavior>) {
-    this.behaviors = value;
-  }
+  // setBehaviors(value: Array<Behavior>) {
+  //   this.behaviors = value;
+  // }
 
   addBehavior(behavior: Behavior) {
     this.behaviors.push(behavior);

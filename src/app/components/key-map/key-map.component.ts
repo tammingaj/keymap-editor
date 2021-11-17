@@ -18,13 +18,14 @@ export class KeyMapComponent implements OnInit {
   private activeKeys: KeyConfig[] = new Array();
   private currentKey: KeyConfig = KeyConfig.getInstance();
 
-  constructor(private keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) {
+  public newLayerName: string = '';
 
+  constructor(public keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) {
   }
 
   ngOnInit(): void {
     this.keyMapService.layers$.subscribe(layers => {
-      console.log('key-map component received layers from service');
+      console.log('key-map component received all layers from service');
       this.layers = layers;
     });
     this.keyMapService.currentLayer$.subscribe(currentLayer => {
@@ -34,11 +35,13 @@ export class KeyMapComponent implements OnInit {
     this.keyMapService.activeKeys$.subscribe(
       activeKeys => {
         this.activeKeys = activeKeys;
+        console.log('The active keys: ',activeKeys);
       }
     );
     this.keyMapService.currentKey$.subscribe(
       currentKey => {
         this.currentKey = currentKey;
+        console.log('The current key: ',currentKey);
       }
     );
   }
@@ -74,7 +77,13 @@ export class KeyMapComponent implements OnInit {
   addLayer(): void {
     console.log('adding new layer');
     // todo: add a new layer via keymapservice
+    this.keyMapService.addLayer(this.newLayerName);
   }
+
+  // deleteLayer(layer: Layer): void {
+  //   console.log('delete layer');
+  //   this.keyMapService.deleteLayer(layer);
+  // }
 
   selectLayer(layer:Layer): void{
     this.keyMapService.selectLayer(layer);

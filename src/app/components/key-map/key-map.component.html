@@ -11,8 +11,15 @@
   <div class="col-lg-2">
     <h2>{{currentLayer.name}}</h2>
     Layer
-    <button *ngFor="let layer of getLayers()" class="btn btn-block" [ngClass]="layer.name===currentLayer.name?'btn-primary':'btn-secondary'" (click)="selectLayer(layer)">{{layer.name}}</button>
-    <button class="btn btn-info btn-block" (click)="addLayer()">+</button>
+    <button *ngFor="let layer of keyMapService.layers$ | async" class="btn btn-block" [ngClass]="layer.name===currentLayer.name?'btn-primary':'btn-secondary'" (click)="selectLayer(layer)">
+      {{layer.name}}
+      <button (click)="keyMapService.deleteLayer(layer)" class="btn-sm float-right">del</button>
+    </button>
+    <form class="mt-1">
+      <label for="newLayerName">New layer</label>
+      <input class="form-control" type="text" [(ngModel)]="newLayerName" id="newLayerName" name="newLayerName">
+      <button class="btn btn-info mt-1" (click)="addLayer()">Add</button>
+    </form>
   </div>
 </div>
 

@@ -9,6 +9,8 @@ import {Layer} from "../classes/layer";
 })
 export class RepositoryService {
 
+  // TODO: subscribe to the subjects in the keyMapService, and save when an update is received.
+
   constructor() {
   }
 
@@ -36,33 +38,36 @@ export class RepositoryService {
     let retrievedKeyMapConfig: KeyMapConfig = Object.assign(new KeyMapConfig(''), JSON.parse(keyMapConfigString));
 
     // the keys
-    let keyConfigsString: string = localStorage["zmk-keyConfigs"];
+    let keyConfigsString: string = localStorage["zmk-keyConfigs"] || '[]';
     let jsKeyConfigObjects: KeyConfig[] = JSON.parse(keyConfigsString);
     jsKeyConfigObjects.forEach((obj)=>{
       let keyConfig: KeyConfig = new KeyConfig(obj.keyNumber,obj.x,obj.y,obj.angle,obj.active,obj.row,obj.column,obj.side || KeyConfig.SIDELEFT,obj.label);
       retrievedKeyMapConfig.addKeyConfig(keyConfig.row,keyConfig.column,keyConfig);
     });
 
-    // the behaviors
-    let behaviorsString: string = localStorage["zmk-behaviors"];
-    let jsBehaviorObjects: Behavior[] = JSON.parse(behaviorsString);
-    jsBehaviorObjects.forEach((obj)=>{
-      let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.value, obj.keys, obj.layers);
-      retrievedKeyMapConfig.addBehavior(behavior);
-    });
-
     // the layers
-    let layersString: string = localStorage["zmk-layers"];
+    let layersString: string = localStorage["zmk-layers"] || '[]';
     let jsLayerObjects: Layer[] = JSON.parse(layersString);
     if (jsLayerObjects.length !== 0) {
       jsLayerObjects.forEach((obj)=>{
-        let layer: Layer = new Layer(obj.name,obj.index);
+        let layer: Layer = new Layer(obj.name,obj.id);
         retrievedKeyMapConfig.addLayer(layer);
       });
     } else {
       let layer: Layer = new Layer('Base',0);
       retrievedKeyMapConfig.addLayer(layer);
     }
+
+    // the behaviors
+    let behaviorsString: string = localStorage["zmk-behaviors"] || '[]';
+    let jsBehaviorObjects: Behavior[] = JSON.parse(behaviorsString);
+    jsBehaviorObjects.forEach((obj)=>{
+      let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.value, obj.keys, obj.layers);
+      retrievedKeyMapConfig.addBehavior(behavior);
+    });
+    // aanvullen tot er voor iedere key in iedere layer een behavior is
+
+
 
     console.log('forged from storage: ', retrievedKeyMapConfig);
     return retrievedKeyMapConfig;

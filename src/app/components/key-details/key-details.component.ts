@@ -29,7 +29,7 @@ export class KeyDetailsComponent implements OnInit {
       this.config = keyConfig;
     });
     // subscribe to the current key behaviors
-    this.currentKeyBehaviorsSubscription = this.keyMapService.keyBehaviors$.subscribe((behaviors: Array<Behavior>) => {
+    this.currentKeyBehaviorsSubscription = this.keyMapService.currentKeyBehaviors$.subscribe((behaviors: Array<Behavior>) => {
       console.log('detailscomponent received behaviors for current key: ',behaviors);
       this.behaviors = behaviors;
     });

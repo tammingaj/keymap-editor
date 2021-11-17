@@ -1,6 +1,6 @@
 export class Layer {
 
-  constructor(public name: string, public index: number) {
+  constructor(public name: string, public id: number) {
   }
 
 }
