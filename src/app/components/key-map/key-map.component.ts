@@ -46,6 +46,13 @@ export class KeyMapComponent implements OnInit {
     );
   }
 
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.keyMapService.layers$.unsubscribe();
+    this.keyMapService.currentLayer$.unsubscribe();
+    this.keyMapService.activeKeys$.unsubscribe();
+    this.keyMapService.currentKey$.unsubscribe();
+  }
   buildFirmware():void {
     console.log('Building firmware');
   }
