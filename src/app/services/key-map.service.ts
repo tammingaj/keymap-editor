@@ -18,8 +18,7 @@ export class KeyMapService {
   public currentKey$ = new ReplaySubject<KeyConfig>();
 
   // contains all active keys
-  private activeKeysSource = new Subject<KeyConfig[]>();
-  public activeKeys$ = this.activeKeysSource.asObservable();
+  public activeKeys$ = new ReplaySubject<Array<KeyConfig>>()
 
   // contains all behaviors
   private behaviors: Array<Behavior> = new Array<Behavior>();
@@ -28,10 +27,6 @@ export class KeyMapService {
   // contains the selected behavior
   private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,'',[],[]);
   public selectedBehavior$ = new ReplaySubject<Behavior>();
-
-  // contains all behaviors for the current key
-  // private keyBehaviorsSource = new Subject<Behavior[]>();
-  // public keyBehaviors$ = this.keyBehaviorsSource.asObservable();
 
   private currentKeyBehaviors = new Array<Behavior>();
   public currentKeyBehaviors$ = new ReplaySubject<Array<Behavior>>();
@@ -93,11 +88,11 @@ export class KeyMapService {
 
   public toggleActive(keyConfig: KeyConfig): void {
     keyConfig.active = !keyConfig.active;
-    let activeKeys = this.keyMapConfig.getKeyConfigs().filter(keyConfig => keyConfig.active);
+    let activeKeys = this.keys.filter(keyConfig => keyConfig.active);
     if (activeKeys.length === 1) {
       this.selectConfig(activeKeys[0]);
     }
-    this.activeKeysSource.next(activeKeys);
+    this.activeKeys$.next(activeKeys);
   }
 
   public getKeyConfigs(): Array<KeyConfig> {
@@ -120,7 +115,6 @@ export class KeyMapService {
     console.log('service signals selection of layer: ',layer);
     this.currentLayer = layer;
     this.currentLayer$.next(layer);
-    this.currentKeyBehaviors = new Array<Behavior>();
     this.selectBehaviorsForKeyAndLayer();
   }
 
@@ -131,6 +125,8 @@ export class KeyMapService {
       .filter(behavior => behavior.layers.indexOf(this.currentLayer.id) >= 0);
     console.log('The relevant behaviors: ',this.currentKeyBehaviors);
     this.currentKeyBehaviors$.next(this.currentKeyBehaviors);
+    this.selectedBehavior = this.currentKeyBehaviors[0];
+    this.selectedBehavior$.next(this.selectedBehavior);
   }
 
   public addLayer(layerName:string): void {
@@ -190,13 +186,9 @@ export class KeyMapService {
   }
 
   addBehavior(newBehavior: Behavior) {
-    this.keyMapConfig.addBehavior(newBehavior);
+    this.behaviors.push(newBehavior);
+    this.behaviors$.next(this.behaviors);
+    this.selectBehaviorsForKeyAndLayer()
   }
-
-  // getBehaviorsForKey(config: KeyConfig): Array<Behavior> {
-  //   return this.keyMapConfig.behaviors.filter((behavior) => {
-  //     return behavior.keyNumber === config.keyNumber;
-  //   });
-  // }
 
 }
