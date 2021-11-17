@@ -3,6 +3,7 @@ import {KeyConfig} from "../../classes/key-config";
 import {KeyMapService} from "../../services/key-map.service";
 import {Subscription} from "rxjs";
 import {Behavior} from "../../classes/behavior";
+import {Layer} from "../../classes/layer";
 
 @Component({
   selector: 'key-details',
@@ -14,9 +15,11 @@ export class KeyDetailsComponent implements OnInit {
   private currentKeySubscription: Subscription = new Subscription();
   private currentKeyBehaviorsSubscription: Subscription = new Subscription();
   private selectedBehaviorSubscription: Subscription = new Subscription();
+  private selectedLayerSubscription: Subscription = new Subscription();
   public config: KeyConfig = KeyConfig.getInstance();
   public selectedBehavior: Behavior|undefined = undefined;
   public behaviors: Array<Behavior> = new Array<Behavior>();
+  public selectedLayer: Layer = new Layer('',-1);
 
   private index: number = 0;
 
@@ -38,6 +41,11 @@ export class KeyDetailsComponent implements OnInit {
       console.log('detailscomponent received selected behavior: ',behavior);
       this.selectedBehavior = behavior;
     });
+    // subscribe to the selected layer
+    this.selectedLayerSubscription = this.keyMapService.currentLayer$.subscribe((layer: Layer) => {
+      console.log('detailscomponent received selected layer: ',layer);
+      this.selectedLayer = layer;
+    });
   }
 
   ngOnDestroy() {
@@ -45,6 +53,7 @@ export class KeyDetailsComponent implements OnInit {
     this.currentKeySubscription.unsubscribe();
     this.selectedBehaviorSubscription.unsubscribe();
     this.currentKeyBehaviorsSubscription.unsubscribe();
+    this.selectedLayerSubscription.unsubscribe();
   }
 
   selectBehavior(behavior: Behavior) {
@@ -54,7 +63,7 @@ export class KeyDetailsComponent implements OnInit {
 
   addBehavior():void {
     console.log('add behavior');
-    let newBehavior: Behavior = new Behavior(this.config.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], []);
+    let newBehavior: Behavior = new Behavior(this.config.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], [this.selectedLayer.id]);
     console.log(newBehavior);
     this.keyMapService.addBehavior(newBehavior);
   }
