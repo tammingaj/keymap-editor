@@ -20,10 +20,10 @@ export class KeyDetailsComponent implements OnInit {
 
   private index: number = 0;
 
-  constructor(private keyMapService: KeyMapService) { }
+  constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
-    // subscrige to the current key
+    // subscribe to the current key
     this.currentKeySubscription = this.keyMapService.currentKey$.subscribe((keyConfig: KeyConfig) => {
       console.log('detailscomponent received selected keyConfig: ',keyConfig);
       this.config = keyConfig;
