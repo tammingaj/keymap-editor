@@ -1,12 +1,12 @@
-<h3>{{behavior.getLabel()}}</h3>
+<h3>{{selectedBehavior.getLabel()}}</h3>
 <div ngbDropdown class="d-inline-block">
-  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{behavior.getLabel()}}</button>
+  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getLabel()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-    <button ngbDropdownItem (click)="selectBehavior('combo')">Combo</button>
-    <button ngbDropdownItem (click)="selectBehavior('&kp')">Keypress</button>
-    <button ngbDropdownItem (click)="selectBehavior('&hm')">Modifier</button>
-    <button ngbDropdownItem (click)="selectBehavior('&none')">None</button>
-    <button ngbDropdownItem (click)="selectBehavior('&trans')">Transparent</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('combo')">Combo</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&kp')">Keypress</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&hm')">Modifier</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&trans')">Transparent</button>
   </div>
 </div>
 <button class="btn btn-info btn-block" (click)="deleteSelectedBehavior()">Delete</button>

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {Behavior} from "../../classes/behavior";
+import {KeyMapService} from "../../services/key-map.service";
 
 @Component({
   selector: 'behavior-selector',
@@ -10,16 +11,21 @@ import {Behavior} from "../../classes/behavior";
 export class BehaviorSelectorComponent implements OnInit {
 
   public _selectedBehavior: string = 'Choose behavior';
+  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,'',[],[]);
 
-  @Input() behavior: Behavior = new Behavior(0,'','',[],[]);
-
-  constructor() { }
+  constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
+    this.keyMapService.selectedBehavior$.subscribe(behavior => {
+      console.log('show behavior ',behavior);
+      this.selectedBehavior = behavior;
+    });
   }
 
-  public selectBehavior(type: string): void {
-    this.behavior.type = type;
+  public selectBehaviorType(type: string): void {
+    if (this.selectedBehavior) {
+      this.selectedBehavior.type = type;
+    }
   }
 
   deleteSelectedBehavior(): void {
