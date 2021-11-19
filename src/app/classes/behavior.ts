@@ -82,4 +82,24 @@ export class Behavior {
     }
     return label;
   }
+
+  getKeyPressValues(): string[] {
+    return [Behavior.KEY_A, Behavior.KEY_B, Behavior.KEY_C, Behavior.KEY_D, Behavior.KEY_E, Behavior.KEY_F, Behavior.KEY_G, Behavior.KEY_H, Behavior.KEY_I, Behavior.KEY_J, Behavior.KEY_K, Behavior.KEY_L, Behavior.KEY_M, Behavior.KEY_N, Behavior.KEY_O, Behavior.KEY_P, Behavior.KEY_Q, Behavior.KEY_R, Behavior.KEY_S, Behavior.KEY_T, Behavior.KEY_U, Behavior.KEY_V, Behavior.KEY_W, Behavior.KEY_X, Behavior.KEY_Y, Behavior.KEY_Z];
+  }
+
+  public generateCode(): string {
+    if (this.type === Behavior.BEHAVIOR_TYPE_NONE) return Behavior.BEHAVIOR_TYPE_NONE;
+    if (this.type === Behavior.BEHAVIOR_TYPE_TRANSPARENT) return Behavior.BEHAVIOR_TYPE_TRANSPARENT;
+    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + ' ' + this.value;
+    if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) return Behavior.BEHAVIOR_TYPE_MODIFIER + ' ' + this.value;
+    if (this.type === Behavior.BEHAVIOR_TYPE_COMBO) {
+      // todo this is not yet correct
+      let code: string = Behavior.BEHAVIOR_TYPE_COMBO + ' ';
+      for (let i: number = 0; i < this.keys.length; i++) {
+        code += this.keys[i] + ' ';
+      }
+      return code;
+    }
+    return ' ??? ';
+  }
 }

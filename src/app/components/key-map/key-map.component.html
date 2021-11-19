@@ -32,10 +32,8 @@
     <button (click)="startGeneration()" class="btn btn-secondary m-1">Generate</button><br>
     <button (click)="save()" class="btn btn-secondary m-1">Commit and push to github</button>
     <hr>
-    <p>
       This is the generated code file: <br>
-      <span *ngFor="let line of getCodeFile()">{{line}}<br></span>
-    </p>
+    <pre class="text-light" [innerHTML]="getCodeFileAsHtml()"></pre>
     <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()" class="btn btn-secondary m-1">Build firmware</button>
   </div>
 </div>

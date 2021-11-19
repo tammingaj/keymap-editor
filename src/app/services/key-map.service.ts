@@ -58,6 +58,11 @@ export class KeyMapService {
     this.keys$.next(this.keys);
 
     this.behaviors = this.keyMapConfig.behaviors;
+    this.behaviors.sort((first,second) => {
+      if (first.keyNumber < second.keyNumber) return -1;
+      if (first.keyNumber > second.keyNumber) return 1;
+      return 0;
+    });
 
     this.layers = this.keyMapConfig.layers
     if (this.layers.length === 0) {
@@ -220,6 +225,11 @@ export class KeyMapService {
 
   addBehavior(newBehavior: Behavior) {
     this.behaviors.push(newBehavior);
+    this.behaviors.sort((first,second) => {
+      if (first.keyNumber < second.keyNumber) return -1;
+      if (first.keyNumber > second.keyNumber) return 1;
+      return 0;
+    });
     this.behaviors$.next(this.behaviors);
     this.selectBehaviorsForKeyAndLayer()
   }

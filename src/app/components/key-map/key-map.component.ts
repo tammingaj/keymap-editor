@@ -70,6 +70,10 @@ export class KeyMapComponent implements OnInit {
     return this.codeFile;
   }
 
+  getCodeFileAsHtml(): String {
+    return this.codeFile.join('<br>').replace(' ', '&nbsp;');
+  }
+
   getActiveKeys(): KeyConfig[] {
     return this.activeKeys;
   }
