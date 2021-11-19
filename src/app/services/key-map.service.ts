@@ -76,6 +76,7 @@ export class KeyMapService {
   private createInitialKeyMapConfig(): void {
     console.log('Dummy keyMapConfig detected, transforming it to Corne keyMapConfig');
     this.keyMapConfig.name = 'Corne';
+    this.keyMapConfig.split = true;
     let index: number = 0;
     for(let row=0; row < 4; row++) {
       for(let col=0; col < 12; col++) {

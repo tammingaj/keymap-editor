@@ -30,7 +30,7 @@ export class KeyMapComponent implements OnInit {
       this.layers = layers;
     });
     this.keyMapService.currentLayer$.subscribe(currentLayer => {
-      console.log('key-map component received active layer from service');
+      console.log('key-map component received active layer from service', currentLayer);
       this.currentLayer = currentLayer;
     });
     this.keyMapService.activeKeys$.subscribe(

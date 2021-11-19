@@ -7,6 +7,7 @@ export class KeyMapConfig {
   public name: string;
   public rows: number = 0;
   public cols: number = 0;
+  public split: boolean = false;
 
   // TODO: deprecate these arrays, they will be responsibility of the KeyMapService
   public layers: Array<Layer> = new Array<Layer>();
@@ -36,15 +37,6 @@ export class KeyMapConfig {
   public getBehaviors(): Array<Behavior> {
     return this.behaviors;
   }
-
-  // public getBehaviorsForKey(config: KeyConfig): Array<Behavior> {
-  //   let keyBehaviors: Array<Behavior> = this.behaviors.filter(behavior => behavior.keyNumber === config.keyNumber);
-  //   return keyBehaviors;
-  // }
-
-  // setBehaviors(value: Array<Behavior>) {
-  //   this.behaviors = value;
-  // }
 
   addBehavior(behavior: Behavior) {
     this.behaviors.push(behavior);
