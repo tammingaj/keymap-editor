@@ -9,4 +9,18 @@
     <button ngbDropdownItem (click)="selectBehaviorType('&trans')">Transparent</button>
   </div>
 </div>
+<div *ngIf="selectedBehavior.type === '&kp'">
+  keypress
+</div>
+
+<div *ngIf="selectedBehavior.type === 'combo'">
+  combo
+</div>
+
+<div *ngIf="selectedBehavior.type === '&hm'">
+  modifier
+</div>
+
+
+
 <button class="btn btn-info btn-block" (click)="deleteSelectedBehavior()">Delete</button>
