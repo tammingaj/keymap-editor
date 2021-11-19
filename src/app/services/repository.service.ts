@@ -14,12 +14,14 @@ export class RepositoryService {
   constructor() {
   }
 
-  // temporary function, remove when github functionality works
+  // ultimately this should save the configuration to github
   saveKeyMapConfig = function(keyMapConfig: KeyMapConfig) {
     console.log('saving');
     localStorage.setItem('zmk-keyConfigs', JSON.stringify(keyMapConfig.getKeyConfigs()));
     localStorage.setItem('zmk-behaviors', JSON.stringify(keyMapConfig.getBehaviors()));
     localStorage.setItem('zmk-layers', JSON.stringify(keyMapConfig.getLayers()));
+    // for now we store the keys, layers and behaviors in their own localstorage variables
+    // and clear them from the keyMapConfig object.
     let copy = Object.assign({}, keyMapConfig);
     copy.keyConfigs = new Array<KeyConfig>();
     copy.behaviors = new Array<Behavior>();
@@ -48,15 +50,10 @@ export class RepositoryService {
     // the layers
     let layersString: string = localStorage["zmk-layers"] || '[]';
     let jsLayerObjects: Layer[] = JSON.parse(layersString);
-    if (jsLayerObjects.length !== 0) {
-      jsLayerObjects.forEach((obj)=>{
-        let layer: Layer = new Layer(obj.name,obj.id);
-        retrievedKeyMapConfig.addLayer(layer);
-      });
-    } else {
-      let layer: Layer = new Layer('Base',0);
+    jsLayerObjects.forEach((obj)=>{
+      let layer: Layer = new Layer(obj.name,obj.id);
       retrievedKeyMapConfig.addLayer(layer);
-    }
+    });
 
     // the behaviors
     let behaviorsString: string = localStorage["zmk-behaviors"] || '[]';
@@ -65,9 +62,6 @@ export class RepositoryService {
       let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.value, obj.keys, obj.layers);
       retrievedKeyMapConfig.addBehavior(behavior);
     });
-    // aanvullen tot er voor iedere key in iedere layer een behavior is
-
-
 
     console.log('forged from storage: ', retrievedKeyMapConfig);
     return retrievedKeyMapConfig;

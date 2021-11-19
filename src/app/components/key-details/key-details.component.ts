@@ -4,6 +4,7 @@ import {KeyMapService} from "../../services/key-map.service";
 import {Subscription} from "rxjs";
 import {Behavior} from "../../classes/behavior";
 import {Layer} from "../../classes/layer";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'key-details',
@@ -19,7 +20,7 @@ export class KeyDetailsComponent implements OnInit {
   public config: KeyConfig = KeyConfig.getInstance();
   public selectedBehavior: Behavior|undefined = undefined;
   public behaviors: Array<Behavior> = new Array<Behavior>();
-  public selectedLayer: Layer = new Layer('',-1);
+  public selectedLayer: Layer = new Layer('',uuidv4());
 
   private index: number = 0;
 

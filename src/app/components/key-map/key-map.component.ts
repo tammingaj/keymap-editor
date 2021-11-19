@@ -3,6 +3,7 @@ import {KeyConfig} from "../../classes/key-config";
 import {KeyMapService} from "../../services/key-map.service";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 import {Layer} from "../../classes/layer";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'key-map',
@@ -12,7 +13,7 @@ import {Layer} from "../../classes/layer";
 export class KeyMapComponent implements OnInit {
 
   private layers: Array<Layer> = new Array<Layer>();
-  public currentLayer: Layer = new Layer('dummy layer',0);
+  public currentLayer: Layer = new Layer('dummy layer',uuidv4());
 
   private codeFile: String[] = new Array();
   private activeKeys: KeyConfig[] = new Array();

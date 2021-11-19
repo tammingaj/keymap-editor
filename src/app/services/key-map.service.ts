@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import {RepositoryService} from "./repository.service";
 import {KeyMapConfig} from "../classes/key-map-config";
 import {KeyConfig} from "../classes/key-config";
-import {bindCallback, ReplaySubject, Subject} from "rxjs";
 import {Behavior} from "../classes/behavior";
 import {Layer} from "../classes/layer";
+import {ReplaySubject} from "rxjs";
+import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KeyMapService {
 
-  // TODO: deprecate the arrays in the KeyMapConfig class
+  // contains all keys
+  private keys: Array<KeyConfig> = new Array<KeyConfig>();
+  public keys$ = new ReplaySubject<Array<KeyConfig>>();
 
   // contains the current key
   private currentKey: KeyConfig = KeyConfig.getInstance();
@@ -28,6 +31,7 @@ export class KeyMapService {
   private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,'',[],[]);
   public selectedBehavior$ = new ReplaySubject<Behavior>();
 
+  // contains the behaviors for the current key
   private currentKeyBehaviors = new Array<Behavior>();
   public currentKeyBehaviors$ = new ReplaySubject<Array<Behavior>>();
 
@@ -36,12 +40,8 @@ export class KeyMapService {
   public layers$ = new ReplaySubject<Array<Layer>>();
 
   // contains the current layer
-  public currentLayer = new Layer('',0);
+  public currentLayer = new Layer('',uuidv4());
   public currentLayer$ = new ReplaySubject<Layer>();
-
-  // contains all keys
-  private keys: Array<KeyConfig> = new Array<KeyConfig>();
-  public keys$ = new ReplaySubject<Array<KeyConfig>>();
 
   private readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne')
 
@@ -52,6 +52,8 @@ export class KeyMapService {
     }
     console.log('keymapservice is primed with: ', this.keyMapConfig);
 
+    this.replenishKeyMap();
+
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.keys$.next(this.keys);
 
@@ -59,13 +61,15 @@ export class KeyMapService {
 
     this.layers = this.keyMapConfig.layers
     if (this.layers.length === 0) {
+      console.log('there are no layers');
       this.addLayer('Base');
-      this.currentLayer$.next(this.layers[0]);
     } else {
       this.layers$.next(this.keyMapConfig.layers)
-      this.currentLayer$.next(this.layers[0]);
+      console.log('selecting current layer: ',this.layers[0]);
       this.behaviors$.next(this.behaviors);
     }
+    this.currentLayer = this.layers[0];
+    this.currentLayer$.next(this.currentLayer);
 
   }
 
@@ -80,6 +84,33 @@ export class KeyMapService {
       }
     }
     console.log('result: ',this.keyMapConfig);
+  }
+
+  private replenishKeyMap(): void {
+    // when there are no keys, add a total of rows * cols
+    if (this.keyMapConfig.keyConfigs.length == 0) {
+      for (let r= 0; r < this.keyMapConfig.rows; r++) {
+        for (let c= 0; c < this.keyMapConfig.cols; c++) {
+          let keyConfig = new KeyConfig(0,c*50,r*50,0,false,r,c,c<this.keyMapConfig.cols?KeyConfig.SIDELEFT:KeyConfig.SIDERIGHT ,''+r+'- '+c);
+          this.keyMapConfig.addKeyConfig(r,c,keyConfig);
+        }
+      }
+    }
+    //make sure there is at least one layer
+    if (this.keyMapConfig.layers.length === 0) {
+      this.addLayer('Base');
+    }
+    //make sure there is at least one behavior for each key in each layer
+    this.keyMapConfig.layers.forEach(layer => {
+      this.keyMapConfig.getKeyConfigs().forEach(key => {
+        let keyBehaviorsForLayer: Array<Behavior> = this.behaviors
+          .filter(behavior => behavior.keyNumber === key.keyNumber)
+          .filter(behavior => behavior.layers.indexOf(layer.id) >= 0);
+        if (keyBehaviorsForLayer.length === 0) {
+          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], [layer.id]));
+        }
+      })
+    })
   }
 
   public saveKeyMapConfig():void {
@@ -132,7 +163,7 @@ export class KeyMapService {
   public addLayer(layerName:string): void {
     console.log('service is adding a new layer with behaviors for all keys');
     // TODO: check for duplicate layer names
-    let newLayer = new Layer(layerName,Math.random());
+    let newLayer = new Layer(layerName,uuidv4());
     this.layers.push(newLayer);
     // add behaviors for each key to this layer
     this.keys.forEach(key => {
@@ -151,7 +182,8 @@ export class KeyMapService {
     this.behaviors = this.behaviors.filter(behavior => behavior.layers.length === 1 && behavior.layers[0] === layer.id );
     //remove the layer from behaviors that have more than 1 layer
     this.behaviors.forEach(behavior => {
-      behavior.layers = behavior.layers.splice(behavior.layers.indexOf(layer.id),1);
+      let idx = behavior.layers.findIndex(behaviorLayer => behaviorLayer === layer.id);
+      behavior.layers = behavior.layers.splice(idx,1);
     })
     this.layers$.next(this.layers);
     this.behaviors$.next(this.behaviors);

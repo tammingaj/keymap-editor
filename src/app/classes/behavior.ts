@@ -46,9 +46,9 @@ export class Behavior {
   public type: string = '';
   public value: string = '';
   public keys: number[] = [];
-  public layers: number[] = [];
+  public layers: string[] = [];
 
-  constructor(keyNumber: number, type: string, value: string,keys: number[], layers: number[]) {
+  constructor(keyNumber: number, type: string, value: string,keys: number[], layers: string[]) {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
       type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_COMBO) {
       this.keyNumber = keyNumber;
