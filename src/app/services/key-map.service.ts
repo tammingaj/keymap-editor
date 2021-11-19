@@ -224,4 +224,11 @@ export class KeyMapService {
     this.selectBehaviorsForKeyAndLayer()
   }
 
+  deleteCurrentBehavior():void {
+    let idx = this.behaviors.indexOf(this.selectedBehavior);
+    this.behaviors.splice(idx,1);
+    this.behaviors$.next(this.behaviors);
+    this.selectBehaviorsForKeyAndLayer();
+  }
+
 }

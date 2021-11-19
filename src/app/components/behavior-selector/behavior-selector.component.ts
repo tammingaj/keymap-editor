@@ -30,6 +30,7 @@ export class BehaviorSelectorComponent implements OnInit {
 
   deleteSelectedBehavior(): void {
     console.log('delete behavior');
+    this.keyMapService.deleteCurrentBehavior();
   }
 
 }
