@@ -33,4 +33,7 @@ export class BehaviorSelectorComponent implements OnInit {
     this.keyMapService.deleteCurrentBehavior();
   }
 
+  public selectValue(value: string): void {
+    this.selectedBehavior.value = value;
+  }
 }

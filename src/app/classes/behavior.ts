@@ -87,11 +87,17 @@ export class Behavior {
     return [Behavior.KEY_A, Behavior.KEY_B, Behavior.KEY_C, Behavior.KEY_D, Behavior.KEY_E, Behavior.KEY_F, Behavior.KEY_G, Behavior.KEY_H, Behavior.KEY_I, Behavior.KEY_J, Behavior.KEY_K, Behavior.KEY_L, Behavior.KEY_M, Behavior.KEY_N, Behavior.KEY_O, Behavior.KEY_P, Behavior.KEY_Q, Behavior.KEY_R, Behavior.KEY_S, Behavior.KEY_T, Behavior.KEY_U, Behavior.KEY_V, Behavior.KEY_W, Behavior.KEY_X, Behavior.KEY_Y, Behavior.KEY_Z];
   }
 
+  getModifierValues(): string[] {
+    return[Behavior.MODIFIER_LGUI, Behavior.MODIFIER_LALT, Behavior.MODIFIER_LSHFT, Behavior.MODIFIER_LCTRL, Behavior.MODIFIER_RGUI, Behavior.MODIFIER_RALT, Behavior.MODIFIER_RSHFT, Behavior.MODIFIER_RCTRL];
+  }
+
   public generateCode(): string {
     if (this.type === Behavior.BEHAVIOR_TYPE_NONE) return Behavior.BEHAVIOR_TYPE_NONE;
     if (this.type === Behavior.BEHAVIOR_TYPE_TRANSPARENT) return Behavior.BEHAVIOR_TYPE_TRANSPARENT;
-    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + ' ' + this.value;
-    if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) return Behavior.BEHAVIOR_TYPE_MODIFIER + ' ' + this.value;
+    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return this.value;
+    if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) {
+      let modifier: string = this.value
+    }
     if (this.type === Behavior.BEHAVIOR_TYPE_COMBO) {
       // todo this is not yet correct
       let code: string = Behavior.BEHAVIOR_TYPE_COMBO + ' ';

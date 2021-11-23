@@ -1,6 +1,7 @@
 <h3>{{selectedBehavior.getLabel()}}</h3>
-<div ngbDropdown class="d-inline-block">
-  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getLabel()}}</button>
+<div ngbDropdown class="form-group form-inline">
+  <label for="dropdownBasic1" class="col-2 float-left">Type</label>
+  <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getLabel()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button ngbDropdownItem (click)="selectBehaviorType('combo')">Combo</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&kp')">Keypress</button>
@@ -10,7 +11,13 @@
   </div>
 </div>
 <div *ngIf="selectedBehavior.type === '&kp'">
-  keypress
+  <div ngbDropdown class="form-group form-inline">
+    <label for="dropdownKeypress" class="col-2 text-left">Value</label>
+    <button class="btn btn-outline-primary" id="dropdownKeypress" ngbDropdownToggle>{{selectedBehavior.value}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
+      <button *ngFor="let value of selectedBehavior.getKeyPressValues()" ngbDropdownItem (click)="selectValue(value)">{{value}}</button>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="selectedBehavior.type === 'combo'">
@@ -18,7 +25,13 @@
 </div>
 
 <div *ngIf="selectedBehavior.type === '&hm'">
-  modifier
+  <div ngbDropdown class="form-group form-inline">
+    <label for="dropdownModifier" class="col-2 text-left">Value</label>
+    <button class="btn btn-outline-primary" id="dropdownModifier" ngbDropdownToggle>{{selectedBehavior.value}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
+      <button *ngFor="let value of selectedBehavior.getModifierValues()" ngbDropdownItem (click)="selectValue(value)">{{value}}</button>
+    </div>
+  </div>
 </div>
 
 
