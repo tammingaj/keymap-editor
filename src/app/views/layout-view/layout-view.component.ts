@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {KeyMapService} from "../../services/key-map.service";
 import {KeyConfig} from "../../classes/key-config";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'layout-view',
@@ -9,16 +10,26 @@ import {KeyConfig} from "../../classes/key-config";
 })
 export class LayoutViewComponent implements OnInit {
 
+  private keysSubscription: Subscription = new Subscription();
+
   public keys: Array<KeyConfig> = new Array<KeyConfig>()
 
   constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
-    this.keyMapService.keys$.subscribe(
+    console.log('subscribing to keys');
+    this.keysSubscription = this.keyMapService.keys$.subscribe(
       (keys) => {
         this.keys = keys;
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    console.log('unsubscribing from keys');
+    if(this.keysSubscription) {
+      this.keysSubscription.unsubscribe();
+    }
   }
 
   addKey() {
