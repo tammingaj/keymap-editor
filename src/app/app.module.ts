@@ -12,11 +12,14 @@ import { BehaviorSelectorComponent } from './components/behavior-selector/behavi
 import {RouterModule, Routes} from "@angular/router";
 import { LayoutViewComponent } from './views/layout-view/layout-view.component';
 import { BehaviorViewComponent } from './views/behavior-view/behavior-view.component';
+import { CodeViewComponent } from './views/code-view/code-view.component';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
   { path: 'behavior', component: BehaviorViewComponent },
+  { path: 'code', component: CodeViewComponent },
   { path: '',   redirectTo: '/layout', pathMatch: 'full' },
+  { path: '**',   redirectTo: '/layout', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -28,7 +31,8 @@ const appRoutes: Routes = [
     KeyMapComponent,
     BehaviorSelectorComponent,
     LayoutViewComponent,
-    BehaviorViewComponent
+    BehaviorViewComponent,
+    CodeViewComponent
   ],
     imports: [
         BrowserModule,

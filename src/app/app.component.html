@@ -5,14 +5,14 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a class="navbar-brand" href="#">ZMK Keymap editor</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a routerLink="/layout" routerLinkActive="active" class="nav-link">Layout</a>
+      <li>
+        <a routerLink="/layout" routerLinkActive="active" class="nav-item nav-link">Layout</a>
       </li>
-      <li class="nav-item active">
-        <a routerLink="/behavior" routerLinkActive="active" class="nav-link">Behavior</a>
+      <li>
+        <a routerLink="/behavior" routerLinkActive="active" class="nav-item nav-link">Behavior</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="./code">Code </a>
+      <li>
+        <a class="nav-item nav-link" href="./code">Code </a>
       </li>
     </ul>
     <button type="button" class="btn btn-secondary float-right" (click)="toggleTheme()">{{otherThemeName()}}</button>
