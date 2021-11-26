@@ -1,4 +1,5 @@
 import {Component, Renderer2} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
 
   private theme: string = AppComponent.DARK;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, public route: ActivatedRoute) {
     this.renderer.addClass(document.body, this.theme);
   }
 
