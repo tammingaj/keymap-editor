@@ -33,6 +33,21 @@
 </svg>
 
 <div class="row m-2">
-  <button class="btn btn-primary" (click)="addKey()">Add key</button>
+  <form>
+    <div class="form-check">
+      <input [(ngModel)]="highlightRow" class="form-check-input" type="checkbox" id="rowCheck" name="rowCheck">
+      <label class="form-check-label" for="rowCheck">
+        Highlight row of selected key
+      </label>
+    </div>
+    <div class="form-check">
+      <input [(ngModel)]="highlightColumn" class="form-check-input" type="checkbox" id="columnCheck" name="columnCheck">
+      <label class="form-check-label" for="columnCheck">
+        Highlight column of selected key
+      </label>
+    </div>
+  </form>
 </div>
+
+<button class="btn btn-primary" (click)="addKey()">Add key</button>
 
