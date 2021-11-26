@@ -1,1 +1,40 @@
-<p>Layout view works!</p>
+<h1>Keymap: {{keyMapService.keyMapConfig.name}}</h1>
+<div class="row">
+  <div class="col-md-4">
+    <form>
+      <div class="form-group row">
+        <label for="inputRows" class="col-sm-3 col-form-label">Rows</label>
+        <div class="col-sm-9">
+          <input [(ngModel)]="keyMapService.keyMapConfig.rows" type="number" class="form-control" id="inputRows" name="inputRows" placeholder="Number of rows">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputCols" class="col-sm-3 col-form-label">Columns</label>
+        <div class="col-sm-9">
+          <input [(ngModel)]="keyMapService.keyMapConfig.cols" type="number" class="form-control" id="inputCols" name="inputCols" placeholder="Number of columns">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputKeys" class="col-sm-3 col-form-label">Keys</label>
+        <div class="col-sm-9">
+          <input [value]="'' + keys.length + ' of ' + (keyMapService.keyMapConfig.rows * keyMapService.keyMapConfig.cols) + ' max.'"  readonly type="text" class="form-control" id="inputKeys" placeholder="Number of columns">
+        </div>
+      </div>
+    </form>
+<!--  </div>-->
+  <div class="col-md-8">
+    <div class="row">
+      <button class="btn btn-primary" (click)="addKey()">Add key</button>
+    </div>
+  </div>
+</div>
+
+<svg width="100%" style="aspect-ratio: 3; border: 1px solid black; background-color: #343a40;" preserveAspectRatio="xMidYMid meet">
+  <ng-container *ngFor="let keyConfig of getKeyConfigs()">
+    <g (click)="selectKey(keyConfig)" [ngStyle]="getStyle(keyConfig)">
+      <rect [attr.x]="keyConfig.x" [attr.y]="keyConfig.y" width="50" height="50" stroke="white" stroke-width="1" style="rx: 4px"></rect>
+      <text [attr.x]="keyConfig.x + 20" [attr.y]="keyConfig.y + 25" fill="red">{{keyConfig.keyNumber}}</text>
+    </g>
+  </ng-container>
+  Sorry, your browser does not support inline SVG.
+</svg>

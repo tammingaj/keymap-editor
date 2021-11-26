@@ -43,7 +43,7 @@ export class KeyMapService {
   public currentLayer = new Layer('',uuidv4());
   public currentLayer$ = new ReplaySubject<Layer>();
 
-  private readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne')
+  public readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne')
 
   constructor(private repositoryService: RepositoryService) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig();
