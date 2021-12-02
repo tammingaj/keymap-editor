@@ -30,10 +30,6 @@ export class KeyMapConfig {
     return this.keyConfigs;
   }
 
-  setKeyConfigs(value: Array<KeyConfig>) {
-    this.keyConfigs = value;
-  }
-
   public getBehaviors(): Array<Behavior> {
     return this.behaviors;
   }
@@ -53,39 +49,5 @@ export class KeyMapConfig {
       this.keyConfigs.splice(index, 1);
     }
   }
-
-  public right(amount: number): void {
-    this.move(amount,0);
-  }
-
-  public left(amount: number): void {
-    this.move(-amount,0);
-  }
-
-  public up(amount: number): void {
-    this.move(0, -amount);
-  }
-
-  public down(amount: number): void {
-    this.move(0, amount);
-  }
-
-  public deselect(): void {
-    this.keyConfigs.forEach((keyConfig) => {
-      if (keyConfig.active) {
-        keyConfig.active = false;
-      }
-    });
-  }
-
-  private move(x:number,y:number): void {
-    this.keyConfigs.forEach((keyConfig) => {
-      if (keyConfig.active) {
-        keyConfig.x = keyConfig.x + x;
-        keyConfig.y = keyConfig.y + y;
-      }
-    });
-  }
-
 }
 

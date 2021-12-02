@@ -1,1 +1,38 @@
-<key-map></key-map>
+<div class="row">
+  <div class="col-lg-6">
+    <h2>{{getKeymapName()}}</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-10">
+    <layout-editor></layout-editor>
+  </div>
+  <div class="col-lg-2">
+    <h2>{{currentLayer.name}}</h2>
+    Layer
+    <button *ngFor="let layer of keyMapService.layers$ | async" class="btn btn-block" [ngClass]="layer.name===currentLayer.name?'btn-primary':'btn-secondary'" (click)="selectLayer(layer)">
+      {{layer.name}}
+      <button (click)="keyMapService.deleteLayer(layer)" class="btn-sm float-right">del</button>
+    </button>
+    <form class="mt-1">
+      <label for="newLayerName">New layer</label>
+      <input class="form-control" type="text" [(ngModel)]="newLayerName" id="newLayerName" name="newLayerName">
+      <button class="btn btn-info mt-1" (click)="addLayer()">Add</button>
+    </form>
+  </div>
+</div>
+
+<key-details class="w-100"></key-details>
+
+<div class="row">
+  <div class="col">
+    <p>Active keys: <span *ngFor="let activeKey of getActiveKeys()">{{activeKey.keyNumber}}&nbsp;</span></p>
+    <p>Current key: {{getCurrentKey().keyNumber}}</p>
+    <button (click)="startGeneration()" class="btn btn-secondary m-1">Generate</button><br>
+    <button (click)="save()" class="btn btn-secondary m-1">Commit and push to github</button>
+    <hr>
+    This is the generated code file: <br>
+    <pre class="text-light" [innerHTML]="getCodeFileAsHtml()"></pre>
+    <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()" class="btn btn-secondary m-1">Build firmware</button>
+  </div>
+</div>

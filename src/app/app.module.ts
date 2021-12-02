@@ -5,11 +5,10 @@ import { AppComponent } from './app.component';
 import { KeyComponent } from './components/key/key.component';
 import { KeyDetailsComponent } from './components/key-details/key-details.component';
 import { LayoutEditorComponent } from './components/layout-editor/layout-editor.component';
-import { KeyMapComponent } from './components/key-map/key-map.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from "@angular/forms";
 import { BehaviorSelectorComponent } from './components/behavior-selector/behavior-selector.component';
-import {RouterModule, Routes} from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { LayoutViewComponent } from './views/layout-view/layout-view.component';
 import { BehaviorViewComponent } from './views/behavior-view/behavior-view.component';
 import { CodeViewComponent } from './views/code-view/code-view.component';
@@ -28,7 +27,6 @@ const appRoutes: Routes = [
     KeyComponent,
     KeyDetailsComponent,
     LayoutEditorComponent,
-    KeyMapComponent,
     BehaviorSelectorComponent,
     LayoutViewComponent,
     BehaviorViewComponent,
