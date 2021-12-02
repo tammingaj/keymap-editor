@@ -13,6 +13,7 @@ export class KeyComponent implements OnInit {
   private width: number = 50;
 
   @Input() config: KeyConfig = KeyConfig.getInstance();
+  @Input() arena = {width: 0, height: 0};
   @Output() selected = new EventEmitter();
 
   constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService, private keyMapService: KeyMapService) {
@@ -27,26 +28,27 @@ export class KeyComponent implements OnInit {
     console.log('double clicked');
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    // not necessary to do anything here, catching the resize event is enough to rerender the component
+  }
+
   delete(): boolean {
     console.log('deleting');
     this.keyMapService.deleteConfig(this.config);
     return false;
   }
 
-  toggleActive(): void {
+  toggleActive(event: Event): void {
+    event.stopPropagation();
     this.keyMapService.toggleActive(this.config);
-    // this.config.active = !this.config.active;
-    // console.log('toggled active to ' + this.config.active, this);
-    // if (this.config.active) {
-    //   this.keyMapService.selectConfig(this.config);
-    // }
   }
 
   getStyle(): object {
     return {
       'position': 'absolute',
-      'top': this.config.y + 'px',
-      'left': this.config.x + 'px',
+      'top': (this.arena.height/2)-((this.keyMapService.maxY - this.keyMapService.minY) / 2) + this.config.y - (this.width / 2) + 'px',
+      'left': (this.arena.width/2)-((this.keyMapService.maxX - this.keyMapService.minX) / 2) + this.config.x - (this.width / 2) + 'px',
       'transform': 'rotate(' + this.config.angle + 'deg)',
       'aspect-ratio': 1,
       'width': this.width + 'px',

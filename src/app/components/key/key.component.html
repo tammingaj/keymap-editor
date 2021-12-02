@@ -1,3 +1,3 @@
-<div [ngStyle]="getStyle()" (click)="toggleActive()" (contextmenu)="delete()" class="btn {{config.active?'btn-dark':''}} rounded-lg border-light">
+<div [ngStyle]="getStyle()" (click)="toggleActive($event)" (contextmenu)="delete()" class="btn {{config.active?'btn-dark':''}} rounded-lg border-light">
   <span>{{config.label}}</span>
 </div>
