@@ -43,13 +43,18 @@ export class KeyMapService {
   public currentLayer = new Layer('',uuidv4());
   public currentLayer$ = new ReplaySubject<Layer>();
 
-  public readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne')
+  public readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
+  public minX: number = 0;
+  public minY: number = 0;
+  public maxX: number = 0;
+  public maxY: number = 0;
 
   constructor(private repositoryService: RepositoryService) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig();
     if(this.keyMapConfig.name === 'Dummy') {
       this.createInitialKeyMapConfig();
     }
+
     console.log('keymapservice is primed with: ', this.keyMapConfig);
 
     this.replenishKeyMap();
@@ -76,6 +81,7 @@ export class KeyMapService {
     this.currentLayer = this.layers[0];
     this.currentLayer$.next(this.currentLayer);
 
+    this.calculateMinMax();
   }
 
   private createInitialKeyMapConfig(): void {
@@ -200,23 +206,77 @@ export class KeyMapService {
   }
 
   public right(amount: number){
-    this.keyMapConfig.right(amount);
+    this.move(amount,0);
   }
 
   public left(amount: number){
-    this.keyMapConfig.left(amount);
+    this.move(-amount,0);
   }
 
   public up(amount: number){
-    this.keyMapConfig.up(amount);
+    this.move(0,-amount);
   }
 
   public down(amount: number){
-    this.keyMapConfig.down(amount);
+    this.move(0,amount);
   }
 
-  public deselect():void {
-    this.keyMapConfig.deselect();
+  // calculate the minimum and maximum x and y values for the key configs
+  private calculateMinMax(): void {
+    this.minX = 0;
+    this.minY = 0;
+    this.maxX = 0;
+    this.maxY = 0;
+    this.keyMapConfig.getKeyConfigs().forEach(config => {
+      if (config.x < this.minX) {
+        this.minX = config.x;
+      }
+      if (config.y < this.minY) {
+        this.minY = config.y;
+      }
+      if (config.x > this.maxX) {
+        this.maxX = config.x;
+      }
+      if (config.y > this.maxY) {
+        this.maxY = config.y;
+      }
+    })
+  }
+
+  private move(x:number,y:number): void {
+    console.log('service is moving the active keys by ' + x + ' and ' + y);
+    this.keys.forEach((key) => {
+      if (key.active) {
+        // move the key
+        key.x = key.x + x;
+        key.y = key.y + y;
+        // update min and max values
+        if (x > 0 && key.x > this.maxX) {
+          this.maxX = key.x;
+          console.log('maxX: ',this.maxX);
+        }
+        if (x < 0 && key.x < this.minX) {
+          this.minX = key.x;
+          console.log('minX: ',this.minX);
+        }
+        if (y > 0 && key.y > this.maxY) {
+          this.maxY = key.y;
+          console.log('maxY: ',this.maxY);
+        }
+        if (y < 0 && key.y < this.minY) {
+          this.minY = key.y;
+          console.log('minY: ',this.minY);
+        }
+      }
+    });
+  }
+
+  public deselect(): void {
+    this.keys.forEach((key) => {
+      if (key.active) {
+        key.active = false;
+      }
+    });
   }
 
   getKeymapName() {
