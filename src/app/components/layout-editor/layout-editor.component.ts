@@ -16,29 +16,30 @@ export class LayoutEditorComponent implements OnInit {
 
   constructor(public keyMapService: KeyMapService){}
 
+  @Input() mode: string = ''; // 'layout' or ''
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-
+    event.stopPropagation();
+    event.preventDefault();
     console.log('keycode: ' + event.key);
-
-    if (event.key === 'ArrowRight') {
-      console.log('rechts');
-      this.keyMapService.right(this.STEP);
-    }
-
-    if (event.key === 'ArrowLeft') {
-      console.log('links');
-      this.keyMapService.left(this.STEP);
-    }
-
-    if (event.key === 'ArrowUp') {
-      console.log('up');
-      this.keyMapService.up(this.STEP);
-    }
-
-    if (event.key === 'ArrowDown') {
-      console.log('down');
-      this.keyMapService.down(this.STEP);
+    if (this.mode === 'layout') {
+      if (event.key === 'ArrowRight') {
+        console.log('rechts');
+        this.keyMapService.right(this.STEP);
+      }
+      if (event.key === 'ArrowLeft') {
+        console.log('links');
+        this.keyMapService.left(this.STEP);
+      }
+      if (event.key === 'ArrowUp') {
+        console.log('up');
+        this.keyMapService.up(this.STEP);
+      }
+      if (event.key === 'ArrowDown') {
+        console.log('down');
+        this.keyMapService.down(this.STEP);
+      }
     }
 
     if (event.key === 'Escape') {

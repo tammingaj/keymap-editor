@@ -22,6 +22,8 @@
   </form>
 </div>
 
+<layout-editor [mode]="'layout'"></layout-editor>
+
 <svg width="100%" style="aspect-ratio: 3; border: 1px solid black; background-color: #343a40;" preserveAspectRatio="xMidYMid meet" class="row m-2">
   <ng-container *ngFor="let keyConfig of getKeyConfigs()">
     <g (click)="selectKey(keyConfig)" [ngStyle]="getStyle(keyConfig)">
