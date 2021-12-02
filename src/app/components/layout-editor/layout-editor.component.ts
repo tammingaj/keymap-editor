@@ -1,8 +1,7 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {KeyComponent} from "../key/key.component";
 import {KeyConfig} from "../../classes/key-config";
-import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 import {KeyMapService} from "../../services/key-map.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'layout-editor',
@@ -12,8 +11,10 @@ import {KeyMapService} from "../../services/key-map.service";
 export class LayoutEditorComponent implements OnInit {
 
   private STEP: number = 2;
+  private keys: Array<KeyConfig> = new Array<KeyConfig>();
+  private subscriptions: Subscription = new Subscription();
 
-  constructor(private keyMapService: KeyMapService){}
+  constructor(public keyMapService: KeyMapService){}
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -47,6 +48,15 @@ export class LayoutEditorComponent implements OnInit {
   }
 
   ngOnInit(): void{
+    this.subscriptions.add(this.keyMapService.keys$.subscribe(keys => {
+      this.keys = keys;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptions){
+      this.subscriptions.unsubscribe();
+    }
   }
 
   registerSelected(keyConfig: KeyConfig) {
@@ -54,6 +64,6 @@ export class LayoutEditorComponent implements OnInit {
   }
 
   getKeyConfigs(): Array<KeyConfig> {
-    return this.keyMapService.getKeyConfigs();
+    return this.keys;
   }
 }

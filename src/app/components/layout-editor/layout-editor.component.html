@@ -1,3 +1,11 @@
-<div id="arena" style="position: relative; height: 300px; background-color: darkslategrey">
-  <key *ngFor="let keyConfig of getKeyConfigs()" [config]="keyConfig" (selected)="registerSelected(keyConfig)"></key>
+<div #arena
+     id="arena"
+     style="aspect-ratio: 3; position: relative; background-color: darkslategrey; overflow: hidden; border-radius: 0.25rem;"
+     preserveAspectRatio="xMidYMid meet"
+     (click)="keyMapService.deselect()">
+  <key *ngFor="let keyConfig of getKeyConfigs()"
+       [config]="keyConfig"
+       (selected)="registerSelected(keyConfig)"
+       [arena]="{'width':arena.offsetWidth,'height':arena.offsetHeight}">
+  </key>
 </div>
