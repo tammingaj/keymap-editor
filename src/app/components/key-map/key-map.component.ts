@@ -4,6 +4,7 @@ import {KeyMapService} from "../../services/key-map.service";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 import {Layer} from "../../classes/layer";
 import {v4 as uuidv4} from 'uuid';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'key-map',
@@ -12,6 +13,7 @@ import {v4 as uuidv4} from 'uuid';
 })
 export class KeyMapComponent implements OnInit {
 
+  private subscriptions: Subscription = new Subscription();
   private layers: Array<Layer> = new Array<Layer>();
   public currentLayer: Layer = new Layer('dummy layer',uuidv4());
 
@@ -25,35 +27,28 @@ export class KeyMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.keyMapService.layers$.subscribe(layers => {
-      console.log('key-map component received all layers from service');
+    this.subscriptions.add(this.keyMapService.layers$.subscribe(layers => {
       this.layers = layers;
-    });
-    this.keyMapService.currentLayer$.subscribe(currentLayer => {
-      console.log('key-map component received active layer from service', currentLayer);
+      }));
+    this.subscriptions.add(this.keyMapService.currentLayer$.subscribe(currentLayer => {
       this.currentLayer = currentLayer;
-    });
-    this.keyMapService.activeKeys$.subscribe(
+      }));
+    this.subscriptions.add(this.keyMapService.activeKeys$.subscribe(
       activeKeys => {
         this.activeKeys = activeKeys;
-        console.log('The active keys: ',activeKeys);
-      }
-    );
-    this.keyMapService.currentKey$.subscribe(
+      }));
+    this.subscriptions.add(this.keyMapService.currentKey$.subscribe(
       currentKey => {
         this.currentKey = currentKey;
-        console.log('The current key: ',currentKey);
-      }
-    );
+      }));
   }
 
   ngOnDestroy() {
-    // prevent memory leak when component destroyed
-    this.keyMapService.layers$.unsubscribe();
-    this.keyMapService.currentLayer$.unsubscribe();
-    this.keyMapService.activeKeys$.unsubscribe();
-    this.keyMapService.currentKey$.unsubscribe();
+    if (this.subscriptions) {
+      this.subscriptions.unsubscribe();
+    }
   }
+
   buildFirmware():void {
     console.log('Building firmware');
   }
@@ -87,15 +82,8 @@ export class KeyMapComponent implements OnInit {
   }
 
   addLayer(): void {
-    console.log('adding new layer');
-    // todo: add a new layer via keymapservice
     this.keyMapService.addLayer(this.newLayerName);
   }
-
-  // deleteLayer(layer: Layer): void {
-  //   console.log('delete layer');
-  //   this.keyMapService.deleteLayer(layer);
-  // }
 
   selectLayer(layer:Layer): void{
     this.keyMapService.selectLayer(layer);
