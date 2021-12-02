@@ -10,8 +10,7 @@ import {Subscription} from "rxjs";
 })
 export class LayoutViewComponent implements OnInit {
 
-  private keysSubscription: Subscription = new Subscription();
-  private currentKeySubscription: Subscription = new Subscription();
+  private subscriptions: Subscription = new Subscription();
 
   public keys: Array<KeyConfig> = new Array<KeyConfig>();
   public currentKey: KeyConfig = KeyConfig.getInstance();
@@ -23,26 +22,22 @@ export class LayoutViewComponent implements OnInit {
   ngOnInit(): void {
     this.currentKey.row = -1;
     this.currentKey.column = -1;
-    console.log('subscribing to keys');
-    this.keysSubscription = this.keyMapService.keys$.subscribe(
+
+    this.subscriptions.add(this.keyMapService.keys$.subscribe(
       (keys) => {
         this.keys = keys;
-      }
-    );
-    this.currentKeySubscription = this.keyMapService.currentKey$.subscribe(
+      }));
+
+    this.subscriptions.add(this.keyMapService.currentKey$.subscribe(
       (key) => {
         this.currentKey = key;
       }
-    );
+    ));
   }
 
   ngOnDestroy(): void {
-    console.log('unsubscribing from keys');
-    if(this.keysSubscription) {
-      this.keysSubscription.unsubscribe();
-    }
-    if(this.currentKeySubscription) {
-      this.currentKeySubscription.unsubscribe();
+    if(this.subscriptions) {
+      this.subscriptions.unsubscribe();
     }
   }
 
