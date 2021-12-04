@@ -1,5 +1,6 @@
 import {Component, Renderer2} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {KeyMapService} from "./services/key-map.service";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
 
   private theme: string = AppComponent.DARK;
 
-  constructor(private renderer: Renderer2, public route: ActivatedRoute) {
+  constructor(private renderer: Renderer2, public route: ActivatedRoute, public keyMapService: KeyMapService) {
     this.renderer.addClass(document.body, this.theme);
   }
 

@@ -5,8 +5,16 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a class="navbar-brand" href="#">ZMK Keymap editor</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li>
-        <a routerLink="/layout" routerLinkActive="active" class="nav-item nav-link">Layout</a>
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a routerLink="/layout" routerLinkActive="active" class="nav-item nav-link float-left">Layout</a>
+          <a class="nav-item nav-link dropdown-toggle-split float-left ml-n2" id="dropdownMenu1" ngbDropdownToggle> </a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <button class="dropdown-item">New keymap</button>
+            <button class="dropdown-item">Import configuration</button>
+            <button class="dropdown-item">Export configuration</button>
+          </div>
+        </div>
       </li>
       <li>
         <a routerLink="/behavior" routerLinkActive="active" class="nav-item nav-link">Behavior</a>
@@ -20,5 +28,10 @@
 </nav>
 
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{{keyMapService.getKeymapName()}}</h1>
+    </div>
+  </div>
   <router-outlet></router-outlet>
 </div>
