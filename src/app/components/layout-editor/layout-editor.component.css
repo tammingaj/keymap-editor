@@ -1,0 +1,7 @@
+#arena {
+  aspect-ratio: 3;
+  position: relative;
+  background-color: darkslategrey;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}

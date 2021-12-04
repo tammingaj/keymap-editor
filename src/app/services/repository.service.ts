@@ -30,40 +30,58 @@ export class RepositoryService {
   }
 
   // temporary function, remove when github functionality works
-  loadKeyMapConfig = function(): KeyMapConfig {
-    // the keymap config itself
-    let keyMapConfigString: string = localStorage["zmk-keymapConfig"];
+  loadKeyMapConfig = function(configParam: string): KeyMapConfig {
+    let fromLocalStorage = configParam === '';
+    console.log('loading from ' + (fromLocalStorage ? 'localStorage' : 'configParam'));
+
+    let keyMapConfigString: string = fromLocalStorage ? localStorage["zmk-keymapConfig"] : configParam;
+
     if ( typeof keyMapConfigString === 'undefined') {
       console.log('creating dummy keymapconfig');
       return new KeyMapConfig('Dummy');
     }
+
     let retrievedKeyMapConfig: KeyMapConfig = Object.assign(new KeyMapConfig(''), JSON.parse(keyMapConfigString));
 
-    // the keys
-    let keyConfigsString: string = localStorage["zmk-keyConfigs"] || '[]';
-    let jsKeyConfigObjects: KeyConfig[] = JSON.parse(keyConfigsString);
+    let jsKeyConfigObjects: KeyConfig[];
+    let jsLayerObjects: Layer[];
+    let jsBehaviorObjects: Behavior[];
+
+    if (fromLocalStorage) {
+      let keyConfigsString: string = localStorage["zmk-keyConfigs"] || '[]';
+      jsKeyConfigObjects = JSON.parse(keyConfigsString);
+      let layersString: string = localStorage["zmk-layers"] || '[]';
+      jsLayerObjects = JSON.parse(layersString);
+      let behaviorsString: string = localStorage["zmk-behaviors"] || '[]';
+      jsBehaviorObjects = JSON.parse(behaviorsString);
+    } else {
+      jsKeyConfigObjects = retrievedKeyMapConfig.keyConfigs;
+      jsLayerObjects = retrievedKeyMapConfig.layers;
+      jsBehaviorObjects = retrievedKeyMapConfig.behaviors;
+    }
+
+    retrievedKeyMapConfig.keyConfigs = new Array<KeyConfig>();
+    retrievedKeyMapConfig.layers = new Array<Layer>();
+    retrievedKeyMapConfig.behaviors = new Array<Behavior>();
+
+    // convert the keys to typed KeyConfig objects
     jsKeyConfigObjects.forEach((obj)=>{
       let keyConfig: KeyConfig = new KeyConfig(obj.keyNumber,obj.x,obj.y,obj.angle,obj.active,obj.row,obj.column,obj.side || KeyConfig.SIDELEFT,obj.label);
       retrievedKeyMapConfig.addKeyConfig(keyConfig.row,keyConfig.column,keyConfig);
     });
 
-    // the layers
-    let layersString: string = localStorage["zmk-layers"] || '[]';
-    let jsLayerObjects: Layer[] = JSON.parse(layersString);
+    // convert the layers to typed Layer objects
     jsLayerObjects.forEach((obj)=>{
       let layer: Layer = new Layer(obj.name,obj.id);
       retrievedKeyMapConfig.addLayer(layer);
     });
 
-    // the behaviors
-    let behaviorsString: string = localStorage["zmk-behaviors"] || '[]';
-    let jsBehaviorObjects: Behavior[] = JSON.parse(behaviorsString);
+    // convert the behaviors to typed Behavior objects
     jsBehaviorObjects.forEach((obj)=>{
       let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.value, obj.keys, obj.layers);
       retrievedKeyMapConfig.addBehavior(behavior);
     });
 
-    console.log('forged from storage: ', retrievedKeyMapConfig);
     return retrievedKeyMapConfig;
   }
 

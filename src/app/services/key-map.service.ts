@@ -43,14 +43,14 @@ export class KeyMapService {
   public currentLayer = new Layer('',uuidv4());
   public currentLayer$ = new ReplaySubject<Layer>();
 
-  public readonly keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
+  public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
   public minX: number = 0;
   public minY: number = 0;
   public maxX: number = 0;
   public maxY: number = 0;
 
   constructor(private repositoryService: RepositoryService) {
-    this.keyMapConfig = repositoryService.loadKeyMapConfig();
+    this.keyMapConfig = repositoryService.loadKeyMapConfig('');
     if(this.keyMapConfig.name === 'Dummy') {
       this.createInitialKeyMapConfig();
     }
@@ -58,7 +58,11 @@ export class KeyMapService {
     console.log('keymapservice is primed with: ', this.keyMapConfig);
 
     this.replenishKeyMap();
+    this.updateSubscriptions();
+    this.calculateMinMax();
+  }
 
+  private updateSubscriptions(): void {
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.keys$.next(this.keys);
 
@@ -80,8 +84,6 @@ export class KeyMapService {
     }
     this.currentLayer = this.layers[0];
     this.currentLayer$.next(this.currentLayer);
-
-    this.calculateMinMax();
   }
 
   private createInitialKeyMapConfig(): void {
@@ -123,6 +125,12 @@ export class KeyMapService {
         }
       })
     })
+  }
+
+  public importKeyMap(keyMapConfigString: string): void {
+    this.keyMapConfig = this.repositoryService.loadKeyMapConfig(keyMapConfigString);
+    this.updateSubscriptions();
+    this.calculateMinMax();
   }
 
   public saveKeyMapConfig():void {
@@ -247,28 +255,84 @@ export class KeyMapService {
     console.log('service is moving the active keys by ' + x + ' and ' + y);
     this.keys.forEach((key) => {
       if (key.active) {
+        let newX = key.x + x;
+        let newY = key.y + y;
+
+        // right
+        if (x > 0) {
+          if (newX > this.maxX) {
+            this.maxX = newX;
+          }
+          if (newX > this.minX && key.x < this.minX) {
+            this.calculateMin();
+          }
+        }
+
+        // left
+        if (x < 0) {
+          if (newX < this.minX) {
+            this.minX = newX;
+          }
+          if (newX < this.maxX && key.x > this.maxX) {
+            this.calculateMax();
+          }
+        }
+
+        // down
+        if (y > 0) {
+          if (newY > this.maxY) {
+            this.maxY = newY;
+          }
+          if (newY > this.minY && key.y < this.minY) {
+            this.calculateMin();
+          }
+        }
+
+        // up
+        if (y < 0) {
+          if (newY < this.minY) {
+            this.minY = newY;
+          }
+          if (newY < this.maxY && key.y > this.maxY) {
+            this.calculateMax();
+          }
+        }
+
         // move the key
-        key.x = key.x + x;
-        key.y = key.y + y;
-        // update min and max values
-        if (x > 0 && key.x > this.maxX) {
-          this.maxX = key.x;
-          console.log('maxX: ',this.maxX);
-        }
-        if (x < 0 && key.x < this.minX) {
-          this.minX = key.x;
-          console.log('minX: ',this.minX);
-        }
-        if (y > 0 && key.y > this.maxY) {
-          this.maxY = key.y;
-          console.log('maxY: ',this.maxY);
-        }
-        if (y < 0 && key.y < this.minY) {
-          this.minY = key.y;
-          console.log('minY: ',this.minY);
-        }
+        key.x = newX;
+        key.y = newY;
       }
     });
+  }
+
+  // calculate the maximum x and y values for the key configs
+  private calculateMax(): void {
+    console.log('recalculating max');
+    this.maxX = 0;
+    this.maxY = 0;
+    this.keyMapConfig.getKeyConfigs().forEach(config => {
+      if (config.x > this.maxX) {
+        this.maxX = config.x;
+      }
+      if (config.y > this.maxY) {
+        this.maxY = config.y;
+      }
+    })
+  }
+
+  // calculate the minimum x and y values for the key configs
+  private calculateMin(): void {
+    console.log('recalculating min');
+    this.minX = 0;
+    this.minY = 0;
+    this.keyMapConfig.getKeyConfigs().forEach(config => {
+      if (config.x < this.minX) {
+        this.minX = config.x;
+      }
+      if (config.y < this.minY) {
+        this.minY = config.y;
+      }
+    })
   }
 
   public deselect(): void {
@@ -299,6 +363,10 @@ export class KeyMapService {
     this.behaviors.splice(idx,1);
     this.behaviors$.next(this.behaviors);
     this.selectBehaviorsForKeyAndLayer();
+  }
+
+  getKeymapAsJSON(): string {
+    return JSON.stringify(this.keyMapConfig);
   }
 
 }

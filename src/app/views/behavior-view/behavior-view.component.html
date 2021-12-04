@@ -1,12 +1,8 @@
 <div class="row">
-  <div class="col-lg-6">
-    <h2>{{getKeymapName()}}</h2>
-  </div>
+    <layout-editor class="col"></layout-editor>
 </div>
+
 <div class="row">
-  <div class="col-lg-10">
-    <layout-editor></layout-editor>
-  </div>
   <div class="col-lg-2">
     <h2>{{currentLayer.name}}</h2>
     Layer
@@ -20,9 +16,10 @@
       <button class="btn btn-info mt-1" (click)="addLayer()">Add</button>
     </form>
   </div>
+  <key-details class="col"></key-details>
 </div>
 
-<key-details class="w-100"></key-details>
+
 
 <div class="row">
   <div class="col">
