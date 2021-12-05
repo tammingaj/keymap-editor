@@ -45,40 +45,39 @@ export class LayoutViewComponent implements OnInit {
     console.log('add key');
   }
 
-  getKeyConfigs(): Array<KeyConfig> {
-    return this.keyMapService.getKeyConfigs();
-  }
+  // used when using svg to render the keys
+  // getStyle(key:KeyConfig): object {
+  //   return {
+  //     'transform-box': 'fill-box',
+  //     'transform-origin': 'center',
+  //     'transform': 'rotate(' + key.angle + 'deg)',
+  //     'rx': '4px',
+  //     'fill': this.getFill(key),
+  //   }
+  // }
 
-  getStyle(key:KeyConfig): object {
-    return {
-      'transform-box': 'fill-box',
-      'transform-origin': 'center',
-      'transform': 'rotate(' + key.angle + 'deg)',
-      'rx': '4px',
-      'fill': this.getFill(key),
-    }
-  }
+  // used when using svg to render the keys
+  // private getFill(key:KeyConfig): string {
+  //   let color: string = '#00';
+  //   if (key.row === this.currentKey.row && key.column === this.currentKey.column) {
+  //     color = '#33'
+  //   }
+  //   if (key.row === this.currentKey.row && this.highlightRow) {
+  //     color = color + '33'
+  //   } else {
+  //     color = color + '00'
+  //   }
+  //   if (key.column === this.currentKey.column && this.highlightColumn) {
+  //     color = color + '33'
+  //   } else {
+  //     color = color + '00'
+  //   }
+  //   return color;
+  // }
 
-  private getFill(key:KeyConfig): string {
-    let color: string = '#00';
-    if (key.row === this.currentKey.row && key.column === this.currentKey.column) {
-      color = '#33'
-    }
-    if (key.row === this.currentKey.row && this.highlightRow) {
-      color = color + '33'
-    } else {
-      color = color + '00'
-    }
-    if (key.column === this.currentKey.column && this.highlightColumn) {
-      color = color + '33'
-    } else {
-      color = color + '00'
-    }
-    return color;
-  }
-
-  selectKey(key:KeyConfig) {
-    this.keyMapService.selectConfig(key);
-  }
+  // used when using svg to render the keys
+  // selectKey(key:KeyConfig) {
+  //   this.keyMapService.selectConfig(key);
+  // }
 
 }
