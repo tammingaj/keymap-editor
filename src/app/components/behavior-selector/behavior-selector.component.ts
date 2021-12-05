@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {Behavior} from "../../classes/behavior";
 import {KeyMapService} from "../../services/key-map.service";
+import {Subscription} from "rxjs";
+import {Layer} from "../../classes/layer";
 
 @Component({
   selector: 'behavior-selector',
@@ -10,16 +12,27 @@ import {KeyMapService} from "../../services/key-map.service";
 })
 export class BehaviorSelectorComponent implements OnInit {
 
-  public _selectedBehavior: string = 'Choose behavior';
+  private subscriptions: Subscription = new Subscription();
+
   public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,'',[],[]);
+  public layers: Array<Layer> = new Array<Layer>();
+  public selectedLayers: Array<Layer> = new Array<Layer>();
 
   constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
-    this.keyMapService.selectedBehavior$.subscribe(behavior => {
-      console.log('show behavior ',behavior);
-      this.selectedBehavior = behavior;
-    });
+    this.subscriptions.add(
+      this.keyMapService.selectedBehavior$.subscribe(behavior => {
+        this.selectedBehavior = behavior;
+      }));
+    this.subscriptions.add(
+      this.keyMapService.layers$.subscribe(layers => {
+        this.layers = layers;
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   public selectBehaviorType(type: string): void {
@@ -36,4 +49,5 @@ export class BehaviorSelectorComponent implements OnInit {
   public selectValue(value: string): void {
     this.selectedBehavior.value = value;
   }
+
 }
