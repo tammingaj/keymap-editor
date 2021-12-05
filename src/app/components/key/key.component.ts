@@ -45,10 +45,13 @@ export class KeyComponent implements OnInit {
   }
 
   getStyle(): object {
+    // center the keys relative to the arena
+    let top = this.config.y + (this.arena.height/2 - (this.keyMapService.maxY - this.keyMapService.minY)/2) - this.keyMapService.minY - (this.width / 2) + 'px';
+    let left = this.config.x + (this.arena.width/2 - (this.keyMapService.maxX - this.keyMapService.minX)/2) - this.keyMapService.minX - (this.width / 2) + 'px';
     return {
       'position': 'absolute',
-      'top': (this.arena.height/2)-((this.keyMapService.maxY - this.keyMapService.minY) / 2) + this.config.y - (this.width / 2) + 'px',
-      'left': (this.arena.width/2)-((this.keyMapService.maxX - this.keyMapService.minX) / 2) + this.config.x - (this.width / 2) + 'px',
+      'top': top,
+      'left': left,
       'transform': 'rotate(' + this.config.angle + 'deg)',
       'aspect-ratio': 1,
       'width': this.width + 'px',
