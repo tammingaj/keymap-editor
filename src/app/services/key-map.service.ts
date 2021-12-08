@@ -66,6 +66,18 @@ export class KeyMapService {
     this.calculateMinMax();
   }
 
+  createNewKeymap(options: any): void{
+    this.createInitialKeyMapConfig();
+    this.keyMapConfig.name = options.name;
+    this.keys = this.keyMapConfig.getKeyConfigs();
+    this.behaviors = this.keyMapConfig.behaviors;
+    this.layers = this.keyMapConfig.layers;
+
+    this.replenishKeyMap();
+    this.updateSubscriptions();
+    this.calculateMinMax();
+  }
+
   private updateSubscriptions(): void {
     this.keys$.next(this.keys);
 
@@ -89,7 +101,7 @@ export class KeyMapService {
 
   private createInitialKeyMapConfig(): void {
     console.log('Dummy keyMapConfig detected, transforming it to Corne keyMapConfig');
-    this.keyMapConfig.name = 'Corne';
+    this.keyMapConfig = new KeyMapConfig('Corne');
     this.keyMapConfig.split = true;
     let index: number = 0;
     for(let row=0; row < 4; row++) {

@@ -1,6 +1,8 @@
 import {Component, Renderer2} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {KeyMapService} from "./services/key-map.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NewKeymapModalComponent} from "./components/new-keymap-modal/new-keymap-modal.component";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,7 @@ export class AppComponent {
   private theme: string = AppComponent.DARK;
   private selectedFile: File = new File(['', ''], '', {type: 'text/plain'});
 
-  constructor(private renderer: Renderer2, public route: ActivatedRoute, public keyMapService: KeyMapService) {
+  constructor(private renderer: Renderer2, private router: Router, public route: ActivatedRoute, public keyMapService: KeyMapService, private modalService: NgbModal) {
     this.renderer.addClass(document.body, this.theme);
   }
 
@@ -42,7 +44,16 @@ export class AppComponent {
 
   newKeymap(): void {
     console.log('newKeyMap');
-    //this.keyMapService.newKeyMap();
+    const modalRef = this.modalService.open(NewKeymapModalComponent, {centered: true, backdrop: "static"});
+    modalRef.componentInstance.name = 'world';
+    // modalRef.dismissed.subscribe((value) => {
+    //   console.log('dismissed ' + value);
+    // });
+    modalRef.closed.subscribe((value => {
+      console.log('closed ' + value);
+      this.keyMapService.createNewKeymap(value);
+      this.router.navigate(['/layout']);
+    }));
   }
 
   export(): void {
