@@ -50,4 +50,11 @@ export class BehaviorSelectorComponent implements OnInit {
     this.selectedBehavior.value = value;
   }
 
+  public onLayerChange(layer: Layer, event: Event): void {
+    // if (event.target.checked) {
+    //   this.selectedLayers.push(layer);
+    // } else {
+    //   this.selectedLayers.splice(this.selectedLayers.indexOf(layer), 1);
+    // }
+  }
 }
