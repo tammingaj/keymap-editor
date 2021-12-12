@@ -16,6 +16,8 @@ export class LayoutViewComponent implements OnInit {
   public currentKey: KeyConfig = KeyConfig.getInstance();
   public highlightRow: boolean = false;
   public highlightColumn: boolean = false;
+  public highlightLeft: boolean = false;
+  public highlightRight: boolean = false;
 
   constructor(public keyMapService: KeyMapService) { }
 
