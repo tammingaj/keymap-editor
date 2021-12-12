@@ -1,1 +1,20 @@
 <p>combo-view works!</p>
+<div class="row">
+  <layout-editor class="col"></layout-editor>
+</div>
+
+<div class="row">
+  <div class="col-lg-2">
+    <h2>Combos</h2>
+    <button *ngFor="let combo of keyMapService.combos$ | async" class="btn btn-block" [ngClass]="combo.name===''?'btn-primary':'btn-secondary'" (click)="selectCombo(combo)">
+      {{combo.name}}
+      <button  class="btn-sm float-right">del</button>
+    </button>
+<!--    <form class="mt-1">-->
+<!--      <label for="newLayerName">New layer</label>-->
+<!--      <input class="form-control" type="text" [(ngModel)]="newLayerName" id="newLayerName" name="newLayerName">-->
+<!--      <button class="btn btn-info mt-1" (click)="addLayer()">Add</button>-->
+<!--    </form>-->
+  </div>
+
+</div>

@@ -1,6 +1,7 @@
 import {KeyConfig} from "./key-config";
 import {Behavior} from "./behavior";
 import {Layer} from "./layer";
+import {Combo} from "./combo";
 
 export class KeyMapConfig {
 
@@ -13,6 +14,7 @@ export class KeyMapConfig {
   public layers: Array<Layer> = new Array<Layer>();
   public keyConfigs: Array<KeyConfig> = new Array<KeyConfig>();
   public behaviors: Array<Behavior> = new Array<Behavior>();
+  public combos: Array<Combo> = new Array<Combo>();
 
   constructor(name: string) {
     this.name = name;
@@ -30,14 +32,6 @@ export class KeyMapConfig {
     return this.keyConfigs;
   }
 
-  public getBehaviors(): Array<Behavior> {
-    return this.behaviors;
-  }
-
-  addBehavior(behavior: Behavior) {
-    this.behaviors.push(behavior);
-  }
-
   addKeyConfig(row: number, column: number, keyConfig: KeyConfig): void  {
     // todo: overwrite if exists for the same row, column (row and column params are obsolete, can be extracted from the keyconfig).
     this.keyConfigs.push(keyConfig);
@@ -48,6 +42,22 @@ export class KeyMapConfig {
     if (index > -1) {
       this.keyConfigs.splice(index, 1);
     }
+  }
+
+  public getBehaviors(): Array<Behavior> {
+    return this.behaviors;
+  }
+
+  addBehavior(behavior: Behavior) {
+    this.behaviors.push(behavior);
+  }
+
+  public getCombos(): Array<Combo> {
+    return this.combos;
+  }
+
+  addCombo(combo: Combo) {
+    this.combos.push(combo);
   }
 }
 

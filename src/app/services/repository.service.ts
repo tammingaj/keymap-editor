@@ -3,6 +3,7 @@ import {KeyMapConfig} from "../classes/key-map-config";
 import {KeyConfig} from "../classes/key-config";
 import {Behavior} from "../classes/behavior";
 import {Layer} from "../classes/layer";
+import {Combo} from "../classes/combo";
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,14 @@ export class RepositoryService {
     localStorage.setItem('zmk-keyConfigs', JSON.stringify(keyMapConfig.getKeyConfigs()));
     localStorage.setItem('zmk-behaviors', JSON.stringify(keyMapConfig.getBehaviors()));
     localStorage.setItem('zmk-layers', JSON.stringify(keyMapConfig.getLayers()));
-    // for now we store the keys, layers and behaviors in their own localstorage variables
+    localStorage.setItem('zmk-combos', JSON.stringify(keyMapConfig.getCombos()));
+    // for now we store the keys, layers, behaviors and combos in their own localstorage variables
     // and clear them from the keyMapConfig object.
     let copy = Object.assign({}, keyMapConfig);
     copy.keyConfigs = new Array<KeyConfig>();
     copy.behaviors = new Array<Behavior>();
     copy.layers = new Array<Layer>();
+    copy.combos = new Array<Combo>();
     localStorage.setItem('zmk-keymapConfig', JSON.stringify(copy));
   }
 
@@ -46,6 +49,7 @@ export class RepositoryService {
     let jsKeyConfigObjects: KeyConfig[];
     let jsLayerObjects: Layer[];
     let jsBehaviorObjects: Behavior[];
+    let jsComboObjects: Combo[];
 
     if (fromLocalStorage) {
       let keyConfigsString: string = localStorage["zmk-keyConfigs"] || '[]';
@@ -54,15 +58,19 @@ export class RepositoryService {
       jsLayerObjects = JSON.parse(layersString);
       let behaviorsString: string = localStorage["zmk-behaviors"] || '[]';
       jsBehaviorObjects = JSON.parse(behaviorsString);
+      let combosString: string = localStorage["zmk-combos"] || '[]';
+      jsComboObjects = JSON.parse(combosString);
     } else {
       jsKeyConfigObjects = retrievedKeyMapConfig.keyConfigs;
       jsLayerObjects = retrievedKeyMapConfig.layers;
       jsBehaviorObjects = retrievedKeyMapConfig.behaviors;
+      jsComboObjects = retrievedKeyMapConfig.combos;
     }
 
     retrievedKeyMapConfig.keyConfigs = new Array<KeyConfig>();
     retrievedKeyMapConfig.layers = new Array<Layer>();
     retrievedKeyMapConfig.behaviors = new Array<Behavior>();
+    retrievedKeyMapConfig.combos = new Array<Combo>();
 
     // convert the keys to typed KeyConfig objects
     jsKeyConfigObjects.forEach((obj)=>{
@@ -82,6 +90,11 @@ export class RepositoryService {
       retrievedKeyMapConfig.addBehavior(behavior);
     });
 
+    // convert the combos to typed Combo objects
+    jsComboObjects.forEach((obj)=>{
+      let combo: Combo = new Combo(obj.id, obj.name, obj.timeout, obj.binding, obj.layers)
+      retrievedKeyMapConfig.addCombo(combo);
+    });
     return retrievedKeyMapConfig;
   }
 

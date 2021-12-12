@@ -6,6 +6,7 @@ import {Behavior} from "../classes/behavior";
 import {Layer} from "../classes/layer";
 import {ReplaySubject} from "rxjs";
 import {v4 as uuidv4} from 'uuid';
+import {Combo} from "../classes/combo";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class KeyMapService {
   public currentLayer = new Layer('',uuidv4());
   public currentLayer$ = new ReplaySubject<Layer>();
 
+  // contains all combos
+  private combos: Array<Combo> = new Array<Combo>();
+  public combos$ = new ReplaySubject<Array<Combo>>();
+
   public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
   public minX: number = 0;
   public minY: number = 0;
@@ -60,6 +65,7 @@ export class KeyMapService {
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.behaviors = this.keyMapConfig.behaviors;
     this.layers = this.keyMapConfig.layers;
+    this.combos = this.keyMapConfig.combos;
 
     this.replenishKeyMap();
     this.updateSubscriptions();
@@ -72,6 +78,7 @@ export class KeyMapService {
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.behaviors = this.keyMapConfig.behaviors;
     this.layers = this.keyMapConfig.layers;
+    this.combos = this.keyMapConfig.combos;
 
     this.replenishKeyMap();
     this.updateSubscriptions();
@@ -80,6 +87,7 @@ export class KeyMapService {
 
   private updateSubscriptions(): void {
     this.keys$.next(this.keys);
+    this.combos$.next(this.combos);
 
     this.behaviors.sort((first,second) => {
       if (first.keyNumber < second.keyNumber) return -1;
