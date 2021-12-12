@@ -13,6 +13,7 @@ export class KeyComponent implements OnInit {
   private width: number = 50;
 
   @Input() config: KeyConfig = KeyConfig.getInstance();
+  @Input() mode: string = ''; // 'layout' or ''
   @Input() arena = {width: 0, height: 0};
   @Output() selected = new EventEmitter();
 
