@@ -16,6 +16,8 @@ export class ComboViewComponent implements OnInit {
   private layers: Array<Layer> = new Array<Layer>();
   private activeKeys: KeyConfig[] = [];
   private combos: Combo[] = [];
+  public newComboName: string = "";
+  public selectedCombo: Combo = new Combo(0,'',50,'',[]);
 
   constructor(public keyMapService: KeyMapService) { }
 
@@ -31,13 +33,19 @@ export class ComboViewComponent implements OnInit {
       combos => {
       this.combos = combos;
     }));
+    this.subscriptions.add(this.keyMapService.selectedCombo$.subscribe(
+      combo => {
+        this.selectedCombo = combo;
+      }));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  selectCombo(combo: Combo): void {
-    console.log('selectCombo', combo);
+  addCombo(): void {
+    let newCombo = new Combo(0,this.newComboName,50,'',[]);
+    this.keyMapService.addCombo(newCombo);
+    this.newComboName = "";
   }
 }

@@ -48,6 +48,10 @@ export class KeyMapService {
   private combos: Array<Combo> = new Array<Combo>();
   public combos$ = new ReplaySubject<Array<Combo>>();
 
+  // contains the current combo
+  private selectedCombo = new Combo(0,'',50,'',[]);
+  public selectedCombo$ = new ReplaySubject<Combo>();
+
   public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
   public minX: number = 0;
   public minY: number = 0;
@@ -306,6 +310,24 @@ export class KeyMapService {
     this.behaviors.splice(idx,1);
     this.behaviors$.next(this.behaviors);
     this.selectBehaviorsForKeyAndLayer();
+  }
+
+  addCombo(newCombo: Combo): void {
+    this.combos.push(newCombo);
+    this.selectedCombo = newCombo;
+    this.selectedCombo$.next(this.selectedCombo);
+    this.combos$.next(this.combos);
+  }
+
+  deleteCombo(combo: Combo): void {
+    let idx = this.combos.indexOf(combo);
+    this.combos.splice(idx,1);
+    this.combos$.next(this.combos);
+  }
+
+  selectCombo(combo: Combo): void {
+    this.selectedCombo = combo;
+    this.selectedCombo$.next(this.selectedCombo);
   }
 
   getKeymapAsJSON(): string {
