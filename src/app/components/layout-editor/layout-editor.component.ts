@@ -44,7 +44,7 @@ export class LayoutEditorComponent implements OnInit {
 
     if (event.key === 'Escape') {
       console.log('escape');
-      this.keyMapService.deselect();
+      this.keyMapService.deselectKeys();
     }
   }
 

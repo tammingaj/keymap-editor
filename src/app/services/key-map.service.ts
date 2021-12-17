@@ -282,12 +282,13 @@ export class KeyMapService {
     });
   }
 
-  public deselect(): void {
+  public deselectKeys(): void {
     this.keys.forEach((key) => {
       if (key.active) {
         key.active = false;
       }
     });
+    this.activeKeys$.next([]);
   }
 
   getKeymapName() {
