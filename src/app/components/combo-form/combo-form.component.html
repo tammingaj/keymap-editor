@@ -1,17 +1,21 @@
 <form>
-  <div class="form-group">
+  <div class="form-group m-1">
     <label for="comboName" class="col-lg-2">Name</label>
     <input [(ngModel)]="combo.name" id="comboName" name="comboName" type="text" >
   </div>
-  <div class="form-group">
+  <div class="form-group m-1">
     <label for="comboTimeout" class="col-lg-2">Timeout (ms)</label>
     <input [(ngModel)]="combo.timeout" id="comboTimeout" name="comboTimeout" type="number" >
   </div>
-  <div class="form-group">
+  <div class="form-group m-1">
     <label class="col-lg-2">Active in layers:</label>
-    <div *ngFor="let layer of layers" class="form-check col-lg-2">
+    <div *ngFor="let layer of layers" class="form-check-inline">
       <input class="form-check-input" (change)="onLayerChange(layer, $event)" type="checkbox" value="" id="'flexCheckDefault'+$index">
       <label class="form-check-label" for="'flexCheckDefault'+$index">{{layer.name}}</label>
     </div>
+  </div>
+  <div class="form-group m-1">
+    <label for="comboKeys" class="col-lg-2">Keys</label>
+    <input id="comboKeys" disabled name="comboKeys" type="text" value="{{combo.keys?combo.keys.join():''}}">
   </div>
 </form>

@@ -166,12 +166,12 @@ export class KeyMapService {
     keyConfig.active = !keyConfig.active;
     let activeKeys = this.keys.filter(keyConfig => keyConfig.active);
     if (activeKeys.length === 1) {
-      this.selectConfig(activeKeys[0]);
+      this.selectKey(activeKeys[0]);
     }
     this.activeKeys$.next(activeKeys);
   }
 
-  public selectConfig(config: KeyConfig): void {
+  public selectKey(config: KeyConfig): void {
     console.log('service signals selection of key: ',config);
     this.currentKey = config;
     this.currentKey$.next(config);
@@ -329,6 +329,9 @@ export class KeyMapService {
   selectCombo(combo: Combo): void {
     this.selectedCombo = combo;
     this.selectedCombo$.next(this.selectedCombo);
+    this.keys.forEach(key => {
+      key.active = (combo.keys && combo.keys.includes(key.keyNumber));
+    });
   }
 
   getKeymapAsJSON(): string {

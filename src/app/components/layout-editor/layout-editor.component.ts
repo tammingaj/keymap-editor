@@ -61,7 +61,7 @@ export class LayoutEditorComponent implements OnInit {
   }
 
   registerSelected(keyConfig: KeyConfig) {
-    this.keyMapService.selectConfig(keyConfig)
+    this.keyMapService.selectKey(keyConfig)
   }
 
   getKeyConfigs(): Array<KeyConfig> {

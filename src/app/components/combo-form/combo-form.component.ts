@@ -27,6 +27,10 @@ export class ComboFormComponent implements OnInit {
     this.subscriptions.add(this.keyMapService.activeKeys$.subscribe(
       activeKeys => {
         this.activeKeys = activeKeys;
+        this.combo.keys = [];
+        this.activeKeys.forEach(key => {
+          this.combo.keys.push(key.keyNumber);
+        });
       }));
     this.subscriptions.add(this.keyMapService.selectedCombo$.subscribe(
       combo => {
