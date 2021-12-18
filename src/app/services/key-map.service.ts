@@ -49,7 +49,7 @@ export class KeyMapService {
   public combos$ = new ReplaySubject<Array<Combo>>();
 
   // contains the current combo
-  private selectedCombo = new Combo(0,'',50,'',[]);
+  private selectedCombo = new Combo(0,'',50,'',[],[]);
   public selectedCombo$ = new ReplaySubject<Combo>();
 
   public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
