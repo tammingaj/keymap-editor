@@ -38,6 +38,7 @@ export class ComboViewComponent implements OnInit {
       combo => {
         this.selectedCombo = combo;
       }));
+    this.keyMapService.deselectCombo()
   }
 
   ngOnDestroy(): void {

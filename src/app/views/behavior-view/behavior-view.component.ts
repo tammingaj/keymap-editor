@@ -17,8 +17,8 @@ export class BehaviorViewComponent implements OnInit {
   private layers: Array<Layer> = new Array<Layer>();
   public currentLayer: Layer = new Layer('dummy layer',uuidv4());
 
-  private codeFile: String[] = new Array();
-  private activeKeys: KeyConfig[] = new Array();
+  private codeFile: String[] = [];
+  private activeKeys: KeyConfig[] = [];
   private currentKey: KeyConfig = KeyConfig.getInstance();
 
   public newLayerName: string = '';
@@ -41,6 +41,7 @@ export class BehaviorViewComponent implements OnInit {
       currentKey => {
         this.currentKey = currentKey;
       }));
+    this.keyMapService.deselectKeys();
   }
 
   ngOnDestroy() {

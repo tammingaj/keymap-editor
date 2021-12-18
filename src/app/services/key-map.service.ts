@@ -334,6 +334,14 @@ export class KeyMapService {
     });
   }
 
+  deselectCombo(): void {
+    this.selectedCombo = new Combo(0,'',50,'',[],[]);
+    this.selectedCombo$.next(this.selectedCombo);
+    this.keys.forEach(key => {
+      key.active = false;
+    });
+  }
+
   getKeymapAsJSON(): string {
     return JSON.stringify(this.keyMapConfig);
   }
