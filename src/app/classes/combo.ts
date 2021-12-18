@@ -18,12 +18,12 @@ export class Combo {
   public generateCodeFragment(): string {
     // todo: use a template
     let fragment: string =
-    'combo_' + this.name + ' {' +
-      'timeout-ms = <' + this.timeout + '>;' +
-      'key-positions = <6 20>;' +
-      'layers = <0>;' +
-      'bindings = <&bt BT_CLR>;' +
-    '};';
+    'combo_' + this.name + ' {\n' +
+      '      timeout-ms = <' + this.timeout + '>;\n' +
+      '      key-positions = <6 20>;\n' +
+      '      layers = <0>;\n' +
+      '      bindings = <&bt BT_CLR>; \n' +
+    '    };\n';
     return fragment;
   }
 }
