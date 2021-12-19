@@ -12,7 +12,7 @@ export class Combo {
     this.name = name;
     this.timeout = timeout;
     this.binding = binding;
-    this.color = '#000000';
+    this.color = color;
     this.keys = keys;
     this.layers = layers;
   }
