@@ -47,8 +47,10 @@ export class ComboViewComponent implements OnInit {
   }
 
   addCombo(): void {
-    let newCombo = new Combo(0,this.newComboName,50,'', '',[],[]);
-    this.keyMapService.addCombo(newCombo);
-    this.newComboName = "";
+    if (this.newComboName.length > 0){
+      let newCombo = new Combo(0,this.newComboName,50,'', '',[],[]);
+      this.keyMapService.addCombo(newCombo);
+      this.newComboName = "";
+    }
   }
 }

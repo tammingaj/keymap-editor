@@ -321,6 +321,10 @@ export class KeyMapService {
   }
 
   deleteCombo(combo: Combo): void {
+    if (this.selectedCombo === combo) {
+      this.selectedCombo = new Combo(0,'',50,'', '',[],[]);
+      this.selectedCombo$.next(this.selectedCombo);
+    }
     let idx = this.combos.indexOf(combo);
     this.combos.splice(idx,1);
     this.combos$.next(this.combos);
