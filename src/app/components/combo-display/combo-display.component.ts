@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Combo} from "../../classes/combo";
 import {KeyConfig} from "../../classes/key-config";
 import {KeyMapService} from "../../services/key-map.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'combo-display',
@@ -10,14 +11,23 @@ import {KeyMapService} from "../../services/key-map.service";
 })
 export class ComboDisplayComponent implements OnInit {
 
-  private width: number = 50;
-
+  private subscriptions: Subscription = new Subscription();
+  private width: number = 50
+  public selectedCombo: Combo = new Combo(0,'',50,'', '', [],[]);
   constructor(public keyMapService: KeyMapService) { }
 
   @Input() combo: Combo = new Combo(0,'',50,'', '', [],[]);
   @Input() arena = {width: 0, height: 0};
 
   ngOnInit(): void {
+    this.subscriptions.add(this.keyMapService.selectedCombo$.subscribe(
+      combo => {
+        this.selectedCombo = combo;
+      }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   getComboKeys(): number[] {

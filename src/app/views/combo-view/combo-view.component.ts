@@ -43,6 +43,7 @@ export class ComboViewComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.keyMapService.deselectCombo();
   }
 
   addCombo(): void {

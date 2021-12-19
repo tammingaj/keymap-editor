@@ -327,7 +327,11 @@ export class KeyMapService {
   }
 
   selectCombo(combo: Combo): void {
-    this.selectedCombo = combo;
+    if (this.selectedCombo === combo) {
+      this.selectedCombo = new Combo(0,'',50,'', '',[],[]);
+    } else {
+      this.selectedCombo = combo;
+    }
     this.selectedCombo$.next(this.selectedCombo);
     this.keys.forEach(key => {
       key.active = (combo.keys && combo.keys.includes(key.keyNumber));

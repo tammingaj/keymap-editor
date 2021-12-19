@@ -19,13 +19,13 @@ export class Combo {
 
   public generateCodeFragment(): string {
     // todo: use a template
-    let fragment: string =
-    'combo_' + this.name + ' {\n' +
+    let fragment: string = '\n' +
+      '    combo_' + this.name + ' {\n' +
       '      timeout-ms = <' + this.timeout + '>;\n' +
       '      key-positions = <' + this.keys.join(' ') + '>;\n' +
       '      layers = <' + this.layers.join(' ') + '>;\n' +
       '      bindings = <&bt BT_CLR>; \n' +
-    '    };\n';
+    '    };';
     return fragment;
   }
 }

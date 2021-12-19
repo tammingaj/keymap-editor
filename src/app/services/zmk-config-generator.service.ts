@@ -47,9 +47,9 @@ export class ZmkConfigGeneratorService {
     // combo definitions
     this.kbdConfigCodeFile.push('  combos {');
     this.kbdConfigCodeFile.push('    compatible = "zmk,combos";');
-    this.kbdConfigCodeFile.push('');
     this.combos.forEach(combo => this.kbdConfigCodeFile.push('    ' + combo.generateCodeFragment()));
     this.kbdConfigCodeFile.push('  };');
+    this.kbdConfigCodeFile.push('');
 
     // keymap definition
     this.kbdConfigCodeFile.push('  keymap {');
@@ -73,5 +73,6 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile.push(bindings);
     this.kbdConfigCodeFile.push('      >;');
     this.kbdConfigCodeFile.push('    };');
+    this.kbdConfigCodeFile.push('');
   }
 }

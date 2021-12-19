@@ -1,3 +1,6 @@
-<div *ngFor="let comboKey of getComboKeys()" [ngStyle]="getStyle(comboKey)">
-  <span>&nbsp;</span>
+<div *ngFor="let comboKey of getComboKeys()">
+  <div *ngIf="selectedCombo === combo || selectedCombo.name ===''"
+       [ngStyle]="getStyle(comboKey)">
+    <span>&nbsp;</span>
+  </div>
 </div>
