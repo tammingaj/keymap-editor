@@ -92,7 +92,7 @@ export class RepositoryService {
 
     // convert the combos to typed Combo objects
     jsComboObjects.forEach((obj)=>{
-      let combo: Combo = new Combo(obj.id, obj.name, obj.timeout, obj.binding, obj.keys, obj.layers)
+      let combo: Combo = new Combo(obj.id, obj.name, obj.timeout, obj.binding, obj.color, obj.keys, obj.layers)
       retrievedKeyMapConfig.addCombo(combo);
     });
     return retrievedKeyMapConfig;

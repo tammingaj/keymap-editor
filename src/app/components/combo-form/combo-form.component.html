@@ -18,4 +18,8 @@
     <label for="comboKeys" class="col-lg-2">Keys</label>
     <input id="comboKeys" disabled name="comboKeys" type="text" value="{{combo.keys?combo.keys.join():''}}">
   </div>
+  <div class="form-group m-1">
+    <label for="comboColor" class="col-lg-2">Color</label>
+    <input id="comboColor" [(ngModel)]="combo.color" name="comboColor" type="color">
+  </div>
 </form>

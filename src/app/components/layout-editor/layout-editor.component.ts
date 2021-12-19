@@ -2,6 +2,7 @@ import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {KeyMapService} from "../../services/key-map.service";
 import {Subscription} from "rxjs";
+import {Combo} from "../../classes/combo";
 
 @Component({
   selector: 'layout-editor',
@@ -12,6 +13,7 @@ export class LayoutEditorComponent implements OnInit {
 
   private STEP: number = 2;
   private keys: Array<KeyConfig> = new Array<KeyConfig>();
+  private combos: Array<Combo> = new Array<Combo>();
   private subscriptions: Subscription = new Subscription();
 
   constructor(public keyMapService: KeyMapService){}
@@ -52,6 +54,9 @@ export class LayoutEditorComponent implements OnInit {
     this.subscriptions.add(this.keyMapService.keys$.subscribe(keys => {
       this.keys = keys;
     }));
+    this.subscriptions.add(this.keyMapService.combos$.subscribe(combos => {
+      this.combos = combos;
+    }));
   }
 
   ngOnDestroy(): void {
@@ -67,4 +72,9 @@ export class LayoutEditorComponent implements OnInit {
   getKeyConfigs(): Array<KeyConfig> {
     return this.keys;
   }
+
+  getCombos(): Array<Combo> {
+    return this.combos;
+  }
+
 }

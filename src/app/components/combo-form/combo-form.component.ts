@@ -16,7 +16,7 @@ export class ComboFormComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
   public layers: Array<Layer> = new Array<Layer>();
   private activeKeys: KeyConfig[] = [];
-  public combo: Combo = new Combo(0,'',50,'',[],[]);
+  public combo: Combo = new Combo(0,'',50,'', '',[],[]);
 
   constructor(private formBuilder: FormBuilder, private keyMapService: KeyMapService) { }
 

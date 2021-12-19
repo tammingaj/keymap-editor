@@ -8,4 +8,9 @@
        (selected)="registerSelected(keyConfig)"
        [arena]="{'width':arena.offsetWidth,'height':arena.offsetHeight}">
   </key>
+  <div>
+    <combo-display *ngFor="let combo of getCombos()" [combo]="combo"
+                   [arena]="{'width':arena.offsetWidth,'height':arena.offsetHeight}">
+    </combo-display>
+  </div>
 </div>

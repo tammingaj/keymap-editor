@@ -49,7 +49,7 @@ export class KeyMapService {
   public combos$ = new ReplaySubject<Array<Combo>>();
 
   // contains the current combo
-  private selectedCombo = new Combo(0,'',50,'',[],[]);
+  private selectedCombo = new Combo(0,'',50,'', '',[],[]);
   public selectedCombo$ = new ReplaySubject<Combo>();
 
   public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
@@ -335,11 +335,15 @@ export class KeyMapService {
   }
 
   deselectCombo(): void {
-    this.selectedCombo = new Combo(0,'',50,'',[],[]);
+    this.selectedCombo = new Combo(0,'',50,'', '',[],[]);
     this.selectedCombo$.next(this.selectedCombo);
     this.keys.forEach(key => {
       key.active = false;
     });
+  }
+
+  getComboKeys(combo: Combo) : KeyConfig[] {
+    return this.keys.filter(key => combo.keys.indexOf(key.keyNumber) > -1);
   }
 
   getKeymapAsJSON(): string {

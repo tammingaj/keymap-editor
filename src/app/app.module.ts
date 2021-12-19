@@ -15,6 +15,7 @@ import { CodeViewComponent } from './views/code-view/code-view.component';
 import { NewKeymapModalComponent } from './components/new-keymap-modal/new-keymap-modal.component';
 import { ComboViewComponent } from './views/combo-view/combo-view.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
+import { ComboDisplayComponent } from './components/combo-display/combo-display.component';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     CodeViewComponent,
     NewKeymapModalComponent,
     ComboViewComponent,
-    ComboFormComponent
+    ComboFormComponent,
+    ComboDisplayComponent
   ],
     imports: [
         BrowserModule,
