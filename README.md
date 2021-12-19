@@ -1,6 +1,14 @@
 # KeymapEditor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
+This project initially started because I wanted to have an easier way to 
+create [ZMK](https://zmk.dev/) keymaps for the keyboards that I build. The existing process of 
+editing a C source file is quite error-prone, especially for someone who 
+is not familiar with that language.
+
+Each build is automatically deployed to [here](https://www.tammingas.nl/keymap-editor).
+
+
+The project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
 
 ## Development server
 

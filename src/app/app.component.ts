@@ -87,4 +87,8 @@ export class AppComponent {
       console.log(error);
     }
   }
+
+  save(): void {
+    this.keyMapService.saveKeyMapConfig();
+  }
 }
