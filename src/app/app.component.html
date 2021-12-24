@@ -27,16 +27,12 @@
         <a routerLink="/code" routerLinkActive="active" class="nav-item nav-link">Code</a>
       </li>
     </ul>
-    <button type="button" class="btn btn-secondary float-right" (click)="toggleTheme()">{{otherThemeName()}}</button>
+    <h3 class="float-right">{{keyMapService.getKeymapName()}}</h3>
+    <button *ngIf="false" type="button" class="btn btn-secondary float-right" (click)="toggleTheme()">{{otherThemeName()}}</button>
   </div>
 </nav>
 
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>{{keyMapService.getKeymapName()}}</h1>
-    </div>
-  </div>
 
   <router-outlet></router-outlet>
 

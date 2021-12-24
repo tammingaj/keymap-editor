@@ -36,7 +36,7 @@ export class KeyComponent implements OnInit {
 
   delete(): boolean {
     console.log('deleting');
-    //this.keyMapService.deleteConfig(this.config);
+    this.keyMapService.deleteConfig(this.config);
     return false;
   }
 
