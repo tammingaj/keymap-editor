@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {KeyMapService} from "../../services/key-map.service";
 import {Subscription} from "rxjs";
@@ -17,6 +17,9 @@ export class LayoutEditorComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
 
   constructor(public keyMapService: KeyMapService){}
+
+  // @ts-ignore
+  @ViewChild('arena') arena: ElementRef<HTMLElement>;
 
   @Input() mode: string = ''; // 'layout' or ''
 
@@ -57,6 +60,11 @@ export class LayoutEditorComponent implements OnInit {
     this.subscriptions.add(this.keyMapService.combos$.subscribe(combos => {
       this.combos = combos;
     }));
+
+    setTimeout (() => {
+      console.log("Hello from setTimeout");
+      this.arena.nativeElement.click();
+    }, 200);
   }
 
   ngOnDestroy(): void {

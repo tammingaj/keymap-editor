@@ -12,7 +12,7 @@ import {Subscription} from "rxjs";
 export class ComboDisplayComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
-  private width: number = 50
+  private width: number = 40;
   public selectedCombo: Combo = new Combo(0,'',50,'', '', [],[]);
   constructor(public keyMapService: KeyMapService) { }
 
@@ -39,7 +39,7 @@ export class ComboDisplayComponent implements OnInit {
     let key: KeyConfig = this.keyMapService.getComboKeys(this.combo).filter(key => key.keyNumber == comboKey)[0];
     // center the keys relative to the arena
     let top = key.y + (this.arena.height/2 - (this.keyMapService.maxY - this.keyMapService.minY)/2) - this.keyMapService.minY - (this.width / 2) + 'px';
-    let left = key.x + (this.arena.width/2 - (this.keyMapService.maxX - this.keyMapService.minX)/2) - this.keyMapService.minX - (this.width / 2) + 'px';
+    let left = key.x + (this.arena.width/2 - (this.keyMapService.maxX - this.keyMapService.minX)/2) - this.keyMapService.minX - (this.width / 6) + 'px';
     return {
       'z-index': 5,
       'position': 'absolute',
@@ -47,11 +47,11 @@ export class ComboDisplayComponent implements OnInit {
       'left': left,
       'transform': 'rotate(' + key.angle + 'deg)',
       'aspect-ratio': 1,
-      'width': this.width + 'px',
+      'width': this.width/2 + 'px',
       'border-radius': '50%',
       'opacity': 0.3,
       'pointer-events': 'none',
-      'background-color': this.combo.color
+      'background-color': this.combo.color,
     }
   }
 }

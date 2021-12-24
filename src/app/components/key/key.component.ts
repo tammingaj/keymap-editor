@@ -36,7 +36,7 @@ export class KeyComponent implements OnInit {
 
   delete(): boolean {
     console.log('deleting');
-    this.keyMapService.deleteConfig(this.config);
+    //this.keyMapService.deleteConfig(this.config);
     return false;
   }
 
@@ -50,12 +50,10 @@ export class KeyComponent implements OnInit {
     let top = this.config.y + (this.arena.height/2 - (this.keyMapService.maxY - this.keyMapService.minY)/2) - this.keyMapService.minY - (this.width / 2) + 'px';
     let left = this.config.x + (this.arena.width/2 - (this.keyMapService.maxX - this.keyMapService.minX)/2) - this.keyMapService.minX - (this.width / 2) + 'px';
     return {
-      'position': 'absolute',
       'top': top,
       'left': left,
       'transform': 'rotate(' + this.config.angle + 'deg)',
-      'aspect-ratio': 1,
-      'width': this.width + 'px',
+      'width': this.width-8 + 'px',
     }
   }
 }

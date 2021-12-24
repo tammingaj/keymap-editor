@@ -1,4 +1,4 @@
-<div [ngStyle]="getStyle()" (click)="toggleActive($event)" (contextmenu)="delete()" class="btn {{config.active?'btn-dark':''}} rounded-lg border-light">
+<div [ngStyle]="getStyle()" (click)="toggleActive($event)" (contextmenu)="delete()" class="key {{config.active?'btn-dark':''}} rounded-lg">
   <span *ngIf="mode=='layout'">{{config.keyNumber}}</span>
   <span *ngIf="mode!='layout'">{{config.label}}</span>
 </div>
