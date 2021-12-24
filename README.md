@@ -1,9 +1,6 @@
 # KeymapEditor
 
-This project initially started because I wanted to have an easier way to 
-create [ZMK](https://zmk.dev/) keymaps for the keyboards that I build. The existing process of 
-editing a C source file is quite error-prone, especially for someone who 
-is not familiar with that language.
+For more information see the [wiki](https://github.com/tammingaj/keymap-editor/wiki) of this project
 
 Each build is automatically deployed to [here](https://www.tammingas.nl/keymap-editor).
 
