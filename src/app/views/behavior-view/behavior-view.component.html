@@ -8,7 +8,7 @@
     Layer
     <button *ngFor="let layer of keyMapService.layers$ | async" class="btn btn-block" [ngClass]="layer.name===currentLayer.name?'btn-primary':'btn-secondary'" (click)="selectLayer(layer)">
       {{layer.name}}
-      <button (click)="keyMapService.deleteLayer(layer)" class="btn-sm float-right">del</button>
+      <fa-icon [icon]="faTrash" (click)="keyMapService.deleteLayer(layer)" class="float-right" title="Delete this layer"></fa-icon>
     </button>
     <form class="mt-1">
       <label for="newLayerName">New layer</label>

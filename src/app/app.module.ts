@@ -16,6 +16,7 @@ import { NewKeymapModalComponent } from './components/new-keymap-modal/new-keyma
 import { ComboViewComponent } from './views/combo-view/combo-view.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
 import { ComboDisplayComponent } from './components/combo-display/combo-display.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
         FormsModule,
         ReactiveFormsModule,
         RouterModule.forRoot(appRoutes),
+        FontAwesomeModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

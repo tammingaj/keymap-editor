@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {v4 as uuidv4} from "uuid";
 import {KeyMapService} from "../../services/key-map.service";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'behavior-view',
@@ -22,6 +23,7 @@ export class BehaviorViewComponent implements OnInit {
   private currentKey: KeyConfig = KeyConfig.getInstance();
 
   public newLayerName: string = '';
+  public faTrash = faTrash;
 
   constructor(public keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) {
   }

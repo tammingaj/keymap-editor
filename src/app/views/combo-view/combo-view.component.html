@@ -10,7 +10,7 @@
             [ngClass]="combo.name===selectedCombo.name?'btn-primary':'btn-secondary'"
             (click)="keyMapService.selectCombo(combo)">
       {{combo.name}}
-      <button  class="btn-sm float-right" (click)="keyMapService.deleteCombo(combo)">del</button>
+      <fa-icon [icon]="faTrash" (click)="keyMapService.deleteCombo(combo)" class="float-right" title="Delete this combo"></fa-icon>
     </button>
     <form class="mt-1">
       <label for="newComboName">New combo</label>
