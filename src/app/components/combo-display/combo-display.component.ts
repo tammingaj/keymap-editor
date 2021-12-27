@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
   styleUrls: ['./combo-display.component.css']
 })
 export class ComboDisplayComponent implements OnInit {
+  // Used to display the combo in the arena
 
   private subscriptions: Subscription = new Subscription();
   private width: number = 40;
