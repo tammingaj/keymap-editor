@@ -1,56 +1,39 @@
 <h3>{{selectedBehavior.getLabel()}}</h3>
 <div ngbDropdown class="form-group form-inline">
-  <label for="dropdownBasic1" class="col-2 float-left">Type</label>
+  <label for="dropdownBasic1" class="col-4 text-left" style="justify-content: left">Type</label>
   <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getLabel()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button ngbDropdownItem (click)="selectBehaviorType('combo')">Combo</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&kp')">Keypress</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&hm')">Modifier</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&trans')">Transparent</button>
   </div>
 </div>
 
-<div *ngIf="selectedBehavior.type === '&kp'">
+<div *ngIf="selectedBehavior.type === '&kp '">
   <div ngbDropdown class="form-group form-inline">
-    <label for="dropdownKeypress" class="col-2 text-left">Value</label>
-    <button class="btn btn-outline-primary" id="dropdownKeypress" ngbDropdownToggle>{{selectedBehavior.value}}</button>
+    <label for="dropdownKeypress" class="col-4 text-left" style="justify-content: left">Keypress</label>
+    <button class="btn btn-outline-primary" id="dropdownKeypress" ngbDropdownToggle>{{selectedBehavior.values[0]}}</button>
     <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
       <button *ngFor="let value of selectedBehavior.getKeyPressValues()" ngbDropdownItem (click)="selectValue(value)">{{value}}</button>
     </div>
   </div>
 </div>
 
-
-<div *ngIf="selectedBehavior.type === 'combo'">
-  <div class="form-group">
-    <label class="text-left">Active in layers:</label>
-    <div *ngFor="let layer of layers" class="form-check">
-      <input class="form-check-input" (change)="onLayerChange(layer, $event)" type="checkbox" value="" id="'flexCheckDefault'+$index">
-      <label class="form-check-label" for="'flexCheckDefault'+$index">{{layer.name}}</label>
+<div *ngIf="selectedBehavior.type === '&hm '">
+  <div ngbDropdown class="form-group form-inline">
+    <label for="dropdownModifier" class="col-4 text-left" style="justify-content: left">Modifier</label>
+    <button class="btn btn-outline-primary" id="dropdownModifier" ngbDropdownToggle>{{selectedBehavior.values[1]}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
+      <button *ngFor="let value of selectedBehavior.getModifierValues()" ngbDropdownItem (click)="selectModifierKeypress(value)">{{value}}</button>
     </div>
   </div>
-  <div class="form-group">
-    <label>Choose another key to combo with.</label>
-  </div>
-  <!--  &lt;!&ndash; checkboxes for the layers where the combo should be active &ndash;&gt;-->
-  <!--  <div class="form-group">-->
-  <!--    <label class="text-left">Active in layers&nbsp;</label>-->
-  <!--    <div class="btn-group btn-group-toggle">-->
-  <!--      <label *ngFor="let layer of layers;let layerIndex=index;" ngbButtonLabel>-->
-  <!--        <input type="checkbox" ngbButton [(ngModel)]="selectedLayers[layerIndex]"> {{layer.name}}-->
-  <!--      </label>-->
-  <!--    </div>-->
-  <!--  </div>-->
-</div>
-
-
-<div *ngIf="selectedBehavior.type === '&hm'">
   <div ngbDropdown class="form-group form-inline">
-    <label for="dropdownModifier" class="col-2 text-left">Value</label>
-    <button class="btn btn-outline-primary" id="dropdownModifier" ngbDropdownToggle>{{selectedBehavior.value}}</button>
-    <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
-      <button *ngFor="let value of selectedBehavior.getModifierValues()" ngbDropdownItem (click)="selectValue(value)">{{value}}</button>
+    <label for="dropdownModifierKeypress" class="col-4 text-left" style="justify-content: left">Keypress</label>
+    <button class="btn btn-outline-primary" id="dropdownModifierKeypress" ngbDropdownToggle>{{selectedBehavior.values[0]}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownModifierKeypress">
+      <button *ngFor="let value of selectedBehavior.getKeyPressValues()" ngbDropdownItem (click)="selectValue(value)">{{value}}</button>
     </div>
   </div>
 </div>

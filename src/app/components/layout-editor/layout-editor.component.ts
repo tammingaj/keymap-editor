@@ -62,7 +62,6 @@ export class LayoutEditorComponent implements OnInit {
     }));
 
     setTimeout (() => {
-      console.log("Hello from setTimeout");
       this.arena.nativeElement.click();
     }, 200);
   }

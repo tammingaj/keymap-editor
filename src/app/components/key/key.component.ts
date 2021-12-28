@@ -56,4 +56,10 @@ export class KeyComponent implements OnInit {
       'width': this.width-8 + 'px',
     }
   }
+
+  getModifierLabel(): string {
+    let label = this.keyMapService.getModifierLabel(this.config);
+    return label;
+  }
+
 }

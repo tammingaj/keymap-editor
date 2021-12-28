@@ -2,9 +2,9 @@ export class Behavior {
 
   public static readonly BEHAVIOR_TYPE_NONE: string = '&none';
   public static readonly BEHAVIOR_TYPE_TRANSPARENT: string = '&trans';
-  public static readonly BEHAVIOR_TYPE_KEYPRESS: string = '&kp';
+  public static readonly BEHAVIOR_TYPE_KEYPRESS: string = '&kp ';
   public static readonly BEHAVIOR_TYPE_COMBO: string = 'combo';
-  public static readonly BEHAVIOR_TYPE_MODIFIER: string = '&hm';
+  public static readonly BEHAVIOR_TYPE_MODIFIER: string = '&hm ';
 
   public static readonly MODIFIER_LGUI: string = 'LGUI';
   public static readonly MODIFIER_LALT: string = 'LALT';
@@ -15,45 +15,45 @@ export class Behavior {
   public static readonly MODIFIER_RSHFT: string = 'RSHFT';
   public static readonly MODIFIER_RCTRL: string = 'RCTRL';
 
-  public static readonly KEY_A: string = '&kp a';
-  public static readonly KEY_B: string = '&kp b';
-  public static readonly KEY_C: string = '&kp c';
-  public static readonly KEY_D: string = '&kp d';
-  public static readonly KEY_E: string = '&kp e';
-  public static readonly KEY_F: string = '&kp f';
-  public static readonly KEY_G: string = '&kp g';
-  public static readonly KEY_H: string = '&kp h';
-  public static readonly KEY_I: string = '&kp i';
-  public static readonly KEY_J: string = '&kp j';
-  public static readonly KEY_K: string = '&kp k';
-  public static readonly KEY_L: string = '&kp l';
-  public static readonly KEY_M: string = '&kp m';
-  public static readonly KEY_N: string = '&kp n';
-  public static readonly KEY_O: string = '&kp o';
-  public static readonly KEY_P: string = '&kp p';
-  public static readonly KEY_Q: string = '&kp q';
-  public static readonly KEY_R: string = '&kp r';
-  public static readonly KEY_S: string = '&kp s';
-  public static readonly KEY_T: string = '&kp t';
-  public static readonly KEY_U: string = '&kp u';
-  public static readonly KEY_V: string = '&kp v';
-  public static readonly KEY_W: string = '&kp w';
-  public static readonly KEY_X: string = '&kp x';
-  public static readonly KEY_Y: string = '&kp y';
-  public static readonly KEY_Z: string = '&kp z';
+  public static readonly KEY_A: string = 'A';
+  public static readonly KEY_B: string = 'B';
+  public static readonly KEY_C: string = 'C';
+  public static readonly KEY_D: string = 'D';
+  public static readonly KEY_E: string = 'E';
+  public static readonly KEY_F: string = 'F';
+  public static readonly KEY_G: string = 'G';
+  public static readonly KEY_H: string = 'H';
+  public static readonly KEY_I: string = 'I';
+  public static readonly KEY_J: string = 'J';
+  public static readonly KEY_K: string = 'K';
+  public static readonly KEY_L: string = 'L';
+  public static readonly KEY_M: string = 'M';
+  public static readonly KEY_N: string = 'N';
+  public static readonly KEY_O: string = 'O';
+  public static readonly KEY_P: string = 'P';
+  public static readonly KEY_Q: string = 'Q';
+  public static readonly KEY_R: string = 'R';
+  public static readonly KEY_S: string = 'S';
+  public static readonly KEY_T: string = 'T';
+  public static readonly KEY_U: string = 'U';
+  public static readonly KEY_V: string = 'V';
+  public static readonly KEY_W: string = 'W';
+  public static readonly KEY_X: string = 'X';
+  public static readonly KEY_Y: string = 'Y';
+  public static readonly KEY_Z: string = 'Z';
 
   public keyNumber: number = 0;
   public type: string = '';
-  public value: string = '';
+  public values: string[] = [];
   public keys: number[] = [];
   public layers: string[] = [];
 
-  constructor(keyNumber: number, type: string, value: string,keys: number[], layers: string[]) {
+  constructor(keyNumber: number, type: string, values: string[],keys: number[], layers: string[]) {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
       type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_COMBO) {
       this.keyNumber = keyNumber;
       this.type = type;
-      this.value = value;
+      this.values = values;
       this.keys = keys;
       this.layers = layers;
     } else this.type = Behavior.BEHAVIOR_TYPE_NONE;
@@ -94,17 +94,9 @@ export class Behavior {
   public generateCode(): string {
     if (this.type === Behavior.BEHAVIOR_TYPE_NONE) return Behavior.BEHAVIOR_TYPE_NONE;
     if (this.type === Behavior.BEHAVIOR_TYPE_TRANSPARENT) return Behavior.BEHAVIOR_TYPE_TRANSPARENT;
-    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return this.value;
+    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + this.values[0];
     if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) {
-      let modifier: string = this.value
-    }
-    if (this.type === Behavior.BEHAVIOR_TYPE_COMBO) {
-      // todo this is not yet correct
-      let code: string = Behavior.BEHAVIOR_TYPE_COMBO + ' ';
-      for (let i: number = 0; i < this.keys.length; i++) {
-        code += this.keys[i] + ' ';
-      }
-      return code;
+      return  Behavior.BEHAVIOR_TYPE_MODIFIER + this.values.join(' ');
     }
     return ' ??? ';
   }

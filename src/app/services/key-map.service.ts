@@ -29,7 +29,7 @@ export class KeyMapService {
   public behaviors$ = new ReplaySubject<Array<Behavior>>();
 
   // contains the selected behavior
-  private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,'',[],[]);
+  private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
   public selectedBehavior$ = new ReplaySubject<Behavior>();
 
   // contains the behaviors for the current key
@@ -146,7 +146,7 @@ export class KeyMapService {
           .filter(behavior => behavior.keyNumber === key.keyNumber)
           .filter(behavior => behavior.layers.indexOf(layer.id) >= 0);
         if (keyBehaviorsForLayer.length === 0) {
-          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], [layer.id]));
+          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], [layer.id]));
         }
       })
     })
@@ -208,7 +208,7 @@ export class KeyMapService {
     this.layers.push(newLayer);
     // add behaviors for each key to this layer
     this.keys.forEach(key => {
-      let newBehavior = new Behavior(key.keyNumber,Behavior.BEHAVIOR_TYPE_NONE,'',[],[newLayer.id]);
+      let newBehavior = new Behavior(key.keyNumber,Behavior.BEHAVIOR_TYPE_NONE,[],[],[newLayer.id]);
       this.behaviors.push(newBehavior);
     })
     this.behaviors$.next(this.behaviors);
@@ -352,6 +352,15 @@ export class KeyMapService {
 
   getComboKeys(combo: Combo) : KeyConfig[] {
     return this.keys.filter(key => combo.keys.indexOf(key.keyNumber) > -1);
+  }
+
+  getModifierLabel(key: KeyConfig): string {
+    // todo: take into account the layer
+    let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.type == '&hm ');
+    if (behavior) {
+      return behavior.values[1];
+    }
+    return '';
   }
 
   getKeymapAsJSON(): string {

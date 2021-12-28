@@ -86,7 +86,7 @@ export class RepositoryService {
 
     // convert the behaviors to typed Behavior objects
     jsBehaviorObjects.forEach((obj)=>{
-      let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.value, obj.keys, obj.layers);
+      let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.values, obj.keys, obj.layers);
       retrievedKeyMapConfig.addBehavior(behavior);
     });
 

@@ -12,3 +12,7 @@
   margin-left: 4px;
   pointer-events: none;
 }
+
+.modifier {
+  font-size: .6rem;
+}

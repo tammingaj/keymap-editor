@@ -7,7 +7,7 @@
               class="btn btn-primary btn-block"
               [ngClass]="behavior === selectedBehavior?'btn-primary':'btn-secondary'"
               (click)="selectBehavior(behavior)">
-        {{behavior.getLabel() + ' ' + behavior.value}}
+        {{behavior.getLabel() + ' ' + behavior.values.join(' ')}}
       </button>
       <button class="btn btn-info btn-block" (click)="addBehavior()">+</button>
     </div>

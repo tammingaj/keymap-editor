@@ -14,7 +14,7 @@ export class BehaviorSelectorComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
 
-  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,'',[],[]);
+  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
   public layers: Array<Layer> = new Array<Layer>();
   public selectedLayers: Array<Layer> = new Array<Layer>();
 
@@ -47,7 +47,11 @@ export class BehaviorSelectorComponent implements OnInit {
   }
 
   public selectValue(value: string): void {
-    this.selectedBehavior.value = value;
+    this.selectedBehavior.values[0] = value;
+  }
+
+  selectModifierKeypress(value: string): void {
+    this.selectedBehavior.values[1] = value;
   }
 
   public onLayerChange(layer: Layer, event: Event): void {

@@ -63,7 +63,7 @@ export class KeyDetailsComponent implements OnInit {
   }
 
   addBehavior():void {
-    let newBehavior: Behavior = new Behavior(this.config.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, '', [], [this.selectedLayer.id]);
+    let newBehavior: Behavior = new Behavior(this.config.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], [this.selectedLayer.id]);
     this.keyMapService.addBehavior(newBehavior);
     this.selectBehavior(newBehavior);
   }
