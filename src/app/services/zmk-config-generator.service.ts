@@ -39,9 +39,9 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile = [];
 
     // include headers
-    this.kbdConfigCodeFile.push('#include \<behaviors.dtsi\>');
-    this.kbdConfigCodeFile.push('#include \<dt-bindings\/zmk/keys.h\>');
-    this.kbdConfigCodeFile.push('#include \<dt-bindings\/zmk\/bt.h\>');
+    this.kbdConfigCodeFile.push('#include <behaviors.dtsi>');
+    this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/keys.h>');
+    this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/bt.h>');
     this.kbdConfigCodeFile.push('/ {');
 
     // combo definitions
@@ -50,6 +50,22 @@ export class ZmkConfigGeneratorService {
     this.combos.forEach(combo => this.kbdConfigCodeFile.push('    ' + combo.generateCodeFragment()));
     this.kbdConfigCodeFile.push('  };');
     this.kbdConfigCodeFile.push('');
+
+    // behavior definitions
+    let modifiers = this.behaviors.find(behavior => behavior.type === '&hm ');
+    if (modifiers) {
+      this.kbdConfigCodeFile.push('  behaviors {');
+      this.kbdConfigCodeFile.push('    hm: homerow_mods {');
+      this.kbdConfigCodeFile.push('      compatible = "zmk,behavior-hold-tap";');
+      this.kbdConfigCodeFile.push('      label = "HOMEROW_MODS";');
+      this.kbdConfigCodeFile.push('      #binding-cells = <2>;');
+      this.kbdConfigCodeFile.push('      tapping-term-ms = <250>;');
+      this.kbdConfigCodeFile.push('      quick_tap_ms = <0>;');
+      this.kbdConfigCodeFile.push('      flavor = "tap-preferred";');
+      this.kbdConfigCodeFile.push('      bindings = <&kp>, <&kp>;');
+      this.kbdConfigCodeFile.push('  };');
+      this.kbdConfigCodeFile.push('');
+    }
 
     // keymap definition
     this.kbdConfigCodeFile.push('  keymap {');

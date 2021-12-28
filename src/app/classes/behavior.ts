@@ -96,7 +96,7 @@ export class Behavior {
     if (this.type === Behavior.BEHAVIOR_TYPE_TRANSPARENT) return Behavior.BEHAVIOR_TYPE_TRANSPARENT;
     if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + this.values[0];
     if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) {
-      return  Behavior.BEHAVIOR_TYPE_MODIFIER + this.values.join(' ');
+      return  Behavior.BEHAVIOR_TYPE_MODIFIER + this.values[1] + ' '+ this.values[0];
     }
     return ' ??? ';
   }
