@@ -8,7 +8,7 @@
        (selected)="registerSelected(keyConfig)"
        [arena]="{'width':arena.offsetWidth,'height':arena.offsetHeight}">
   </key>
-  <div>
+  <div *ngIf="mode != 'layout'">
     <combo-display *ngFor="let combo of getCombos()" [combo]="combo"
                    [arena]="{'width':arena.offsetWidth,'height':arena.offsetHeight}">
     </combo-display>
