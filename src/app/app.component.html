@@ -26,6 +26,9 @@
       <li>
         <a routerLink="/code" routerLinkActive="active" class="nav-item nav-link">Code</a>
       </li>
+      <li>
+        <a routerLink="/about" routerLinkActive="active" class="nav-item nav-link">About</a>
+      </li>
     </ul>
     <h3 class="float-right">{{keyMapService.getKeymapName()}}</h3>
     <button *ngIf="false" type="button" class="btn btn-secondary float-right" (click)="toggleTheme()">{{otherThemeName()}}</button>

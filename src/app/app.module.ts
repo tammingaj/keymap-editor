@@ -18,12 +18,14 @@ import { ComboFormComponent } from './components/combo-form/combo-form.component
 import { ComboDisplayComponent } from './components/combo-display/combo-display.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { AboutViewComponent } from './views/about-view/about-view.component';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
   { path: 'behavior', component: BehaviorViewComponent },
   { path: 'combos', component: ComboViewComponent },
   { path: 'code', component: CodeViewComponent },
+  { path: 'about', component: AboutViewComponent },
   { path: '',   redirectTo: '/layout', pathMatch: 'full' },
   { path: '**',   redirectTo: '/layout', pathMatch: 'full' }
 ];
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     ComboViewComponent,
     ComboFormComponent,
     ComboDisplayComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    AboutViewComponent
   ],
     imports: [
         BrowserModule,
