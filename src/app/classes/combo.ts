@@ -19,14 +19,12 @@ export class Combo {
 
   public generateCodeFragment(): string {
     // todo: use a template
-    console.log('generateCodeFragment',this.layers);
 
     let layers: string = this.layers.join(' ');
-    console.log('joined: ' + layers);
     let fragment: string = '\n' +
       '    combo_' + this.name + ' {\n' +
       '      timeout-ms = <' + this.timeout + '>;\n' +
-      '      layers = /<' + layers + '/>;\n' +
+      '      layers = <' + layers + '>;\n' +
       '      key-positions = <' + this.keys.join(' ') + '>;\n' +
       '      bindings = <&bt BT_CLR>; \n' +
     '    };';

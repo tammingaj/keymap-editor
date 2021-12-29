@@ -4,11 +4,15 @@ import {Behavior} from "../classes/behavior";
 import {Layer} from "../classes/layer";
 import {KeyConfig} from "../classes/key-config";
 import {Combo} from "../classes/combo";
+import {ReplaySubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZmkConfigGeneratorService {
+
+  private codeLines: Array<string> = new Array<string>();
+  public codeLines$ = new ReplaySubject<Array<string>>();
 
   private kbdConfigCodeFile: string[];
   private layers: Array<Layer> = new Array<Layer>();
@@ -18,22 +22,29 @@ export class ZmkConfigGeneratorService {
 
   constructor(private keyMapService: KeyMapService) {
     keyMapService.layers$.subscribe(layers => {
+      console.log('Code generator: layers received');
       this.layers = layers;
+      this.generateCode();
     });
     keyMapService.keys$.subscribe(keys => {
+      console.log('Code generator: keys received');
       this.keys = keys;
+      this.generateCode();
     });
     keyMapService.behaviors$.subscribe(behaviors => {
+      console.log('Code generator: behaviors received');
       this.behaviors = behaviors;
+      this.generateCode();
     });
     keyMapService.combos$.subscribe(combos => {
+      console.log('Code generator: combos received');
       this.combos = combos;
+      this.generateCode();
     });
     this.kbdConfigCodeFile = [];
   }
 
-
-  generate(): String[] {
+  generateCode(): void {
     console.log('generating');
     // todo: use proper templating engine
     this.kbdConfigCodeFile = [];
@@ -76,10 +87,10 @@ export class ZmkConfigGeneratorService {
 
     this.kbdConfigCodeFile.push('};');
 
-    return this.kbdConfigCodeFile;
+    this.codeLines$.next(this.kbdConfigCodeFile);
   }
 
-  generateLayer(layer: Layer) {
+  private generateLayer(layer: Layer) {
     this.kbdConfigCodeFile.push('    ' + layer.name + '_layer {');
     this.kbdConfigCodeFile.push('      bindings = <');
     let bindings: string = '        ';

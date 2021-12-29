@@ -25,11 +25,11 @@
   <div class="col">
     <p>Active keys: <span *ngFor="let activeKey of getActiveKeys()">{{activeKey.keyNumber}}&nbsp;</span></p>
     <p>Current key: {{getCurrentKey().keyNumber}}</p>
-    <button (click)="startGeneration()" class="btn btn-secondary m-1">Generate</button><br>
-    <button (click)="save()" class="btn btn-secondary m-1">Commit and push to github</button>
-    <hr>
-    This is the generated code file: <br>
-    <pre class="text-light" [innerHTML]="getCodeFileAsHtml()"></pre>
-    <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()" class="btn btn-secondary m-1">Build firmware</button>
+<!--    <button (click)="startGeneration()" class="btn btn-secondary m-1">Generate</button><br>-->
+    <button (click)="save()" class="btn btn-secondary m-1">Keep for next time</button>
+<!--    <hr>-->
+<!--    This is the generated code file: <br>-->
+<!--    <pre class="text-light" [innerHTML]="getCodeFileAsHtml()"></pre>-->
+<!--    <button *ngIf="getCodeFile().length > 0" (click)="buildFirmware()" class="btn btn-secondary m-1">Build firmware</button>-->
   </div>
 </div>

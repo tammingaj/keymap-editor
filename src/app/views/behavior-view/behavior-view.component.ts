@@ -56,9 +56,9 @@ export class BehaviorViewComponent implements OnInit {
     console.log('Building firmware');
   }
 
-  startGeneration(): void {
-    this.codeFile = this.zmkConfigGeneratorService.generate();
-  }
+  // startGeneration(): void {
+  //   this.codeFile = this.zmkConfigGeneratorService.generate();
+  // }
 
   save(): void {
     this.keyMapService.saveKeyMapConfig();

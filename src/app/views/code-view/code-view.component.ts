@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscription} from "rxjs";
+import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 
 @Component({
   selector: 'code-view',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CodeViewComponent implements OnInit {
 
-  constructor() { }
+  private subscriptions: Subscription = new Subscription();
+  public codeLines : string[] = [];
+
+  constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService ) { }
 
   ngOnInit(): void {
+    this.subscriptions.add(this.zmkConfigGeneratorService.codeLines$.subscribe(codeLines => {
+      this.codeLines = codeLines;
+    }));
+    this.zmkConfigGeneratorService.generateCode();
   }
 
+  ngOnDestroy() {
+    if (this.subscriptions) {
+      this.subscriptions.unsubscribe();
+    }
+  }
+
+  getCodeFileAsHtml() {
+    return this.codeLines.join('<br>').replace(' ', '&nbsp;');
+  }
 }

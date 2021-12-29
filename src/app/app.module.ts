@@ -17,6 +17,7 @@ import { ComboViewComponent } from './views/combo-view/combo-view.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
 import { ComboDisplayComponent } from './components/combo-display/combo-display.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     NewKeymapModalComponent,
     ComboViewComponent,
     ComboFormComponent,
-    ComboDisplayComponent
+    ComboDisplayComponent,
+    SanitizeHtmlPipe
   ],
     imports: [
         BrowserModule,
