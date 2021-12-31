@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'about-view',
@@ -9,6 +9,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 export class AboutViewComponent implements OnInit {
 
   public faCoffee = faCoffee;
+  public faExternalLinkAlt = faExternalLinkAlt;
 
   constructor() { }
 
