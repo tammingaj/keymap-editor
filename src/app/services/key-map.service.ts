@@ -61,19 +61,20 @@ export class KeyMapService {
   constructor(private repositoryService: RepositoryService) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig('');
     if(this.keyMapConfig.name === 'Dummy') {
-      this.createInitialKeyMapConfig();
+      // this.createInitialKeyMapConfig();
+    } else {
+      console.log('keymapservice is primed with: ', this.keyMapConfig);
+
+      this.keys = this.keyMapConfig.getKeyConfigs();
+      this.behaviors = this.keyMapConfig.behaviors;
+      this.layers = this.keyMapConfig.layers;
+      this.combos = this.keyMapConfig.combos;
+
+      this.replenishKeyMap();
+      this.updateSubscriptions();
+      this.calculateMinMax();
     }
 
-    console.log('keymapservice is primed with: ', this.keyMapConfig);
-
-    this.keys = this.keyMapConfig.getKeyConfigs();
-    this.behaviors = this.keyMapConfig.behaviors;
-    this.layers = this.keyMapConfig.layers;
-    this.combos = this.keyMapConfig.combos;
-
-    this.replenishKeyMap();
-    this.updateSubscriptions();
-    this.calculateMinMax();
   }
 
   createNewKeymap(options: any): void{
@@ -160,6 +161,10 @@ export class KeyMapService {
 
   public saveKeyMapConfig():void {
     this.repositoryService.saveKeyMapConfig(this.keyMapConfig);
+  }
+
+  public noKeyMapAvailable(): boolean {
+    return this.keyMapConfig.name === 'Dummy';
   }
 
   public toggleActive(keyConfig: KeyConfig): void {

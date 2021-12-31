@@ -19,6 +19,9 @@ export class AppComponent {
 
   constructor(private renderer: Renderer2, private router: Router, public route: ActivatedRoute, public keyMapService: KeyMapService, private modalService: NgbModal) {
     this.renderer.addClass(document.body, this.theme);
+    if (this.keyMapService.noKeyMapAvailable()) {
+      this.newKeymap();
+    }
   }
 
   toggleTheme(): void {
