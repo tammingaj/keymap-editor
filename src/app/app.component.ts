@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {KeyMapService} from "./services/key-map.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NewKeymapModalComponent} from "./components/new-keymap-modal/new-keymap-modal.component";
+import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faDonate, faBug } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,10 @@ import {NewKeymapModalComponent} from "./components/new-keymap-modal/new-keymap-
 })
 export class AppComponent {
   public title: string = 'keymap-editor';
+  public faDiscord = faDiscord;
+  public faGithub = faGithub;
+  public faDonate = faDonate;
+  public faBug = faBug;
   private static readonly DARK: string = 'bootstrap-dark'
   private static readonly LIGHT: string = 'bootstrap'
 
@@ -53,8 +59,6 @@ export class AppComponent {
     //   console.log('dismissed ' + value);
     // });
     modalRef.closed.subscribe((value => {
-      console.log('closed ' + value);
-      this.keyMapService.createNewKeymap(value);
       this.router.navigate(['/layout']);
     }));
   }

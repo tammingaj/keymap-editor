@@ -3,7 +3,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#">Keymap editor</a>
+    <a class="navbar-brand" href="#">Keymap Editor</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item dropdown">
         <div ngbDropdown class="d-inline-block">
@@ -45,3 +45,62 @@
     type="file" (change)="onFileChanged($event)">
 
 </div>
+
+<footer class="page-footer font-small blue pt-4">
+
+  <hr>
+  <div class="container-fluid text-center text-md-left">
+
+    <div class="row">
+      <div class="col-md-6 mt-md-0 mt-3">
+<!--        <h5 class="text-uppercase">Footer Content</h5>-->
+<!--        <p>Here you can use rows and columns to organize your footer content.</p>-->
+      </div>
+
+<!--      <hr class="clearfix w-100 d-md-none pb-3">-->
+
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <ul class="list-unstyled">
+          <li>
+            <a href='https://discord.gg/6DjNxN68n6' target='_blank'>
+              <fa-icon [icon]="faDiscord" class="float-left mr-2"></fa-icon>
+              Discuss on Discord
+            </a>
+          </li>
+          <li>
+            <a href='https://ko-fi.com/W7W73AH0S' target='_blank'>
+              <fa-icon [icon]="faDonate" class="float-left mr-2"></fa-icon>
+              Donate
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <ul class="list-unstyled">
+          <li>
+            <a href='https://github.com/tammingaj/keymap-editor' target='_blank'>
+              <fa-icon [icon]="faGithub" class="float-left mr-2"></fa-icon>
+              Source code
+            </a>
+          </li>
+          <li>
+            <a href='https://github.com/tammingaj/keymap-editor/issues' target='_blank'>
+              <fa-icon [icon]="faBug" class="float-left mr-2"></fa-icon>
+              Have an issue?
+            </a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-copyright text-center py-3">© 2022 Copyright:
+    <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>
+  </div>
+
+</footer>
