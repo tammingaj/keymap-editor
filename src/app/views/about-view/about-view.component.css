@@ -1,0 +1,7 @@
+.theo {
+  animation: theo 5s ease infinite;
+}
+@keyframes theo {
+  0%, 100% {transform: translateX(0);}
+  50% {transform: translateX(.3em);}
+}
