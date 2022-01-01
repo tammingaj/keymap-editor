@@ -12,9 +12,10 @@ export class NewKeymapModalComponent implements OnInit {
 
   keymapForm = this.formBuilder.group({
     name: '',
-    splitCheck: false,
+    split: true,
     nofRows: 0,
     nofCols: 0,
+    repo: '',
     shield: '',
     board: ''
   });

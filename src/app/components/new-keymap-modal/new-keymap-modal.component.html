@@ -4,20 +4,20 @@
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="keymapForm" (ngSubmit)="create()">
+    <form [formGroup]="keymapForm" >
 
       <div class="form-group row">
         <label for="name" class="col-5">Name</label>
         <input id="name" type="text" formControlName="name">
       </div>
 
-      <div class="form-group row">
-        <label class="col-5 float-left" for="splitCheck">Split</label>
-        <input type="checkbox"
-               class="form-check-input float-right"
-               formControlName="splitCheck"
-               id="splitCheck"
-               name="splitCheck">
+      <div class="form-group btn-group-toggle row" ngbRadioGroup name="radioBasic" formControlName="split">
+        <label ngbButtonLabel class="btn-primary" name="split" id="split">
+          <input ngbButton type="radio" [value]="true" checked> Split
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" [value]="false"> Non-Split
+        </label>
       </div>
 
       <div class="form-group row">

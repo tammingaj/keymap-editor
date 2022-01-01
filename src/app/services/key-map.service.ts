@@ -76,7 +76,7 @@ export class KeyMapService {
   }
 
   createNewKeymap(options: any): void{
-    this.createInitialKeyMapConfig();
+    this.createInitialKeyMapConfig(options);
     this.keyMapConfig.name = options.name;
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.behaviors = this.keyMapConfig.behaviors;
@@ -110,13 +110,13 @@ export class KeyMapService {
     this.currentLayer$.next(this.currentLayer);
   }
 
-  private createInitialKeyMapConfig(): void {
-    console.log('Dummy keyMapConfig detected, transforming it to Corne keyMapConfig');
-    this.keyMapConfig = new KeyMapConfig('Corne');
-    this.keyMapConfig.split = true;
+  private createInitialKeyMapConfig(options: any): void {
+    console.log('Creating initial keyMapConfig from: ', options);
+    this.keyMapConfig = new KeyMapConfig(options.name || 'Corne');
+    this.keyMapConfig.split = options.split;
     let index: number = 0;
-    for(let row=0; row < 4; row++) {
-      for(let col=0; col < 12; col++) {
+    for(let row=0; row < options.nofRows; row++) {
+      for(let col=0; col < options.nofCols; col++) {
         let keyConfig = new KeyConfig(index,col*50,row*50,0,false,row,col,KeyConfig.SIDELEFT ,''+index++);
         this.keyMapConfig.addKeyConfig(row,col,keyConfig);
       }
