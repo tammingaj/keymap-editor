@@ -4,25 +4,49 @@
   </div>
 
   <div class="modal-body">
+
+    <div *ngIf="keyMapService.noKeyMapAvailable()">
+      <p>
+        A previous keymap could not be found in the browsers' storage. Use the form to create a new keymap from scratch, or
+        load a starter keymap by clicking one of these:
+      </p>
+      <ul>
+        <li>Corne</li>
+        <li>Miniki v3</li>
+        <li>SRM keeb</li>
+      </ul>
+      <hr>
+    </div>
+
+    <div *ngIf="!keyMapService.noKeyMapAvailable()">
+      <p>
+        There already is a keymap in the browsers' storage. It will be overwritten when you create a new keymap. Optionally click
+        the button below to download it to your computer. You can then later import it again via the menu.</p>
+      <button class="btn btn-primary">Download keymap</button>
+      <hr>
+    </div>
+
     <form [formGroup]="keymapForm" >
 
       <div class="form-group row">
         <label for="name" class="col-5">Name</label>
-        <input id="name" type="text" formControlName="name">
+        <input id="name" type="text" formControlName="name" required minlength="1">
       </div>
 
-      <div class="form-group btn-group-toggle row" ngbRadioGroup name="radioBasic" formControlName="split">
-        <label ngbButtonLabel class="btn-primary" name="split" id="split">
-          <input ngbButton type="radio" [value]="true" checked> Split
-        </label>
-        <label ngbButtonLabel class="btn-primary">
-          <input ngbButton type="radio" [value]="false"> Non-Split
-        </label>
+      <div class="form-group row">
+        <div class="form-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="split">
+          <label ngbButtonLabel class="btn-primary" name="split" id="split">
+            <input ngbButton type="radio" [value]="true" checked> Split
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="false"> Non-Split
+          </label>
+        </div>
       </div>
 
       <div class="form-group row">
         <label for="nofRows" class="col-5">Number of rows</label>
-        <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" >
+        <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" required minlength="4">
       </div>
 
       <div class="form-group row">

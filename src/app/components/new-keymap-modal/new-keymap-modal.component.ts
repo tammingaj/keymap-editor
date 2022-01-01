@@ -20,7 +20,7 @@ export class NewKeymapModalComponent implements OnInit {
     board: ''
   });
 
-  constructor(private activeModal: NgbActiveModal, private formBuilder: FormBuilder, private keyMapService: KeyMapService) {
+  constructor(private activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService) {
   }
 
   ngOnInit(): void {
