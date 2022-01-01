@@ -26,8 +26,8 @@ const appRoutes: Routes = [
   { path: 'combos', component: ComboViewComponent },
   { path: 'code', component: CodeViewComponent },
   { path: 'about', component: AboutViewComponent },
-  { path: '',   redirectTo: '/layout', pathMatch: 'full' },
-  { path: '**',   redirectTo: '/layout', pathMatch: 'full' }
+  { path: '',   redirectTo: '/about', pathMatch: 'full' },
+  { path: '**',   redirectTo: '/about', pathMatch: 'full' }
 ];
 
 @NgModule({
