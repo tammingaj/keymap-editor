@@ -6,34 +6,58 @@
   <div class="modal-body">
     <form [formGroup]="keymapForm" (ngSubmit)="create()">
 
-      <div class="form-group">
-        <label for="name">Name</label>
+      <div class="form-group row">
+        <label for="name" class="col-5">Name</label>
         <input id="name" type="text" formControlName="name">
       </div>
 
-      <div class="form-group">
-        <label for="shield">Shield</label>
-        <div ngbDropdown #shieldDropdown="ngbDropdown" class="d-inline-block">
-          <input id="shield" type="text" formControlName="shield" ngbDropdownToggle (click)="$event.stopPropagation(); shieldDropdown.open();">
-          <div ngbDropdownMenu>
-            <button ngbDropdownItem (click)="$event.preventDefault();selectShield('Nice!nano')">Nice!nano</button>
-            <button ngbDropdownItem (click)="$event.preventDefault();selectShield('Proton-C')">Proton-C</button>
-            <button ngbDropdownItem (click)="$event.preventDefault();selectShield('Blaat')">Blaat</button>
-          </div>
-        </div>
+      <div class="form-group row">
+        <label class="col-5 float-left" for="splitCheck">Split</label>
+        <input type="checkbox"
+               class="form-check-input float-right"
+               formControlName="splitCheck"
+               id="splitCheck"
+               name="splitCheck">
       </div>
 
-      <div class="form-group">
-        <label for="board">Board</label>
-        <div ngbDropdown #boardDropdown="ngbDropdown" class="d-inline-block">
-          <input id="board" type="text" formControlName="board" ngbDropdownToggle (click)="$event.stopPropagation(); boardDropdown.open();">
-          <div ngbDropdownMenu>
-            <button ngbDropdownItem (click)="$event.preventDefault();selectBoard('Kyria')">Kyria</button>
-            <button ngbDropdownItem (click)="$event.preventDefault();selectBoard('Lily58')">Lily58</button>
-            <button ngbDropdownItem (click)="$event.preventDefault();selectBoard('Blaat')">Blaat</button>
-          </div>
-        </div>
+      <div class="form-group row">
+        <label for="nofRows" class="col-5">Number of rows</label>
+        <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" >
       </div>
+
+      <div class="form-group row">
+        <label for="nofCols" class="col-5">Number of columns</label>
+        <input id="nofCols" formControlName="nofCols" name="nofCols" type="number" >
+      </div>
+
+      <div class="form-group row">
+        <label for="repo" class="col-5">Github repo</label>
+        <input id="repo" type="text" formControlName="repo">
+      </div>
+
+<!--      <div class="form-group">-->
+<!--        <label for="shield">Shield</label>-->
+<!--        <div ngbDropdown #shieldDropdown="ngbDropdown" class="d-inline-block">-->
+<!--          <input id="shield" type="text" formControlName="shield" ngbDropdownToggle (click)="$event.stopPropagation(); shieldDropdown.open();">-->
+<!--          <div ngbDropdownMenu>-->
+<!--            <button ngbDropdownItem (click)="$event.preventDefault();selectShield('Nice!nano')">Nice!nano</button>-->
+<!--            <button ngbDropdownItem (click)="$event.preventDefault();selectShield('Proton-C')">Proton-C</button>-->
+<!--            <button ngbDropdownItem (click)="$event.preventDefault();selectShield('Blaat')">Blaat</button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <label for="board">Board</label>-->
+<!--        <div ngbDropdown #boardDropdown="ngbDropdown" class="d-inline-block">-->
+<!--          <input id="board" type="text" formControlName="board" ngbDropdownToggle (click)="$event.stopPropagation(); boardDropdown.open();">-->
+<!--          <div ngbDropdownMenu>-->
+<!--            <button ngbDropdownItem (click)="$event.preventDefault();selectBoard('Kyria')">Kyria</button>-->
+<!--            <button ngbDropdownItem (click)="$event.preventDefault();selectBoard('Lily58')">Lily58</button>-->
+<!--            <button ngbDropdownItem (click)="$event.preventDefault();selectBoard('Blaat')">Blaat</button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
     </form>
   </div>
