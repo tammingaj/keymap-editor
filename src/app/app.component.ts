@@ -4,7 +4,7 @@ import {KeyMapService} from "./services/key-map.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NewKeymapModalComponent} from "./components/new-keymap-modal/new-keymap-modal.component";
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faDonate, faBug } from '@fortawesome/free-solid-svg-icons';
+import { faDonate, faBug, faCog} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent {
   public faGithub = faGithub;
   public faDonate = faDonate;
   public faBug = faBug;
+  public faCog = faCog;
   private static readonly DARK: string = 'bootstrap-dark'
   private static readonly LIGHT: string = 'bootstrap'
 
