@@ -41,7 +41,7 @@ export class RepositoryService {
 
     if ( typeof keyMapConfigString === 'undefined') {
       console.log('creating dummy keymapconfig');
-      return new KeyMapConfig('Dummy');
+      return new KeyMapConfig(' ');
     }
 
     let retrievedKeyMapConfig: KeyMapConfig = Object.assign(new KeyMapConfig(''), JSON.parse(keyMapConfigString));

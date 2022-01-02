@@ -30,12 +30,16 @@
         <a routerLink="/about" routerLinkActive="active" class="nav-item nav-link">About</a>
       </li>
     </ul>
-    <h3 class="float-right">{{keyMapService.getKeymapName()}}</h3>
 <!--    <button type="button" class="btn btn-secondary float-right" (click)="toggleTheme()">{{otherThemeName()}}</button>-->
   </div>
 </nav>
 
+
+
 <div class="container">
+  <div style="position: absolute; transform: rotate(-90deg); display: inline-block; float: left; margin-top: 4rem; margin-left: -6rem">
+    <h1>{{keyMapService.getKeymapName()}}</h1>
+  </div>
 
   <router-outlet></router-outlet>
 
@@ -46,21 +50,25 @@
 
 </div>
 
-<footer class="page-footer font-small blue pt-4">
-
+<footer class="container font-small blue pt-4">
   <hr>
+
   <div class="container-fluid text-center text-md-left">
 
     <div class="row">
-      <div class="col-md-6 mt-md-0 mt-3">
-<!--        <h5 class="text-uppercase">Footer Content</h5>-->
-<!--        <p>Here you can use rows and columns to organize your footer content.</p>-->
+      <div class="col-md-7 mb-md-0 mb-3">
+        <ul class="list-unstyled">
+          <li>
+            © 2022 Copyright:
+            <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>
+          </li>
+          <li>
+            <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Licence</a>
+          </li>
+        </ul>
       </div>
 
-<!--      <hr class="clearfix w-100 d-md-none pb-3">-->
-
       <div class="col-md-3 mb-md-0 mb-3">
-
         <ul class="list-unstyled">
           <li>
             <a href='https://discord.gg/6DjNxN68n6' target='_blank'>
@@ -75,11 +83,9 @@
             </a>
           </li>
         </ul>
-
       </div>
 
-      <div class="col-md-3 mb-md-0 mb-3">
-
+      <div class="col-md-2 mb-md-0 mb-3">
         <ul class="list-unstyled">
           <li>
             <a href='https://github.com/tammingaj/keymap-editor' target='_blank'>
@@ -94,13 +100,13 @@
             </a>
           </li>
         </ul>
-
       </div>
+
     </div>
   </div>
 
-  <div class="footer-copyright text-center py-3">© 2022 Copyright:
-    <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>
-  </div>
+<!--  <div class="footer-copyright text-center py-3">© 2022 Copyright:-->
+<!--    <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>-->
+<!--  </div>-->
 
 </footer>

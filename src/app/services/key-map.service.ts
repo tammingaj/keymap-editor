@@ -60,7 +60,7 @@ export class KeyMapService {
 
   constructor(private repositoryService: RepositoryService) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig('');
-    if(this.keyMapConfig.name !== 'Dummy') {
+    if(this.keyMapConfig.name !== ' ') {
       console.log('keymapservice is primed with: ', this.keyMapConfig);
 
       this.keys = this.keyMapConfig.getKeyConfigs();
@@ -162,7 +162,7 @@ export class KeyMapService {
   }
 
   public noKeyMapAvailable(): boolean {
-    return this.keyMapConfig.name === 'Dummy';
+    return this.keyMapConfig.name === ' ';
   }
 
   public toggleActive(keyConfig: KeyConfig): void {
