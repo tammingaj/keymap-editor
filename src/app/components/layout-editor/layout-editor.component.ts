@@ -15,13 +15,14 @@ export class LayoutEditorComponent implements OnInit {
   private keys: Array<KeyConfig> = new Array<KeyConfig>();
   private combos: Array<Combo> = new Array<Combo>();
   private subscriptions: Subscription = new Subscription();
-
+  public top: string = "50px";
   constructor(public keyMapService: KeyMapService){}
 
   // @ts-ignore
   @ViewChild('arena') arena: ElementRef<HTMLElement>;
 
   @Input() mode: string = ''; // 'layout' or ''
+  @Input() keymapName: string = '';
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -84,4 +85,7 @@ export class LayoutEditorComponent implements OnInit {
     return this.combos;
   }
 
+  getKeymapName(): string {
+    return this.keyMapService.getKeymapName();
+  }
 }

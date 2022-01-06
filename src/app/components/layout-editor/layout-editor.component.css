@@ -5,3 +5,18 @@
   overflow: hidden;
   border-radius: 0.25rem;
 }
+
+#arena:before {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  position: sticky;
+  display: block;
+  float: left;
+  top: 60px;
+  left: -50px;
+  border: 1px solid #000;
+  content: attr(title);
+  transform: rotate(-90deg);
+}
+

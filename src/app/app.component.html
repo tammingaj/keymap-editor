@@ -42,24 +42,16 @@
 
 
 <div class="container">
-  <div class="name-banner">
-    <h1 class="h1">{{keyMapService.getKeymapName()}}</h1>
-  </div>
-
   <router-outlet></router-outlet>
-
   <!-- hidden input to facilitate importing keymap files from dropdown in nav -->
   <input #fileInput
     style="display: none"
     type="file" (change)="onFileChanged($event)">
-
 </div>
 
 <footer class="container font-small blue pt-4">
   <hr>
-
   <div class="container-fluid text-center text-md-left">
-
     <div class="row">
       <div class="col-md-7 mb-md-0 mb-3">
         <ul class="list-unstyled">
@@ -106,7 +98,6 @@
           </li>
         </ul>
       </div>
-
     </div>
   </div>
 

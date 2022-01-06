@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule, Routes } from "@angular/router";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { KeyComponent } from './components/key/key.component';
 import { KeyDetailsComponent } from './components/key-details/key-details.component';
 import { LayoutEditorComponent } from './components/layout-editor/layout-editor.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BehaviorSelectorComponent } from './components/behavior-selector/behavior-selector.component';
-import { RouterModule, Routes } from "@angular/router";
 import { LayoutViewComponent } from './views/layout-view/layout-view.component';
 import { BehaviorViewComponent } from './views/behavior-view/behavior-view.component';
 import { CodeViewComponent } from './views/code-view/code-view.component';
@@ -16,7 +17,6 @@ import { NewKeymapModalComponent } from './components/new-keymap-modal/new-keyma
 import { ComboViewComponent } from './views/combo-view/combo-view.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
 import { ComboDisplayComponent } from './components/combo-display/combo-display.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { AboutViewComponent } from './views/about-view/about-view.component';
 import { SettingsViewComponent } from './views/settings-view/settings-view.component';
@@ -50,14 +50,14 @@ const appRoutes: Routes = [
     AboutViewComponent,
     SettingsViewComponent
   ],
-    imports: [
-        BrowserModule,
-        NgbModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule.forRoot(appRoutes),
-        FontAwesomeModule,
-    ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
+    FontAwesomeModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
