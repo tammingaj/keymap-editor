@@ -1,6 +1,6 @@
 <!--<div [ngStyle]="getStyle()" (click)="toggleActive($event)" (contextmenu)="delete()" class="key {{config.active?'btn-dark':''}} rounded-lg">-->
 <div [ngStyle]="getStyle()" (click)="toggleActive($event)" class="key {{config.active?'btn-dark':''}} rounded-lg">
-  <span *ngIf="mode=='layout'">{{config.keyNumber}}<br></span>
+  <span *ngIf="mode=='layout'" style="mix-blend-mode: exclusion ">{{config.keyNumber}}<br></span>
   <span *ngIf="mode!='layout'">{{config.label}}<br></span>
   <span *ngIf="mode!='layout'" class="modifier float-left">{{getModifierLabel()}}</span>
 </div>
