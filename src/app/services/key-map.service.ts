@@ -123,7 +123,7 @@ export class KeyMapService {
     let index: number = 0;
     for(let row=0; row < options.nofRows; row++) {
       for(let col=0; col < options.nofCols; col++) {
-        let keyConfig = new KeyConfig(index,col*50,row*50,0,false,row,col,KeyConfig.SIDELEFT ,''+index++);
+        let keyConfig = new KeyConfig(index,col*50,row*50,0,false,row,col,col+.5 <= options.nofCols/2 ? KeyConfig.SIDELEFT : KeyConfig.SIDERIGHT ,''+index++);
         this.keyMapConfig.addKeyConfig(row,col,keyConfig);
       }
     }
