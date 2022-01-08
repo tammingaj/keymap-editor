@@ -44,7 +44,7 @@
     </div>
 
   </form>
-  <form class="col-6" *ngIf="keyMapService.keyMapConfig.split">
+  <form class="col-6">
     <div class="form-check">
       <input [(ngModel)]="keyMapService.highlight.row" class="form-check-input" type="checkbox" id="rowCheck" name="rowCheck">
       <label class="form-check-label" for="rowCheck">
@@ -57,7 +57,7 @@
         Highlight column of selected key
       </label>
     </div>
-    <div  class="form-check">
+    <div  class="form-check" *ngIf="keyMapService.keyMapConfig.split">
       <input [(ngModel)]="keyMapService.highlight.side" class="form-check-input" type="checkbox" id="leftCheck" name="leftCheck">
       <label class="form-check-label" for="leftCheck">
         Highlight same half
