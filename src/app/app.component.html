@@ -42,11 +42,13 @@
 
 
 <div #outlet id="outlet" class="container" title="{{getKeymapName()}}">
-  <router-outlet></router-outlet>
-  <!-- hidden input to facilitate importing keymap files from dropdown in nav -->
-  <input #fileInput
-    style="display: none"
-    type="file" (change)="onFileChanged($event)">
+  <div title=""><!-- to prevent the keymapname from being displayed as a tooltip -->
+    <router-outlet></router-outlet>
+    <!-- hidden input to facilitate importing keymap files from dropdown in nav -->
+    <input #fileInput
+      style="display: none"
+      type="file" (change)="onFileChanged($event)">
+  </div>
 </div>
 
 <footer class="container font-small blue pt-4">
