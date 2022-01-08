@@ -1,6 +1,5 @@
 <div #arena
      id="arena"
-     title="{{getKeymapName()}}"
      preserveAspectRatio="xMidYMid meet"
      (click)="keyMapService.deselectKeys()">
   <key *ngFor="let keyConfig of getKeyConfigs()"

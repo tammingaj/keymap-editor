@@ -41,7 +41,7 @@
 </div>
 
 
-<div class="container">
+<div #outlet id="outlet" class="container" title="{{getKeymapName()}}">
   <router-outlet></router-outlet>
   <!-- hidden input to facilitate importing keymap files from dropdown in nav -->
   <input #fileInput
@@ -56,11 +56,10 @@
       <div class="col-md-7 mb-md-0 mb-3">
         <ul class="list-unstyled">
           <li>
+            <span>Project initiation by The</span><span class="theo">o</span><span>&nbsp;Ther</span><span class="theo">one</span>
+          <li>
             © 2022 Copyright:
             <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>
-          </li>
-          <li>
-            <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Licence</a>
           </li>
         </ul>
       </div>
@@ -74,9 +73,9 @@
             </a>
           </li>
           <li>
-            <a href='https://ko-fi.com/W7W73AH0S' target='_blank'>
-              <fa-icon [icon]="faDonate" class="float-left mr-2"></fa-icon>
-              Donate
+            <a href="./assets/LICENSE" target="_blank">
+              <fa-icon [icon]="faCopyright" class="float-left mr-2"></fa-icon>
+              MIT Licence
             </a>
           </li>
         </ul>

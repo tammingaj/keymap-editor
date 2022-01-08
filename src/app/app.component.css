@@ -1,1 +1,23 @@
+.theo {
+  animation: theo 5s ease infinite;
+  display: inline-block;
+}
 
+@keyframes theo {
+  0%, 100% {transform: translateX(0);}
+  50% {transform: translateX(.3em);}
+}
+
+#outlet:before {
+  display:inline-flex;
+  margin-left:-1.8rem;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  float: left;
+  content: attr(title);
+  writing-mode: vertical-rl;
+  transform:rotate(180deg);
+  background-color: red;
+  padding: 0.5rem 0rem;
+}

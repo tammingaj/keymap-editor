@@ -64,7 +64,7 @@ export class LayoutEditorComponent implements OnInit {
 
     setTimeout (() => {
       this.arena.nativeElement.click();
-    }, 200);
+    }, 400);
   }
 
   ngOnDestroy(): void {
