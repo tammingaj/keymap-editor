@@ -46,6 +46,14 @@ export class LayoutEditorComponent implements OnInit {
         console.log('down');
         this.keyMapService.down(this.STEP);
       }
+      if (event.key === 'End') {
+        console.log('clockwise');
+        this.keyMapService.clockwise();
+      }
+      if (event.key === 'Home') {
+        console.log('counterclockwise');
+        this.keyMapService.counterClockwise();
+      }
     }
 
     if (event.key === 'Escape') {

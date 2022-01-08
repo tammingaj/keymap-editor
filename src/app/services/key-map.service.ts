@@ -253,6 +253,22 @@ export class KeyMapService {
     this.move(0,amount);
   }
 
+  public clockwise(){
+    this.keys.forEach((key) => {
+      if (key.active) {
+        key.angle = key.angle + 1;
+      }
+    });
+  }
+
+  public counterClockwise(){
+    this.keys.forEach((key) => {
+      if (key.active) {
+        key.angle = key.angle - 1;
+      }
+    });
+  }
+
   // calculate the minimum and maximum x and y values for the key configs
   public calculateMinMax(): void {
     this.minX = Number.POSITIVE_INFINITY;
