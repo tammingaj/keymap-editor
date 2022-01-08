@@ -4,19 +4,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Keymap Editor</a>
+      <div ngbDropdown class="d-inline-block">
+        <a class="navbar-brand" dropdown-toggle-split ngbDropdownToggle>Keymap Editor</a>
+<!--        <a class="nav-item nav-link dropdown-toggle-split float-left ml-n2" id="dropdownMenu1" ngbDropdownToggle> </a>-->
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <button class="dropdown-item" (click)="newKeymap()">New keymap</button>
+          <button class="dropdown-item" (click)="save()">Keep for next time</button>
+          <button class="dropdown-item" (click)="fileInput.click()">Import configuration</button>
+          <button class="dropdown-item" (click)="export()">Export configuration</button>
+        </div>
+      </div>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item dropdown">
-          <div ngbDropdown class="d-inline-block">
-            <a routerLink="/layout" routerLinkActive="active" class="nav-item nav-link float-left">Layout</a>
-            <a class="nav-item nav-link dropdown-toggle-split float-left ml-n2" id="dropdownMenu1" ngbDropdownToggle> </a>
-            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <button class="dropdown-item" (click)="newKeymap()">New keymap</button>
-              <button class="dropdown-item" (click)="save()">Keep for next time</button>
-              <button class="dropdown-item" (click)="fileInput.click()">Import configuration</button>
-              <button class="dropdown-item" (click)="export()">Export configuration</button>
-            </div>
-          </div>
+          <a routerLink="/layout" routerLinkActive="active" class="nav-item nav-link float-left">Layout</a>
         </li>
         <li>
           <a routerLink="/behavior" routerLinkActive="active" class="nav-item nav-link">Behavior</a>
