@@ -58,6 +58,12 @@ export class KeyMapService {
   public maxX: number = 0;
   public maxY: number = 0;
 
+  public highlight = {
+    'row': false,
+    'column': false,
+    'side': false
+  }
+
   constructor(private repositoryService: RepositoryService) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig('');
     if(this.keyMapConfig.name !== ' ') {
