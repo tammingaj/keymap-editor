@@ -39,9 +39,4 @@ export class LayoutViewComponent implements OnInit {
     }
   }
 
-  addKey() {
-    console.log('add key');
-  }
-
-
 }

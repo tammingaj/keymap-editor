@@ -6,6 +6,7 @@ import {Combo} from "./combo";
 export class KeyMapConfig {
 
   public name: string;
+  public githubUrl: string = "";
   public rows: number = 0;
   public cols: number = 0;
   public split: boolean = false;

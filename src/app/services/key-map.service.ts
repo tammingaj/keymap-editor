@@ -84,6 +84,7 @@ export class KeyMapService {
   createNewKeymap(options: any): void{
     this.createInitialKeyMapConfig(options);
     this.keyMapConfig.name = options.name;
+    this.keyMapConfig.githubUrl = options.githubUrl;
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.behaviors = this.keyMapConfig.behaviors;
     this.layers = this.keyMapConfig.layers;
