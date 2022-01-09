@@ -20,9 +20,11 @@ import { ComboDisplayComponent } from './components/combo-display/combo-display.
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { AboutViewComponent } from './views/about-view/about-view.component';
 import { SettingsViewComponent } from './views/settings-view/settings-view.component';
+import { LayerViewComponent } from './views/layer-view/layer-view.component';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
+  { path: 'layers', component: LayerViewComponent },
   { path: 'behavior', component: BehaviorViewComponent },
   { path: 'combos', component: ComboViewComponent },
   { path: 'code', component: CodeViewComponent },
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     ComboDisplayComponent,
     SanitizeHtmlPipe,
     AboutViewComponent,
-    SettingsViewComponent
+    SettingsViewComponent,
+    LayerViewComponent
   ],
   imports: [
     BrowserModule,
