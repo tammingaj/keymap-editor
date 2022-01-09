@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {KeyMapService} from "../../services/key-map.service";
+import { faTrash, faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'layer-view',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayerViewComponent implements OnInit {
 
-  constructor() { }
+  public newLayerName: string = '';
+  public faTrash = faTrash;
+  public faArrowRight =  faArrowRight;
+  public faArrowLeft =  faArrowLeft;
+
+  constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
   }
 
 }

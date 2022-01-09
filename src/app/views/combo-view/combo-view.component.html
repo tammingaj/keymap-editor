@@ -3,7 +3,7 @@
 </div>
 <hr>
 <div class="row">
-  <div class="col-lg-2">
+  <div class="col-4">
     <h2>Combos</h2>
     <button *ngFor="let combo of keyMapService.combos$ | async"
             class="btn btn-block"
@@ -19,7 +19,7 @@
     </form>
   </div>
 
-  <div class="col-lg-10">
+  <div class="col-8">
     <combo-form *ngIf="selectedCombo.name != ''"></combo-form>
     <article *ngIf="selectedCombo.name === ''">
       <p>Enter a name and click the button to start creating a new combo, or select a combo from the list on the left to
@@ -28,5 +28,20 @@
         next to the keys will deselect them all. The combos can be color-coded so that you can easily see which keys are
         in the same combo.</p>
     </article>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-6">
+    <a routerLink="/behavior" routerLinkActive="active" class="btn btn-info">
+      &nbsp;Back
+      <fa-icon [icon]="faArrowLeft" class="float-left"></fa-icon>
+    </a>
+  </div>
+  <div class="col-6">
+    <a routerLink="/code" routerLinkActive="active" class="btn btn-info float-right">
+      Next&nbsp;
+      <fa-icon [icon]="faArrowRight" class="float-right"></fa-icon>
+    </a>
   </div>
 </div>

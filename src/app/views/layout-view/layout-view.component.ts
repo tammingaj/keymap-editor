@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {KeyMapService} from "../../services/key-map.service";
 import {KeyConfig} from "../../classes/key-config";
 import {Subscription} from "rxjs";
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'layout-view',
@@ -14,7 +15,7 @@ export class LayoutViewComponent implements OnInit {
 
   public keys: Array<KeyConfig> = new Array<KeyConfig>();
   public currentKey: KeyConfig = KeyConfig.getInstance();
-
+  public faArrowRight = faArrowRight;
   constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {

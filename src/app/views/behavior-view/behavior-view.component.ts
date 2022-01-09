@@ -4,8 +4,7 @@ import {Layer} from "../../classes/layer";
 import {Subscription} from "rxjs";
 import {v4 as uuidv4} from "uuid";
 import {KeyMapService} from "../../services/key-map.service";
-import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'behavior-view',
@@ -24,8 +23,11 @@ export class BehaviorViewComponent implements OnInit {
 
   public newLayerName: string = '';
   public faTrash = faTrash;
+  public faArrowRight =  faArrowRight;
+  public faArrowLeft =  faArrowLeft;
 
-  constructor(public keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService) {
+
+  constructor(public keyMapService: KeyMapService) {
   }
 
   ngOnInit(): void {
@@ -52,47 +54,37 @@ export class BehaviorViewComponent implements OnInit {
     }
   }
 
-  buildFirmware():void {
-    console.log('Building firmware');
-  }
-
-  // startGeneration(): void {
-  //   this.codeFile = this.zmkConfigGeneratorService.generate();
+  // save(): void {
+  //   this.keyMapService.saveKeyMapConfig();
   // }
-
-  save(): void {
-    this.keyMapService.saveKeyMapConfig();
-  }
-
-  getCodeFile(): String[] {
-    return this.codeFile;
-  }
-
-  getCodeFileAsHtml(): String {
-    return this.codeFile.join('<br>').replace(' ', '&nbsp;');
-  }
-
-  getActiveKeys(): KeyConfig[] {
-    return this.activeKeys;
-  }
-
-  getCurrentKey(): KeyConfig {
-    return this.currentKey;
-  }
-
-  getLayers(): Array<Layer>{
-    return this.layers;
-  }
-
-  addLayer(): void {
-    this.keyMapService.addLayer(this.newLayerName);
-  }
-
-  selectLayer(layer:Layer): void{
-    this.keyMapService.selectLayer(layer);
-  }
-
-  getKeymapName(): string {
-    return this.keyMapService.getKeymapName();
-  }
+  //
+  // getCodeFile(): String[] {
+  //   return this.codeFile;
+  // }
+  //
+  // getCodeFileAsHtml(): String {
+  //   return this.codeFile.join('<br>').replace(' ', '&nbsp;');
+  // }
+  //
+  // getActiveKeys(): KeyConfig[] {
+  //   return this.activeKeys;
+  // }
+  //
+  // getCurrentKey(): KeyConfig {
+  //   return this.currentKey;
+  // }
+  //
+  // getLayers(): Array<Layer>{
+  //   return this.layers;
+  // }
+  //
+  //
+  //
+  // selectLayer(layer:Layer): void{
+  //   this.keyMapService.selectLayer(layer);
+  // }
+  //
+  // getKeymapName(): string {
+  //   return this.keyMapService.getKeymapName();
+  // }
 }

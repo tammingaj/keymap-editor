@@ -4,8 +4,7 @@ import {Subscription} from "rxjs";
 import {Layer} from "../../classes/layer";
 import {KeyConfig} from "../../classes/key-config";
 import {Combo} from "../../classes/combo";
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-
+import { faTrash, faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'combo-view',
   templateUrl: './combo-view.component.html',
@@ -20,6 +19,8 @@ export class ComboViewComponent implements OnInit {
   public newComboName: string = "";
   public selectedCombo: Combo = new Combo(0,'',50,'', '',[],[]);
   public faTrash = faTrash;
+  public faArrowRight = faArrowRight;
+  public faArrowLeft = faArrowLeft;
 
   constructor(public keyMapService: KeyMapService) { }
 

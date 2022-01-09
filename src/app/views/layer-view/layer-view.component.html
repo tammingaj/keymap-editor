@@ -1,1 +1,43 @@
-<p>layer-view works!</p>
+<div class="row">
+  <layout-editor class="col"></layout-editor>
+</div>
+<hr>
+
+<div class="row m-1">
+  <div class="col-4">
+    <h2>Layers</h2>
+    <button *ngFor="let layer of keyMapService.layers$ | async" class="btn btn-block btn-secondary">
+      {{layer.name}}
+      <fa-icon [icon]="faTrash" (click)="keyMapService.deleteLayer(layer)" class="float-right" title="Delete this layer"></fa-icon>
+    </button>
+  </div>
+
+  <div class="col-8">
+    <article>
+      <p>Declare the layers for your keyboard here. It is possible to delete or add layers after working on the behaviors
+        and combos for your keys, but keep in mind that all references to deleted layers will disappear from behaviors and
+        combos.</p>
+    </article>
+
+    <form>
+      <label for="newLayerName">&nbsp;</label>
+      <input class="form-control" type="text" [(ngModel)]="newLayerName" id="newLayerName" name="newLayerName" placeholder="New layer name">
+      <button class="btn btn-info mt-1" (click)="keyMapService.addLayer(newLayerName);newLayerName=''">Add</button>
+    </form>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-6">
+    <a routerLink="/layout" routerLinkActive="active" class="btn btn-info">
+      &nbsp;Back
+      <fa-icon [icon]="faArrowLeft" class="float-left"></fa-icon>
+    </a>
+  </div>
+  <div class="col-6">
+    <a routerLink="/behavior" routerLinkActive="active" class="btn btn-info float-right">
+      Next&nbsp;
+      <fa-icon [icon]="faArrowRight" class="float-right"></fa-icon>
+    </a>
+  </div>
+</div>

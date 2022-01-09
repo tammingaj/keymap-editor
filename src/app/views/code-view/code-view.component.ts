@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from "rxjs";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'code-view',
@@ -11,6 +12,7 @@ export class CodeViewComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
   public codeLines : string[] = [];
+  public faArrowLeft = faArrowLeft;
 
   constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService ) { }
 
