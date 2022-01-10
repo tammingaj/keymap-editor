@@ -6,11 +6,12 @@
   <div class="col-4">
     <h2>Combos</h2>
     <button *ngFor="let combo of keyMapService.combos$ | async"
-            class="btn btn-block"
-            [ngClass]="combo.name===selectedCombo.name?'btn-primary':'btn-secondary'"
+            class="btn btn-block btn-secondary"
             (click)="keyMapService.selectCombo(combo)">
       {{combo.name}}
-      <fa-icon [icon]="faTrash" (click)="keyMapService.deleteCombo(combo)" class="float-right" title="Delete this combo"></fa-icon>
+      <fa-icon [icon]="faTrash"
+               [ngStyle]="{color: combo.color, 'opacity': '0.4'}"
+               (click)="keyMapService.deleteCombo(combo)" class="float-right" title="Delete this combo"></fa-icon>
     </button>
     <form class="mt-1">
       <label for="newComboName">New combo</label>
