@@ -4,7 +4,7 @@ import {KeyMapConfig} from "../classes/key-map-config";
 import {KeyConfig} from "../classes/key-config";
 import {Behavior} from "../classes/behavior";
 import {Layer} from "../classes/layer";
-import {ReplaySubject} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {v4 as uuidv4} from 'uuid';
 import {Combo} from "../classes/combo";
 
@@ -15,42 +15,43 @@ export class KeyMapService {
 
   // contains all keys
   private keys: Array<KeyConfig> = new Array<KeyConfig>();
-  public keys$ = new ReplaySubject<Array<KeyConfig>>();
+  public keys$ = new BehaviorSubject<Array<KeyConfig>>(this.keys);
 
   // contains the current key
   private currentKey: KeyConfig = KeyConfig.getInstance();
-  public currentKey$ = new ReplaySubject<KeyConfig>();
+  public currentKey$ = new BehaviorSubject<KeyConfig>(this.currentKey);
 
   // contains all active keys
-  public activeKeys$ = new ReplaySubject<Array<KeyConfig>>()
+  private activeKeys: Array<KeyConfig> = new Array<KeyConfig>();
+  public activeKeys$ = new BehaviorSubject<Array<KeyConfig>>(this.activeKeys)
 
   // contains all behaviors
   private behaviors: Array<Behavior> = new Array<Behavior>();
-  public behaviors$ = new ReplaySubject<Array<Behavior>>();
+  public behaviors$ = new BehaviorSubject<Array<Behavior>>(this.behaviors);
 
   // contains the selected behavior
   private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
-  public selectedBehavior$ = new ReplaySubject<Behavior>();
+  public selectedBehavior$ = new BehaviorSubject<Behavior>(this.selectedBehavior);
 
   // contains the behaviors for the current key
   private currentKeyBehaviors = new Array<Behavior>();
-  public currentKeyBehaviors$ = new ReplaySubject<Array<Behavior>>();
+  public currentKeyBehaviors$ = new BehaviorSubject<Array<Behavior>>(this.currentKeyBehaviors);
 
   // contains all layers
   private layers: Array<Layer> = new Array<Layer>();
-  public layers$ = new ReplaySubject<Array<Layer>>();
+  public layers$ = new BehaviorSubject<Array<Layer>>(this.layers);
 
   // contains the current layer
   public currentLayer = new Layer('',uuidv4());
-  public currentLayer$ = new ReplaySubject<Layer>();
+  public currentLayer$ = new BehaviorSubject<Layer>(this.currentLayer);
 
   // contains all combos
   private combos: Array<Combo> = new Array<Combo>();
-  public combos$ = new ReplaySubject<Array<Combo>>();
+  public combos$ = new BehaviorSubject<Array<Combo>>(this.combos);
 
   // contains the current combo
   private selectedCombo = new Combo(0,'',50,'', '',[],[]);
-  public selectedCombo$ = new ReplaySubject<Combo>();
+  public selectedCombo$ = new BehaviorSubject<Combo>(this.selectedCombo);
 
   public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
   public minX: number = 0;
