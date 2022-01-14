@@ -242,6 +242,43 @@ export class KeyMapService {
   }
 
   public deleteConfig(config: KeyConfig): void {
+    // remove the behaviors for the key that is deleted
+    this.behaviors = this.behaviors.filter(behavior => behavior.keyNumber !== config.keyNumber);
+
+    // recalculate the keynumbers for the remaining behaviors
+    this.behaviors.forEach(behavior => {
+      if (behavior.keyNumber > config.keyNumber) {
+        behavior.keyNumber--;
+      }
+    })
+    this.behaviors$.next(this.behaviors);
+
+    // remove the keynumber from the combos and delete the combos that have no key left
+    this.combos.forEach(combo => {
+      let idx = combo.keys.findIndex(key => key === config.keyNumber);
+      if (idx >= 0) {
+        combo.keys.splice(idx,1);
+        if (combo.keys.length === 0) {
+          this.combos.splice(this.combos.indexOf(combo),1);
+        }
+      }
+      // renumber the remaining keys in the combos if necessary
+      combo.keys.forEach(key => {
+        if (key > config.keyNumber) {
+          key--;
+        }
+      })
+    });
+    this.combos$.next(this.combos);
+
+    // renumber the keys with higher keynumbers
+    this.keys.forEach(key => {
+      if (key.keyNumber > config.keyNumber) {
+        key.keyNumber--;
+      }
+    });
+
+    // remove the key from the keys array
     this.keyMapConfig.deleteKeyConfig(config);
   }
 
