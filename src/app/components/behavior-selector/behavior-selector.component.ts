@@ -16,7 +16,6 @@ export class BehaviorSelectorComponent implements OnInit {
 
   public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
   public layers: Array<Layer> = new Array<Layer>();
-  public selectedLayers: Array<Layer> = new Array<Layer>();
 
   constructor(public keyMapService: KeyMapService) { }
 
@@ -41,11 +40,6 @@ export class BehaviorSelectorComponent implements OnInit {
     }
   }
 
-  deleteSelectedBehavior(): void {
-    console.log('delete behavior');
-    this.keyMapService.deleteCurrentBehavior();
-  }
-
   public selectValue(value: string): void {
     this.selectedBehavior.values[0] = value;
   }
@@ -54,11 +48,4 @@ export class BehaviorSelectorComponent implements OnInit {
     this.selectedBehavior.values[1] = value;
   }
 
-  public onLayerChange(layer: Layer, event: Event): void {
-    // if (event.target.checked) {
-    //   this.selectedLayers.push(layer);
-    // } else {
-    //   this.selectedLayers.splice(this.selectedLayers.indexOf(layer), 1);
-    // }
-  }
 }
