@@ -88,6 +88,11 @@ export class KeyComponent implements OnInit {
     return keyStyle;
   }
 
+  getLabel(): string {
+    let label = this.keyMapService.getLabel(this.config);
+    return label;
+  }
+
   getModifierLabel(): string {
     let label = this.keyMapService.getModifierLabel(this.config);
     return label;
