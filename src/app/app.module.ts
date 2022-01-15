@@ -7,7 +7,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { KeyComponent } from './components/key/key.component';
-import { KeyDetailsComponent } from './components/key-details/key-details.component';
 import { LayoutEditorComponent } from './components/layout-editor/layout-editor.component';
 import { BehaviorSelectorComponent } from './components/behavior-selector/behavior-selector.component';
 import { LayoutViewComponent } from './views/layout-view/layout-view.component';
@@ -38,7 +37,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     KeyComponent,
-    KeyDetailsComponent,
     LayoutEditorComponent,
     BehaviorSelectorComponent,
     LayoutViewComponent,

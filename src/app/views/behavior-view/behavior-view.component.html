@@ -15,7 +15,9 @@
     <article>
       <p>explain behaviors</p>
     </article>
-    <key-details class="col-7"></key-details>
+    <div class="col-lg-4" *ngIf="keyMapService.currentKeyAvailable">
+      <behavior-selector></behavior-selector>
+    </div>
   </div>
 </div>
 
