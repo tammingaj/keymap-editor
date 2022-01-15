@@ -13,22 +13,23 @@
                [ngStyle]="{color: combo.color, 'opacity': '0.4'}"
                (click)="keyMapService.deleteCombo(combo)" class="float-right" title="Delete this combo"></fa-icon>
     </button>
-    <form class="mt-1">
-      <label for="newComboName">New combo</label>
-      <input class="form-control" type="text" [(ngModel)]="newComboName" id="newComboName" name="newComboName">
-      <button class="btn btn-info mt-1" (click)="addCombo()">Add</button>
-    </form>
   </div>
 
   <div class="col-8">
     <combo-form *ngIf="selectedCombo.name != ''"></combo-form>
     <article *ngIf="selectedCombo.name === ''">
       <p>Enter a name and click the button to start creating a new combo, or select a combo from the list on the left to
-        start editing it. Use the trash icon to delete a combo.</p>
+        start (<em>or stop</em>) editing it. Use the trash icon to delete a combo.</p>
       <p>In the keyboard above you can select the keys that are part of the combo that you are working on. Clicking
         next to the keys will deselect them all. The combos can be color-coded so that you can easily see which keys are
         in the same combo.</p>
     </article>
+
+    <form *ngIf="selectedCombo.name === ''">
+      <label for="newComboName">&nbsp;</label>
+      <input class="form-control col-6 float-left" type="text" [(ngModel)]="newComboName" id="newComboName" name="newComboName" placeholder="New combo name">
+      <button class="btn btn-info col-2 ml-1 float-left" (click)="addCombo()">Add</button>
+    </form>
   </div>
 </div>
 
