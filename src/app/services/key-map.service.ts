@@ -186,10 +186,20 @@ export class KeyMapService {
     this.selectBehaviorsForKeyAndLayer();
   }
 
-  public selectBehavior(behavior: Behavior): void {
-    console.log('service signals selection of behavior: ',behavior);
-    this.selectedBehavior$.next(behavior)
+  public deselectKeys(): void {
+    this.keys.forEach((key) => {
+      if (key.active) {
+        key.active = false;
+      }
+    });
+    this.activeKeys$.next([]);
+    this.currentKeyAvailable = false;
   }
+
+  // public selectBehavior(behavior: Behavior): void {
+  //   console.log('service signals selection of behavior: ',behavior);
+  //   this.selectedBehavior$.next(behavior)
+  // }
 
   public selectLayer(layer: Layer): void {
     console.log('service signals selection of layer: ',layer);
@@ -339,16 +349,6 @@ export class KeyMapService {
         this.calculateMinMax()
       }
     });
-  }
-
-  public deselectKeys(): void {
-    this.keys.forEach((key) => {
-      if (key.active) {
-        key.active = false;
-      }
-    });
-    this.activeKeys$.next([]);
-    this.currentKeyAvailable = false;
   }
 
   getKeymapName() {
