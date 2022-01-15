@@ -81,10 +81,6 @@ export class LayoutEditorComponent implements OnInit {
     }
   }
 
-  registerSelected(keyConfig: KeyConfig) {
-    this.keyMapService.selectKey(keyConfig)
-  }
-
   getKeyConfigs(): Array<KeyConfig> {
     return this.keys;
   }
@@ -93,7 +89,4 @@ export class LayoutEditorComponent implements OnInit {
     return this.combos;
   }
 
-  getKeymapName(): string {
-    return this.keyMapService.getKeymapName();
-  }
 }

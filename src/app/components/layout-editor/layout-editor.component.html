@@ -5,7 +5,6 @@
   <key *ngFor="let keyConfig of getKeyConfigs()"
        [config]="keyConfig"
        [mode]="mode"
-       (selected)="registerSelected(keyConfig)"
        [arena]="{'width':arena.offsetWidth,'height':arena.offsetHeight}">
   </key>
   <div *ngIf="mode != 'layout'">

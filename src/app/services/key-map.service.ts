@@ -355,16 +355,16 @@ export class KeyMapService {
     return this.keyMapConfig.name;
   }
 
-  addBehavior(newBehavior: Behavior) {
-    this.behaviors.push(newBehavior);
-    this.behaviors.sort((first,second) => {
-      if (first.keyNumber < second.keyNumber) return -1;
-      if (first.keyNumber > second.keyNumber) return 1;
-      return 0;
-    });
-    this.behaviors$.next(this.behaviors);
-    this.selectBehaviorsForKeyAndLayer()
-  }
+  // addBehavior(newBehavior: Behavior) {
+  //   this.behaviors.push(newBehavior);
+  //   this.behaviors.sort((first,second) => {
+  //     if (first.keyNumber < second.keyNumber) return -1;
+  //     if (first.keyNumber > second.keyNumber) return 1;
+  //     return 0;
+  //   });
+  //   this.behaviors$.next(this.behaviors);
+  //   this.selectBehaviorsForKeyAndLayer()
+  // }
 
   deleteCurrentBehavior():void {
     let idx = this.behaviors.indexOf(this.selectedBehavior);
