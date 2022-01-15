@@ -20,6 +20,7 @@ export class KeyMapService {
   // contains the current key
   private currentKey: KeyConfig = KeyConfig.getInstance();
   public currentKey$ = new BehaviorSubject<KeyConfig>(this.currentKey);
+  public currentKeyAvailable: boolean = false;
 
   // contains all active keys
   private activeKeys: Array<KeyConfig> = new Array<KeyConfig>();
@@ -181,6 +182,7 @@ export class KeyMapService {
     console.log('service signals selection of key: ',config);
     this.currentKey = config;
     this.currentKey$.next(config);
+    this.currentKeyAvailable = true;
     this.selectBehaviorsForKeyAndLayer();
   }
 
@@ -346,6 +348,7 @@ export class KeyMapService {
       }
     });
     this.activeKeys$.next([]);
+    this.currentKeyAvailable = false;
   }
 
   getKeymapName() {
