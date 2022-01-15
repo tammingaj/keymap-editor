@@ -3,8 +3,13 @@ export class Behavior {
   public static readonly BEHAVIOR_TYPE_NONE: string = '&none';
   public static readonly BEHAVIOR_TYPE_TRANSPARENT: string = '&trans';
   public static readonly BEHAVIOR_TYPE_KEYPRESS: string = '&kp ';
-  public static readonly BEHAVIOR_TYPE_COMBO: string = 'combo';
   public static readonly BEHAVIOR_TYPE_MODIFIER: string = '&hm ';
+  public static readonly BEHAVIOR_TYPE_LAYER_TAP: string = '&lt ';
+  public static readonly BEHAVIOR_TYPE_MOMENTARY_LAYER: string = '&mo ';
+  public static readonly BEHAVIOR_TYPE_TO_LAYER: string = '&to ';
+  public static readonly BEHAVIOR_TYPE_TOGGLE_LAYER: string = '&tog ';
+  public static readonly BEHAVIOR_TYPE_STICKY_LAYER: string = '&sl ';
+  public static readonly BEHAVIOR_TYPE_STICKY_KEY: string = '&sk ';
 
   public static readonly MODIFIER_LGUI: string = 'LGUI';
   public static readonly MODIFIER_LALT: string = 'LALT';
@@ -50,7 +55,9 @@ export class Behavior {
 
   constructor(keyNumber: number, type: string, values: string[],keys: number[], layers: string[]) {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
-      type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_COMBO) {
+      type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_LAYER_TAP || type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER ||
+      type === Behavior.BEHAVIOR_TYPE_TO_LAYER || type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER || type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER ||
+      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY) {
       this.keyNumber = keyNumber;
       this.type = type;
       this.values = values;
@@ -59,14 +66,11 @@ export class Behavior {
     } else this.type = Behavior.BEHAVIOR_TYPE_NONE;
   }
 
-  public getLabel(): string {
+  public getType(): string {
     let label: string = '';
     switch (this.type) {
       case Behavior.BEHAVIOR_TYPE_NONE :
         label = 'None';
-        break;
-      case Behavior.BEHAVIOR_TYPE_COMBO :
-        label = 'Combo';
         break;
       case Behavior.BEHAVIOR_TYPE_KEYPRESS :
         label = 'Keypress';
@@ -76,6 +80,63 @@ export class Behavior {
         break;
       case Behavior.BEHAVIOR_TYPE_MODIFIER :
         label = 'Modifier';
+        break;
+      case Behavior.BEHAVIOR_TYPE_LAYER_TAP :
+        label = 'Layer Tap';
+        break;
+      case Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER :
+        label = 'Momentary Layer';
+        break;
+      case Behavior.BEHAVIOR_TYPE_TO_LAYER :
+        label = 'To Layer';
+        break;
+      case Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER :
+        label = 'Toggle Layer';
+        break;
+      case Behavior.BEHAVIOR_TYPE_STICKY_LAYER :
+        label = 'Sticky Layer';
+        break;
+      case Behavior.BEHAVIOR_TYPE_STICKY_KEY :
+        label = 'Sticky Key';
+        break;
+      default:
+        label = 'None';
+    }
+    return label;
+  }
+
+  public getLabel(): string {
+    let label: string = '';
+    switch (this.type) {
+      case Behavior.BEHAVIOR_TYPE_NONE :
+        label = '-';
+        break;
+      case Behavior.BEHAVIOR_TYPE_KEYPRESS :
+        label = label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_TRANSPARENT :
+        label = ' ';
+        break;
+      case Behavior.BEHAVIOR_TYPE_MODIFIER :
+        label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_LAYER_TAP :
+        label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER :
+        label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_TO_LAYER :
+        label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER :
+        label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_STICKY_LAYER :
+        label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_STICKY_KEY :
+        label = this.values[0];
         break;
       default:
         label = 'None';
@@ -98,6 +159,25 @@ export class Behavior {
     if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) {
       return  Behavior.BEHAVIOR_TYPE_MODIFIER + this.values[1] + ' '+ this.values[0];
     }
+    if (this.type === Behavior.BEHAVIOR_TYPE_LAYER_TAP) {
+      return Behavior.BEHAVIOR_TYPE_LAYER_TAP + this.values[1] + ' '+ this.values[0];
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER) {
+      return Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER + this.values[0];
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_TO_LAYER) {
+      return Behavior.BEHAVIOR_TYPE_TO_LAYER + this.values[0];
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER) {
+      return Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER + this.values[0];
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER) {
+      return Behavior.BEHAVIOR_TYPE_STICKY_LAYER + this.values[0];
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_KEY) {
+      return Behavior.BEHAVIOR_TYPE_STICKY_KEY + this.values[0];
+    }
+
     return ' ??? ';
   }
 }

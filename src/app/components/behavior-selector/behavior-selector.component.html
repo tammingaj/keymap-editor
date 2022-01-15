@@ -1,12 +1,17 @@
-<h3>{{selectedBehavior.getLabel()}}</h3>
+<h3>{{selectedBehavior.getType()}}</h3>
 <div ngbDropdown class="form-group form-inline">
   <label for="dropdownBasic1" class="col-4 text-left" style="justify-content: left">Type</label>
-  <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getLabel()}}</button>
+  <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getType()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-    <button ngbDropdownItem (click)="selectBehaviorType('combo')">Combo</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&lt ')">Layer tap</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&mo ')">Momentary layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&sk ')">Sticky key</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&sl ')">Sticky layer</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&to ')">To layer</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&tog ')">Toggle layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&trans')">Transparent</button>
   </div>
 </div>
