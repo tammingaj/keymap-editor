@@ -3,8 +3,6 @@
 </div>
 <hr>
 
-
-
 <div class="row">
   <div class="col-4">
     <button *ngFor="let layer of keyMapService.layers$ | async" class="btn btn-block" [ngClass]="layer.name===currentLayer.name?'btn-primary':'btn-secondary'" (click)="keyMapService.selectLayer(layer)">
