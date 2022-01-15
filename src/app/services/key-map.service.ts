@@ -68,8 +68,6 @@ export class KeyMapService {
   constructor(private repositoryService: RepositoryService) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig('');
     if(this.keyMapConfig.name !== ' ') {
-      console.log('keymapservice is primed with: ', this.keyMapConfig);
-
       this.keys = this.keyMapConfig.getKeyConfigs();
       this.behaviors = this.keyMapConfig.behaviors;
       this.layers = this.keyMapConfig.layers;
@@ -84,8 +82,6 @@ export class KeyMapService {
 
   createNewKeymap(options: any): void{
     this.createInitialKeyMapConfig(options);
-    this.keyMapConfig.name = options.name;
-    this.keyMapConfig.githubUrl = options.githubUrl;
     this.keys = this.keyMapConfig.getKeyConfigs();
     this.behaviors = this.keyMapConfig.behaviors;
     this.layers = this.keyMapConfig.layers;
@@ -107,11 +103,9 @@ export class KeyMapService {
     });
 
     if (this.layers.length === 0) {
-      console.log('there are no layers');
       this.addLayer('Base');
     } else {
       this.layers$.next(this.layers)
-      console.log('selecting current layer: ',this.layers[0]);
       this.behaviors$.next(this.behaviors);
     }
     this.currentLayer = this.layers[0];
@@ -119,9 +113,11 @@ export class KeyMapService {
   }
 
   private createInitialKeyMapConfig(options: any): void {
-    console.log('Creating initial keyMapConfig from: ', options);
     this.keyMapConfig = new KeyMapConfig(options.name || 'Corne');
     this.keyMapConfig.split = options.split;
+    this.keyMapConfig.githubUrl = options.githubUrl;
+    this.keyMapConfig.cols = options.nofCols;
+    this.keyMapConfig.rows = options.nofRows;
     let index: number = 0;
     for(let row=0; row < options.nofRows; row++) {
       for(let col=0; col < options.nofCols; col++) {
@@ -129,7 +125,6 @@ export class KeyMapService {
         this.keyMapConfig.addKeyConfig(row,col,keyConfig);
       }
     }
-    console.log('result: ',this.keyMapConfig);
   }
 
   private replenishKeyMap(): void {
@@ -257,17 +252,15 @@ export class KeyMapService {
     this.combos.forEach(combo => {
       let idx = combo.keys.findIndex(key => key === config.keyNumber);
       if (idx >= 0) {
-        combo.keys.splice(idx,1);
+        combo.keys = combo.keys.splice(idx,1);
         if (combo.keys.length === 0) {
-          this.combos.splice(this.combos.indexOf(combo),1);
+          this.combos = this.combos.splice(this.combos.indexOf(combo),1);
         }
       }
       // renumber the remaining keys in the combos if necessary
-      combo.keys.forEach(key => {
-        if (key > config.keyNumber) {
-          key--;
-        }
-      })
+      let newKeys = combo.keys.map(key => key > config.keyNumber ? key - 1 : key);
+      combo.keys = newKeys;
+
     });
     this.combos$.next(this.combos);
 
@@ -423,6 +416,14 @@ export class KeyMapService {
     let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.type == '&hm ');
     if (behavior) {
       return behavior.values[1];
+    }
+    return '';
+  }
+
+  getLabel(key: KeyConfig): string {
+    let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.layers.indexOf(this.currentLayer.id) > -1);
+    if (behavior) {
+      return behavior.getLabel();
     }
     return '';
   }
