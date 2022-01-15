@@ -19,6 +19,8 @@ export class LayoutViewComponent implements OnInit {
   constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
+    console.log('LayoutViewComponent.ngOnInit()');
+    this.keyMapService.setSingleSelect(false);
     this.currentKey.row = -1;
     this.currentKey.column = -1;
 

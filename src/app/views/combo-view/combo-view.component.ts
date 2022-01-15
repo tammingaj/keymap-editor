@@ -25,6 +25,8 @@ export class ComboViewComponent implements OnInit {
   constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
+    console.log('ComboViewComponent.ngOnInit()');
+    this.keyMapService.setSingleSelect(false);
     this.keyMapService.deselectKeys();
     this.subscriptions.add(this.keyMapService.layers$.subscribe(layers => {
       this.layers = layers;

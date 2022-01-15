@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {KeyConfig} from "../../classes/key-config";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 import {KeyMapService} from "../../services/key-map.service";

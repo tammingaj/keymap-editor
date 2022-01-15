@@ -59,6 +59,7 @@ export class KeyMapService {
   public minY: number = 0;
   public maxX: number = 0;
   public maxY: number = 0;
+  private singleSelect: boolean = true;
 
   public highlight = {
     'row': false,
@@ -170,6 +171,10 @@ export class KeyMapService {
   }
 
   public toggleActive(keyConfig: KeyConfig): void {
+    if (this.singleSelect) {
+      console.log('single select mode');
+      this.deselectKeys();
+    }
     keyConfig.active = !keyConfig.active;
     let activeKeys = this.keys.filter(keyConfig => keyConfig.active);
     if (activeKeys.length === 1) {
@@ -435,4 +440,7 @@ export class KeyMapService {
     return JSON.stringify(this.keyMapConfig);
   }
 
+  setSingleSelect(value: boolean) {
+    this.singleSelect = value;
+  }
 }

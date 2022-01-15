@@ -17,6 +17,8 @@ export class LayerViewComponent implements OnInit {
   constructor(public keyMapService: KeyMapService) { }
 
   ngOnInit(): void {
+    console.log('LayerViewComponent.ngOnInit()');
+    this.keyMapService.setSingleSelect(true);
   }
 
   ngOnDestroy() {
