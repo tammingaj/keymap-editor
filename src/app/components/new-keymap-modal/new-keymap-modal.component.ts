@@ -15,10 +15,7 @@ export class NewKeymapModalComponent implements OnInit {
     githubUrl: '',
     split: true,
     nofRows: 0,
-    nofCols: 0,
-    repo: '',
-    shield: '',
-    board: ''
+    nofCols: 0
   });
 
   constructor(private activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService) {
@@ -35,14 +32,7 @@ export class NewKeymapModalComponent implements OnInit {
 
   cancel(): void {
     console.log('form values: ',this.keymapForm);
-    this.activeModal.dismiss('blaat');
+    this.activeModal.dismiss('cancel click');
   }
 
-  selectShield(shield: string): void {
-    this.keymapForm.patchValue({shield: shield})
-  }
-
-  selectBoard(board: string): void {
-    this.keymapForm.patchValue({board: board})
-  }
 }
