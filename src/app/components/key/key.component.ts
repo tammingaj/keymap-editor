@@ -74,6 +74,7 @@ export class KeyComponent implements OnInit {
       'left': left,
       'transform': 'rotate(' + this.config.angle + 'deg)',
       'width': this.width-8 + 'px',
+      'overflow': 'hidden'
     }
     // add a background color if the key is in the same row, column, side as the current key
     let r = this.keyMapService.highlight.side && this.config.side === this.currentKey.side ? 255 : 0;

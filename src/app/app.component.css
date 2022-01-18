@@ -1,6 +1,7 @@
 .theo {
   animation: theo 5s ease infinite;
   display: inline-block;
+  color: #f8fa6d;
 }
 
 @keyframes theo {
