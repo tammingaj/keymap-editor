@@ -4,31 +4,28 @@
   <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getType()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&lt ')">Layer tap</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&lt ')" *ngIf="layers.length > 1">Layer tap</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&mo ')">Momentary layer</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&mo ')" *ngIf="layers.length > 1">Momentary layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&sk ')">Sticky key</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&sl ')">Sticky layer</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&to ')">To layer</button>
-    <button ngbDropdownItem (click)="selectBehaviorType('&tog ')">Toggle layer</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&sl ')" *ngIf="layers.length > 1">Sticky layer</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&to ')" *ngIf="layers.length > 1">To layer</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&tog ')" *ngIf="layers.length > 1">Toggle layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&trans')">Transparent</button>
   </div>
 </div>
 
-<div *ngIf="selectedBehavior.type === '&kp ' || selectedBehavior.type === '&lt ' || selectedBehavior.type === '&sk ' || selectedBehavior.type === '&hm '">
-  <div ngbDropdown class="form-group form-inline">
-    <label for="dropdownKeypress" class="col-5 text-left" style="justify-content: left">Keypress</label>
-    <button class="btn btn-outline-primary" id="dropdownKeypress" ngbDropdownToggle>{{selectedBehavior.values[0]}}</button>
-    <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
-      <button *ngFor="let value of selectedBehavior.getKeyPressValues()" ngbDropdownItem (click)="selectValue(value)">{{value}}</button>
-    </div>
-  </div>
+<div *ngIf="selectedBehavior.type === '&kp ' || selectedBehavior.type === '&lt ' || selectedBehavior.type === '&sk ' || selectedBehavior.type === '&hm '"
+     class="form-group form-inline">
+  <label for="dropdownBasic1" class="col-5 text-left">Keycode</label>
+  <button class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{selectedBehavior.values[0]||'Select keycode'}}</button>
+
 </div>
 
 <div *ngIf="selectedBehavior.type === '&hm '">
   <div ngbDropdown class="form-group form-inline">
-    <label for="dropdownModifier" class="col-5 text-left" style="justify-content: left">Modifier</label>
+    <label for="dropdownModifier" class="col-6 text-left" style="justify-content: left">Modifier</label>
     <button class="btn btn-outline-primary" id="dropdownModifier" ngbDropdownToggle>{{selectedBehavior.values[1]}}</button>
     <div ngbDropdownMenu aria-labelledby="dropdownKeypress">
       <button *ngFor="let value of selectedBehavior.getModifierValues()" ngbDropdownItem (click)="selectModifierKeypress(value)">{{value}}</button>

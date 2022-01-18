@@ -20,6 +20,7 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { AboutViewComponent } from './views/about-view/about-view.component';
 import { SettingsViewComponent } from './views/settings-view/settings-view.component';
 import { LayerViewComponent } from './views/layer-view/layer-view.component';
+import { KeycodeSelectorComponent } from './components/keycode-selector/keycode-selector.component';
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     SanitizeHtmlPipe,
     AboutViewComponent,
     SettingsViewComponent,
-    LayerViewComponent
+    LayerViewComponent,
+    KeycodeSelectorComponent
   ],
   imports: [
     BrowserModule,

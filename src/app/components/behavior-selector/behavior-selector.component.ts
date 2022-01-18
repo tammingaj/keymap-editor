@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {KeyConfig} from "../../classes/key-config";
+import {Component, OnInit} from '@angular/core';
 import {Behavior} from "../../classes/behavior";
 import {KeyMapService} from "../../services/key-map.service";
 import {Subscription} from "rxjs";
 import {Layer} from "../../classes/layer";
+import {KeycodeSelectorComponent} from "../keycode-selector/keycode-selector.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'behavior-selector',
@@ -17,7 +18,7 @@ export class BehaviorSelectorComponent implements OnInit {
   public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
   public layers: Array<Layer> = new Array<Layer>();
 
-  constructor(public keyMapService: KeyMapService) { }
+  constructor(public keyMapService: KeyMapService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -40,12 +41,21 @@ export class BehaviorSelectorComponent implements OnInit {
     }
   }
 
-  public selectValue(value: string): void {
-    this.selectedBehavior.values[0] = value;
-  }
-
   selectModifierKeypress(value: string): void {
     this.selectedBehavior.values[1] = value;
   }
 
+  showKeycodeSelector(): void {
+    console.log('showKeycodeSelector');
+    const modalRef = this.modalService.open(KeycodeSelectorComponent, {size: 'xl', centered: true, backdrop: "static", scrollable: true});
+    modalRef.componentInstance.name = 'KeycodeSelector';
+    modalRef.dismissed.subscribe((value) => {
+      console.log('dismissed ' + value);
+      delete this.selectedBehavior.values[0];
+    });
+    modalRef.closed.subscribe((value => {
+      console.log('closed ', value);
+      this.selectedBehavior.values[0] = value.label || value.codes[0];
+    }));
+  }
 }
