@@ -10,10 +10,11 @@
     </button>
   </div>
   <div class="col-8">
-    <article>
-      <p>explain behaviors</p>
+    <article *ngIf="!keyMapService.currentKeyAvailable">
+      <p>Define what the keys should do in each layer. First select a layer in the list to the left, then click a key above to
+      select a behavior in the form that will appear here.</p>
     </article>
-    <div class="col-lg-4" *ngIf="keyMapService.currentKeyAvailable">
+    <div *ngIf="keyMapService.currentKeyAvailable">
       <behavior-selector></behavior-selector>
     </div>
   </div>
