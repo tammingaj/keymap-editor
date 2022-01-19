@@ -15,8 +15,9 @@ export class BehaviorSelectorComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
 
-  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
+  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],'','', '');
   public layers: Array<Layer> = new Array<Layer>();
+  public currentLayer: Layer = new Layer('','');
 
   constructor(public keyMapService: KeyMapService, private modalService: NgbModal) { }
 
@@ -29,16 +30,31 @@ export class BehaviorSelectorComponent implements OnInit {
       this.keyMapService.layers$.subscribe(layers => {
         this.layers = layers;
       }));
+    this.subscriptions.add(
+      this.keyMapService.currentLayer$.subscribe(layer => {
+        this.currentLayer = layer;
+      }));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
+  public targetLayers() {
+    return this.layers.filter(layer => layer.id != this.currentLayer.id);
+  }
+
   public selectBehaviorType(type: string): void {
     if (this.selectedBehavior) {
       this.selectedBehavior.type = type;
     }
+  }
+
+  selectTargetLayer(layer: Layer): void {
+    this.selectedBehavior.targetLayerId = layer.id;
+    this.selectedBehavior.targetLayerName = layer.name;
+    console.log(this.selectedBehavior);
+    console.log(this.selectedBehavior.generateCode());
   }
 
   selectModifierKeypress(value: string): void {
@@ -50,11 +66,11 @@ export class BehaviorSelectorComponent implements OnInit {
     const modalRef = this.modalService.open(KeycodeSelectorComponent, {size: 'xl', centered: true, backdrop: "static", scrollable: true});
     modalRef.componentInstance.name = 'KeycodeSelector';
     modalRef.dismissed.subscribe((value) => {
-      console.log('dismissed ' + value);
+      console.log('dismissed modal' + value);
       delete this.selectedBehavior.values[0];
     });
     modalRef.closed.subscribe((value => {
-      console.log('closed ', value);
+      console.log('closed modal', value);
       this.selectedBehavior.values[0] = value.label || value.codes[0];
     }));
   }

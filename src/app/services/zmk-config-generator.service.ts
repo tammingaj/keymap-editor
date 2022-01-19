@@ -88,7 +88,7 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile.push('    ' + layer.name + '_layer {');
     this.kbdConfigCodeFile.push('      bindings = <');
     let bindings: string = '        ';
-    this.behaviors.filter(behavior => behavior.layers.indexOf(layer.id) >= 0).forEach(behavior => {
+    this.behaviors.filter(behavior => behavior.layerId === layer.id).forEach(behavior => {
       bindings += behavior.generateCode() + ' ';
     });
     this.kbdConfigCodeFile.push(bindings);

@@ -16,9 +16,18 @@
   </div>
 </div>
 
+<div *ngIf="selectedBehavior.type === '&lt ' || selectedBehavior.type === '&mo ' || selectedBehavior.type === '&sl ' || selectedBehavior.type === '&to ' || selectedBehavior.type === '&tog '"
+     ngbDropdown class="row form-group form-inline">
+  <label for="dropdownLayer" class="col-3 text-left" style="justify-content: left">Layer</label>
+  <button class="btn btn-outline-primary form-control" id="dropdownLayer" ngbDropdownToggle>{{selectedBehavior.targetLayerName}}</button>
+  <div ngbDropdownMenu aria-labelledby="dropdownLayer">
+    <button *ngFor="let layer of targetLayers()" ngbDropdownItem (click)="selectTargetLayer(layer)">{{layer.name}}</button>
+  </div>
+</div>
+
 <div *ngIf="selectedBehavior.type === '&kp ' || selectedBehavior.type === '&lt ' || selectedBehavior.type === '&sk ' || selectedBehavior.type === '&hm '"
      class="row form-group form-inline">
-  <label for="dropdownBasic1" class="col-3 text-left">Keycode</label>
+  <label for="dropdownBasic1" class="col-3 text-left" style="justify-content: left">Keycode</label>
   <button class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{selectedBehavior.values[0]||'Select keycode'}}</button>
 
 </div>

@@ -31,7 +31,7 @@ export class KeyMapService {
   public behaviors$ = new BehaviorSubject<Array<Behavior>>(this.behaviors);
 
   // contains the selected behavior
-  private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],[]);
+  private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],'', '', '');
   public selectedBehavior$ = new BehaviorSubject<Behavior>(this.selectedBehavior);
 
   // contains the behaviors for the current key
@@ -148,9 +148,9 @@ export class KeyMapService {
       this.keyMapConfig.getKeyConfigs().forEach(key => {
         let keyBehaviorsForLayer: Array<Behavior> = this.behaviors
           .filter(behavior => behavior.keyNumber === key.keyNumber)
-          .filter(behavior => behavior.layers.indexOf(layer.id) >= 0);
+          .filter(behavior => behavior.layerId === layer.id);
         if (keyBehaviorsForLayer.length === 0) {
-          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], [layer.id]));
+          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], layer.id, '', ''));
         }
       })
     })
@@ -217,7 +217,7 @@ export class KeyMapService {
     console.log('selecting relevant behaviors for layer ' + this.currentLayer.name + ' and key ' + this.currentKey.keyNumber + ' from ',this.behaviors);
     this.currentKeyBehaviors = this.behaviors
       .filter(behavior => behavior.keyNumber === this.currentKey.keyNumber)
-      .filter(behavior => behavior.layers.indexOf(this.currentLayer.id) >= 0);
+      .filter(behavior => behavior.layerId === this.currentLayer.id);
     console.log('The relevant behaviors: ',this.currentKeyBehaviors);
     this.currentKeyBehaviors$.next(this.currentKeyBehaviors);
     this.selectedBehavior = this.currentKeyBehaviors[0];
@@ -231,7 +231,7 @@ export class KeyMapService {
     this.layers.push(newLayer);
     // add behaviors for each key to this layer
     this.keys.forEach(key => {
-      let newBehavior = new Behavior(key.keyNumber,Behavior.BEHAVIOR_TYPE_NONE,[],[],[newLayer.id]);
+      let newBehavior = new Behavior(key.keyNumber,Behavior.BEHAVIOR_TYPE_NONE,[],[], newLayer.id, '','');
       this.behaviors.push(newBehavior);
     })
     this.behaviors$.next(this.behaviors);
@@ -243,12 +243,12 @@ export class KeyMapService {
   public deleteLayer(layer: Layer) {
     this.layers.splice(this.layers.indexOf(layer),1);
     // remove the behaviors that only occur in the layer that is deleted
-    this.behaviors = this.behaviors.filter(behavior => behavior.layers.length === 1 && behavior.layers[0] === layer.id );
+    this.behaviors = this.behaviors.filter(behavior => behavior.layerId === layer.id );
     //remove the layer from behaviors that have more than 1 layer
-    this.behaviors.forEach(behavior => {
-      let idx = behavior.layers.findIndex(behaviorLayer => behaviorLayer === layer.id);
-      behavior.layers = behavior.layers.splice(idx,1);
-    })
+    // this.behaviors.forEach(behavior => {
+    //   let idx = behavior.layers.findIndex(behaviorLayer => behaviorLayer === layer.id);
+    //   behavior.layers = behavior.layers.splice(idx,1);
+    // })
     this.layers$.next(this.layers);
     this.behaviors$.next(this.behaviors);
   }
@@ -420,16 +420,26 @@ export class KeyMapService {
   }
 
   getModifierLabel(key: KeyConfig): string {
-    // todo: take into account the layer
-    let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.type == '&hm ');
+    let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.layerId === this.currentLayer.id);
     if (behavior) {
-      return behavior.values[1];
+      if (behavior.type === '&hm ' ) {
+        return behavior.values[1];
+      }
+      if (behavior.type !== '&kp ' && behavior.type !== '&none' ) {
+        return behavior.type.trim();
+      }
     }
     return '';
+    // todo: take into account the layer
+    // let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.type == '&hm ');
+    // if (behavior) {
+    //   return behavior.values[1];
+    // }
+    // return '';
   }
 
   getLabel(key: KeyConfig): string {
-    let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.layers.indexOf(this.currentLayer.id) > -1);
+    let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.layerId === this.currentLayer.id);
     if (behavior) {
       return behavior.getLabel();
     }

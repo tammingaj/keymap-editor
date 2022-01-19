@@ -51,9 +51,11 @@ export class Behavior {
   public type: string = '';
   public values: string[] = [];
   public keys: number[] = [];
-  public layers: string[] = [];
+  public layerId: string = ''; // the layer for this behavior
+  public targetLayerId: string = ''; // the id of the layer to go to
+  public targetLayerName: string = ''; // the name of the layer to go to
 
-  constructor(keyNumber: number, type: string, values: string[],keys: number[], layers: string[]) {
+  constructor(keyNumber: number, type: string, values: string[], keys: number[], layerId: string, targetLayerId: string, targetLayerName: string) {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
       type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_LAYER_TAP || type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER ||
       type === Behavior.BEHAVIOR_TYPE_TO_LAYER || type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER || type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER ||
@@ -62,7 +64,9 @@ export class Behavior {
       this.type = type;
       this.values = values;
       this.keys = keys;
-      this.layers = layers;
+      this.layerId = layerId;
+      this.targetLayerId = targetLayerId;
+      this.targetLayerName = targetLayerName;
     } else this.type = Behavior.BEHAVIOR_TYPE_NONE;
   }
 
@@ -109,10 +113,10 @@ export class Behavior {
     let label: string = '';
     switch (this.type) {
       case Behavior.BEHAVIOR_TYPE_NONE :
-        label = '-';
+        label = ' ';
         break;
       case Behavior.BEHAVIOR_TYPE_KEYPRESS :
-        label = label = this.values[0];
+        label = this.values[0];
         break;
       case Behavior.BEHAVIOR_TYPE_TRANSPARENT :
         label = ' ';
@@ -160,19 +164,19 @@ export class Behavior {
       return  Behavior.BEHAVIOR_TYPE_MODIFIER + this.values[1] + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_LAYER_TAP) {
-      return Behavior.BEHAVIOR_TYPE_LAYER_TAP + this.values[1] + ' '+ this.values[0];
+      return Behavior.BEHAVIOR_TYPE_LAYER_TAP + this.targetLayerId + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER + this.values[0];
+      return Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER + this.targetLayerId + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_TO_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_TO_LAYER + this.values[0];
+      return Behavior.BEHAVIOR_TYPE_TO_LAYER + this.targetLayerId + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER + this.values[0];
+      return Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER + this.targetLayerId + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_STICKY_LAYER + this.values[0];
+      return Behavior.BEHAVIOR_TYPE_STICKY_LAYER + this.targetLayerId + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_KEY) {
       return Behavior.BEHAVIOR_TYPE_STICKY_KEY + this.values[0];
