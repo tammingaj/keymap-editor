@@ -241,16 +241,32 @@ export class KeyMapService {
   }
 
   public deleteLayer(layer: Layer) {
-    this.layers.splice(this.layers.indexOf(layer),1);
-    // remove the behaviors that only occur in the layer that is deleted
-    this.behaviors = this.behaviors.filter(behavior => behavior.layerId === layer.id );
-    //remove the layer from behaviors that have more than 1 layer
-    // this.behaviors.forEach(behavior => {
-    //   let idx = behavior.layers.findIndex(behaviorLayer => behaviorLayer === layer.id);
-    //   behavior.layers = behavior.layers.splice(idx,1);
-    // })
-    this.layers$.next(this.layers);
-    this.behaviors$.next(this.behaviors);
+    console.log('service is deleting layer: ',layer);
+    if (this.layers.length > 1) { // don't delete the last layer
+      this.layers.splice(this.layers.indexOf(layer),1);
+      // remove the behaviors that only occur in the layer that is deleted
+      this.behaviors = this.behaviors.filter(behavior => behavior.layerId !== layer.id );
+
+      // remove the layer from the combos and remove the combos that have no layer left
+      // @ts-ignore
+      this.combos = this.combos.map(combo => {
+        let idx = combo.layers.findIndex(comboLayer => comboLayer === layer.id);
+        if (idx > -1) {
+          combo.layers.splice(idx,1);
+          if (combo.layers.length === 0) {
+            return null;
+          }
+        }
+        return combo;
+      }).filter(combo => combo !== null && combo.layers.length > 0);
+
+      // select the first layer
+      this.selectLayer(this.layers[0]);
+
+      this.combos$.next(this.combos);
+      this.layers$.next(this.layers);
+      this.behaviors$.next(this.behaviors);
+    }
   }
 
   public deleteConfig(config: KeyConfig): void {
