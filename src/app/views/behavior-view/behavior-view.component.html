@@ -12,7 +12,8 @@
   <div class="col-8">
     <article *ngIf="!keyMapService.currentKeyAvailable">
       <p>Define what the keys should do in each layer. First select a layer in the list to the left, then click a key above to
-      select a behavior in the form that will appear here.</p>
+      select a behavior in the form that will appear here. Refer to the <a href="https://zmk.dev/docs/behaviors/key-press" target="_blank">ZMK documentation</a> for a detailed explanation of
+      the behaviors.</p>
     </article>
     <div *ngIf="keyMapService.currentKeyAvailable">
       <behavior-selector></behavior-selector>

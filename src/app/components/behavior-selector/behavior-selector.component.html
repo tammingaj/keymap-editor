@@ -25,13 +25,6 @@
   </div>
 </div>
 
-<div *ngIf="selectedBehavior.type === '&kp ' || selectedBehavior.type === '&lt ' || selectedBehavior.type === '&sk ' || selectedBehavior.type === '&hm '"
-     class="row form-group form-inline">
-  <label for="dropdownBasic1" class="col-3 text-left" style="justify-content: left">Keycode</label>
-  <button class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{selectedBehavior.values[0]||'Select keycode'}}</button>
-
-</div>
-
 <div *ngIf="selectedBehavior.type === '&hm '">
   <div ngbDropdown class="row form-group form-inline">
     <label for="dropdownModifier" class="col-3 text-left" style="justify-content: left">Modifier</label>
@@ -41,3 +34,11 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="selectedBehavior.type === '&kp ' || selectedBehavior.type === '&lt ' || selectedBehavior.type === '&sk ' || selectedBehavior.type === '&hm '"
+     class="row form-group form-inline">
+  <label for="dropdownBasic1" class="col-3 text-left" style="justify-content: left">Keycode</label>
+  <button class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{selectedBehavior.values[0]||'Select keycode'}}</button>
+
+</div>
+

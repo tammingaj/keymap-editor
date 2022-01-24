@@ -167,16 +167,16 @@ export class Behavior {
       return Behavior.BEHAVIOR_TYPE_LAYER_TAP + this.targetLayerId + ' '+ this.values[0];
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER + this.targetLayerId + ' '+ this.values[0];
+      return Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER + this.targetLayerId;
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_TO_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_TO_LAYER + this.targetLayerId + ' '+ this.values[0];
+      return Behavior.BEHAVIOR_TYPE_TO_LAYER + this.targetLayerId;
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER + this.targetLayerId + ' '+ this.values[0];
+      return Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER + this.targetLayerId;
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER) {
-      return Behavior.BEHAVIOR_TYPE_STICKY_LAYER + this.targetLayerId + ' '+ this.values[0];
+      return Behavior.BEHAVIOR_TYPE_STICKY_LAYER + this.targetLayerId;
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_KEY) {
       return Behavior.BEHAVIOR_TYPE_STICKY_KEY + this.values[0];
