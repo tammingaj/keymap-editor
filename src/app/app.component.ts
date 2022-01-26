@@ -72,9 +72,6 @@ export class AppComponent {
     // credits: https://stackoverflow.com/a/38462992/1128079
     let filename = 'keymap-' + this.keyMapService.getKeymapName() + '-' + new Date().toJSON() + '.json';
     let blob = new Blob([this.keyMapService.getKeymapAsJSON()], {type: 'application/json'});
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(blob, filename);
-    } else{
       let e = document.createEvent('MouseEvents'), a = document.createElement('a');
       a.download = filename;
       a.href = window.URL.createObjectURL(blob);
@@ -82,7 +79,6 @@ export class AppComponent {
       e.initEvent('click', true, false);
       a.dispatchEvent(e);
       window.URL.revokeObjectURL(a.href); // clean the url.createObjectURL resource
-    }
   }
 
   onFileChanged(event: Event) {
