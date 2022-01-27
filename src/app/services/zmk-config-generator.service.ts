@@ -12,6 +12,8 @@ import {ReplaySubject} from "rxjs";
 export class ZmkConfigGeneratorService {
 
   public codeLines$ = new ReplaySubject<Array<string>>();
+  public autoUpdate: boolean = true;
+  public codeBackup: string = "";
 
   private kbdConfigCodeFile: string[];
   private layers: Array<Layer> = new Array<Layer>();

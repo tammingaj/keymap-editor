@@ -1,9 +1,50 @@
-<ace-editor
-  #editor
-  [(text)]="theCode"
-  [mode]="'sql'"
-  style="height:350px;">
-</ace-editor>
+<div class="row m-1 mt-3">
+  <ace-editor
+    #editor
+    [(text)]="theCode"
+    [mode]="'cpp'"
+    [theme]="'monokai'"
+    [options]="{
+      highlightActiveLine: true,
+      tabSize: 2,
+      fontSize: '14px',
+      foldStyle: 'markbegin',
+      wrap: true
+    }"
+    [readOnly]="false"
+    [autoUpdateContent]="true"
+    [durationBeforeCallback]="500"
+    (textChanged)="onCodeChanged($event)"
+    style="min-height: 600px; width:100%; overflow: auto;">
+  </ace-editor>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <form>
+      <div class="form-group m-1 float-right">
+        <label title="When checked your edits will be lost">Automatic update&nbsp;</label>
+        <div class="form-check-inline">
+          <input type="checkbox"
+                 class="form-check-input mr-4"
+                 (change)="onAutoUpdateChange($event)"
+                 [checked]="isAutoUpdate()"
+                 id="'flexCheckDefault'+idx"
+                 name="'flexCheckDefault'+idx">
+          <button class="btn btn-info m-1" (click)="copy()">
+            Copy&nbsp;
+            <fa-icon [icon]="faCopy"></fa-icon>
+          </button>
+          <button class="btn btn-info m-1" (click)="download()">
+            Download&nbsp;
+            <fa-icon [icon]="faFileDownload"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
 
 <div class="row mt-3">
   <div class="col-6">
