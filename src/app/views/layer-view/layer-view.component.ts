@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {KeyMapService} from "../../services/key-map.service";
 import { faTrash, faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {Validators} from "../../classes/validators";
 
 @Component({
   selector: 'layer-view',
@@ -23,5 +24,7 @@ export class LayerViewComponent implements OnInit {
 
   ngOnDestroy() {
   }
+
+  keyPressAlphanumeric = Validators.keyPressAlphanumeric;
 
 }

@@ -24,7 +24,13 @@
 
     <form>
       <label for="newLayerName">&nbsp;</label>
-      <input class="form-control col-6 float-left" type="text" [(ngModel)]="newLayerName" id="newLayerName" name="newLayerName" placeholder="New layer name">
+      <input class="form-control col-6 float-left"
+             type="text"
+             [(ngModel)]="newLayerName"
+             (keypress)="keyPressAlphanumeric($event)"
+             id="newLayerName"
+             name="newLayerName"
+             placeholder="New layer name">
       <button class="btn btn-info col-2 ml-1 float-left" (click)="keyMapService.addLayer(newLayerName);newLayerName=''">Add</button>
     </form>
   </div>

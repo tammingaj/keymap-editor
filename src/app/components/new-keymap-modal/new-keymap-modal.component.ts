@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder} from "@angular/forms";
 import {KeyMapService} from "../../services/key-map.service";
+import {Validators} from "../../classes/validators";
 
 @Component({
   selector: 'new-keymap-modal',
@@ -35,14 +36,6 @@ export class NewKeymapModalComponent implements OnInit {
     this.activeModal.dismiss('cancel click');
   }
 
-  keyPressAlphanumeric(event: any) {
-    let inp = String.fromCharCode(event.keyCode);
-    if (/[a-zA-Z0-9-_]/.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
-  }
+  keyPressAlphanumeric = Validators.keyPressAlphanumeric;
 
 }

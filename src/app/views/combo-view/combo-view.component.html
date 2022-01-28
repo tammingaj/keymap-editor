@@ -27,7 +27,12 @@
 
     <form *ngIf="selectedCombo.name === ''">
       <label for="newComboName">&nbsp;</label>
-      <input class="form-control col-6 float-left" type="text" [(ngModel)]="newComboName" id="newComboName" name="newComboName" placeholder="New combo name">
+      <input class="form-control col-6 float-left" type="text"
+             [(ngModel)]="newComboName"
+             (keypress)="keyPressAlphanumeric($event)"
+             id="newComboName"
+             name="newComboName"
+             placeholder="New combo name">
       <button class="btn btn-info col-2 ml-1 float-left" (click)="addCombo()">Add</button>
     </form>
   </div>

@@ -5,6 +5,7 @@ import {Layer} from "../../classes/layer";
 import {KeyConfig} from "../../classes/key-config";
 import {Combo} from "../../classes/combo";
 import { faTrash, faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {Validators} from "../../classes/validators";
 @Component({
   selector: 'combo-view',
   templateUrl: './combo-view.component.html',
@@ -50,6 +51,8 @@ export class ComboViewComponent implements OnInit {
     this.subscriptions.unsubscribe();
     this.keyMapService.deselectCombo();
   }
+
+  keyPressAlphanumeric = Validators.keyPressAlphanumeric;
 
   addCombo(): void {
     if (this.newComboName.length > 0){

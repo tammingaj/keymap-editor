@@ -17,7 +17,12 @@
   <form class="col-6">
     <div class="form-group m-1">
       <label for="keymapName" class="col-3">Name</label>
-      <input [(ngModel)]="keyMapService.keyMapConfig.name" id="keymapName" name="keymapName" type="text" >
+      <input
+        [(ngModel)]="keyMapService.keyMapConfig.name"
+        (keypress)="keyPressAlphanumeric($event)"
+        id="keymapName"
+        name="keymapName"
+        type="text" >
     </div>
     <div class="form-group m-1">
       <label for="githubUrl" class="col-3">Github url</label>
