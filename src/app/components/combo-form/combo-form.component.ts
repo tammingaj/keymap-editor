@@ -5,6 +5,8 @@ import {Subscription} from "rxjs";
 import {Layer} from "../../classes/layer";
 import {KeyConfig} from "../../classes/key-config";
 import {Combo} from "../../classes/combo";
+import {KeycodeSelectorComponent} from "../keycode-selector/keycode-selector.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'combo-form',
@@ -20,7 +22,7 @@ export class ComboFormComponent implements OnInit {
   public combo: Combo = new Combo(0,'',50,'', '',[],[]);
   public checkedLayerIds: Array<string> = new Array<string>();
 
-  constructor(private formBuilder: FormBuilder, private keyMapService: KeyMapService) {
+  constructor(private formBuilder: FormBuilder, private keyMapService: KeyMapService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -62,4 +64,17 @@ export class ComboFormComponent implements OnInit {
     return this.combo.layers.indexOf(layer.id) > -1;
   }
 
+  showKeycodeSelector(): void {
+    console.log('showKeycodeSelector');
+    const modalRef = this.modalService.open(KeycodeSelectorComponent, {size: 'xl', centered: true, backdrop: "static", scrollable: true});
+    modalRef.componentInstance.name = 'KeycodeSelector';
+    modalRef.dismissed.subscribe((value) => {
+      console.log('dismissed modal' + value);
+      //delete this.selectedBehavior.values[0];
+    });
+    modalRef.closed.subscribe((value => {
+      console.log('closed modal', value);
+      this.combo.binding = value.label || value.codes[0];
+    }));
+  }
 }

@@ -5,9 +5,8 @@
   </div>
 
   <div class="form-group m-1">
-    <!--  todo: replace by popup/modal component for choosing the binding  -->
     <label for="comboBinding" class="col-lg-2">Binding</label>
-    <input [(ngModel)]="combo.binding" id="comboBinding" name="comboBinding" type="text" title="Type something like '&kp A'">
+    <button id="comboBinding" class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{combo.binding||'Select binding'}}</button>
   </div>
 
   <div class="form-group m-1">
@@ -27,8 +26,6 @@
       <label class="form-check-label" for="'flexCheckDefault'+idx">{{layer.name}}</label>
     </div>
   </div>
-
-
 
   <div class="form-group m-1">
     <label for="comboColor" class="col-lg-2">Color</label>
