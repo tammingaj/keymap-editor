@@ -6,7 +6,10 @@
 <div class="row m-1">
   <div class="col-4">
     <h2>Layers</h2>
-    <button *ngFor="let layer of keyMapService.layers$ | async" class="btn btn-block btn-secondary" (click)="keyMapService.selectLayer(layer)">
+    <button *ngFor="let layer of keyMapService.layers$ | async"
+            class="btn btn-block"
+            [ngClass]="layer.name===keyMapService.currentLayer.name?'btn-primary':'btn-secondary'"
+            (click)="keyMapService.selectLayer(layer)">
       {{layer.name}}
       <fa-icon [icon]="faTrash" (click)="keyMapService.deleteLayer(layer)" class="float-right" title="Delete this layer"></fa-icon>
     </button>
