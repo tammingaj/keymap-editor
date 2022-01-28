@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {Subscription} from "rxjs";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 import {faArrowLeft, faCopy, faFileDownload} from '@fortawesome/free-solid-svg-icons';
+import {KeyMapService} from "../../services/key-map.service";
 
 @Component({
   selector: 'code-view',
@@ -23,7 +24,7 @@ export class CodeViewComponent implements OnInit {
   public faCopy = faCopy;
   public faFileDownload = faFileDownload;
 
-  constructor(private zmkConfigGeneratorService: ZmkConfigGeneratorService ) { }
+  constructor(private keyMapService: KeyMapService, private zmkConfigGeneratorService: ZmkConfigGeneratorService ) { }
 
   ngAfterViewInit() {
     this.editor.getEditor().commands.addCommand({
@@ -59,7 +60,16 @@ export class CodeViewComponent implements OnInit {
   }
 
   download() {
-    console.log('download');
+    // credits: https://stackoverflow.com/a/38462992/1128079
+    let filename = this.keyMapService.getKeymapName() + '.config';
+    let blob = new Blob([this.theCode], {type: 'application/text'});
+    let e = document.createEvent('MouseEvents'), a = document.createElement('a');
+    a.download = filename;
+    a.href = window.URL.createObjectURL(blob);
+    a.dataset.downloadurl = ['text/text', a.download, a.href].join(':');
+    e.initEvent('click', true, false);
+    a.dispatchEvent(e);
+    window.URL.revokeObjectURL(a.href); // clean the url.createObjectURL resource
   }
 
   onCodeChanged(event: any) {
