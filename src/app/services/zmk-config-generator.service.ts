@@ -56,13 +56,25 @@ export class ZmkConfigGeneratorService {
     if (this.bluetoothUsed()) {
       this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/bt.h>');
     }
+
+    this.kbdConfigCodeFile.push('');
+
+    // define layer constants
+    this.layers.forEach((layer, index) => {
+      this.kbdConfigCodeFile.push('#define ' + layer.name.toUpperCase() + ' ' + index);
+    })
+
+    this.kbdConfigCodeFile.push('');
     this.kbdConfigCodeFile.push('/ {');
 
     // combo definitions
     if (this.combos.length > 0) {
       this.kbdConfigCodeFile.push('  combos {');
       this.kbdConfigCodeFile.push('    compatible = "zmk,combos";');
-      this.combos.forEach(combo => this.kbdConfigCodeFile.push('    ' + combo.generateCodeFragment()));
+      this.combos.forEach(combo => {
+        let comboFragment = this.substituteLayerIdsWithConstant(combo.generateCodeFragment());
+        this.kbdConfigCodeFile.push('    ' + comboFragment)
+      });
       this.kbdConfigCodeFile.push('  };');
       this.kbdConfigCodeFile.push('');
     }
@@ -100,11 +112,18 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile.push('      bindings = <');
     let bindings: string = '        ';
     this.behaviors.filter(behavior => behavior.layerId === layer.id).forEach(behavior => {
-      bindings += behavior.generateCode() + ' ';
+      bindings += this.substituteLayerIdsWithConstant(behavior.generateCode()) + ' ';
     });
     this.kbdConfigCodeFile.push(bindings);
     this.kbdConfigCodeFile.push('      >;');
     this.kbdConfigCodeFile.push('    };');
     this.kbdConfigCodeFile.push('');
+  }
+
+  private substituteLayerIdsWithConstant(codeFragment: string): string {
+    this.layers.forEach(layer => {
+      codeFragment = codeFragment.replace(layer.id, layer.name.toUpperCase());
+    });
+    return codeFragment;
   }
 }
