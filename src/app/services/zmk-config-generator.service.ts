@@ -41,6 +41,11 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile = [];
   }
 
+  bluetoothUsed(): boolean {
+    return (this.behaviors.find(behavior => behavior.type === "&bt ") !== undefined) ||
+      (this.combos.find(combo => combo.binding.startsWith("&bt ")) !== undefined);
+  }
+
   generateCode(): void {
     // todo: use proper templating engine
     this.kbdConfigCodeFile = [];
@@ -48,15 +53,19 @@ export class ZmkConfigGeneratorService {
     // include headers
     this.kbdConfigCodeFile.push('#include <behaviors.dtsi>');
     this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/keys.h>');
-    this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/bt.h>');
+    if (this.bluetoothUsed()) {
+      this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/bt.h>');
+    }
     this.kbdConfigCodeFile.push('/ {');
 
     // combo definitions
-    this.kbdConfigCodeFile.push('  combos {');
-    this.kbdConfigCodeFile.push('    compatible = "zmk,combos";');
-    this.combos.forEach(combo => this.kbdConfigCodeFile.push('    ' + combo.generateCodeFragment()));
-    this.kbdConfigCodeFile.push('  };');
-    this.kbdConfigCodeFile.push('');
+    if (this.combos.length > 0) {
+      this.kbdConfigCodeFile.push('  combos {');
+      this.kbdConfigCodeFile.push('    compatible = "zmk,combos";');
+      this.combos.forEach(combo => this.kbdConfigCodeFile.push('    ' + combo.generateCodeFragment()));
+      this.kbdConfigCodeFile.push('  };');
+      this.kbdConfigCodeFile.push('');
+    }
 
     // behavior definitions
     let modifiers = this.behaviors.find(behavior => behavior.type === '&hm ');
