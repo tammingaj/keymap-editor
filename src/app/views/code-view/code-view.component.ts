@@ -61,7 +61,7 @@ export class CodeViewComponent implements OnInit {
 
   download() {
     // credits: https://stackoverflow.com/a/38462992/1128079
-    let filename = this.keyMapService.getKeymapName() + '.config';
+    let filename = this.keyMapService.getKeymapName() + '.keymap';
     let blob = new Blob([this.theCode], {type: 'application/text'});
     let e = document.createEvent('MouseEvents'), a = document.createElement('a');
     a.download = filename;

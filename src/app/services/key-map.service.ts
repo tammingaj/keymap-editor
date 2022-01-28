@@ -376,17 +376,6 @@ export class KeyMapService {
     return this.keyMapConfig.name;
   }
 
-  // addBehavior(newBehavior: Behavior) {
-  //   this.behaviors.push(newBehavior);
-  //   this.behaviors.sort((first,second) => {
-  //     if (first.keyNumber < second.keyNumber) return -1;
-  //     if (first.keyNumber > second.keyNumber) return 1;
-  //     return 0;
-  //   });
-  //   this.behaviors$.next(this.behaviors);
-  //   this.selectBehaviorsForKeyAndLayer()
-  // }
-
   deleteCurrentBehavior():void {
     let idx = this.behaviors.indexOf(this.selectedBehavior);
     this.behaviors.splice(idx,1);
@@ -441,17 +430,14 @@ export class KeyMapService {
       if (behavior.type === '&hm ' ) {
         return behavior.values[1];
       }
+      if ('&mo &lt &to &tog &sl '.indexOf(behavior.type) > -1 ) {
+        return behavior.targetLayerName;
+      }
       if (behavior.type !== '&kp ' && behavior.type !== '&none' ) {
         return behavior.type.trim();
       }
     }
     return '';
-    // todo: take into account the layer
-    // let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.type == '&hm ');
-    // if (behavior) {
-    //   return behavior.values[1];
-    // }
-    // return '';
   }
 
   getLabel(key: KeyConfig): string {
