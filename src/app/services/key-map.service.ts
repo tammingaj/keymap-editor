@@ -158,11 +158,19 @@ export class KeyMapService {
 
   public importKeyMap(keyMapConfigString: string): void {
     this.keyMapConfig = this.repositoryService.loadKeyMapConfig(keyMapConfigString);
+    this.keys = this.keyMapConfig.getKeyConfigs();
+    this.behaviors = this.keyMapConfig.behaviors;
+    this.layers = this.keyMapConfig.layers;
+    this.combos = this.keyMapConfig.combos;
     this.updateSubscriptions();
     this.calculateMinMax();
   }
 
   public saveKeyMapConfig():void {
+    this.keyMapConfig.layers = this.layers;
+    this.keyMapConfig.behaviors = this.behaviors;
+    this.keyMapConfig.combos = this.combos;
+    this.keyMapConfig.keyConfigs = this.keys;
     this.repositoryService.saveKeyMapConfig(this.keyMapConfig);
   }
 
@@ -243,9 +251,27 @@ export class KeyMapService {
   public deleteLayer(layer: Layer) {
     console.log('service is deleting layer: ',layer);
     if (this.layers.length > 1) { // don't delete the last layer
-      this.layers.splice(this.layers.indexOf(layer),1);
       // remove the behaviors that only occur in the layer that is deleted
       this.behaviors = this.behaviors.filter(behavior => behavior.layerId !== layer.id );
+
+      // remove the layer from the behaviors that target it
+      this.behaviors = this.behaviors.map(behavior => {
+        if (behavior.targetLayerId === layer.id) {
+          behavior.targetLayerId = '';
+          behavior.targetLayerName = '';
+          if (behavior.type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER ||
+            behavior.type === Behavior.BEHAVIOR_TYPE_TO_LAYER ||
+            behavior.type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER ||
+            behavior.type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER)
+          {
+            behavior.type = Behavior.BEHAVIOR_TYPE_NONE;
+          }
+          if (behavior.type === Behavior.BEHAVIOR_TYPE_LAYER_TAP) {
+            behavior.type = Behavior.BEHAVIOR_TYPE_KEYPRESS;
+          }
+        }
+        return behavior;
+      });
 
       // remove the layer from the combos and remove the combos that have no layer left
       // @ts-ignore
@@ -259,6 +285,9 @@ export class KeyMapService {
         }
         return combo;
       }).filter(combo => combo !== null && combo.layers.length > 0);
+
+      // remove the layer itself
+      this.layers.splice(this.layers.indexOf(layer),1);
 
       // select the first layer
       this.selectLayer(this.layers[0]);

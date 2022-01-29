@@ -67,6 +67,7 @@ export class RepositoryService {
       jsComboObjects = retrievedKeyMapConfig.combos;
     }
 
+    // replace the generic object arrays with the typed object arrays
     retrievedKeyMapConfig.keyConfigs = new Array<KeyConfig>();
     retrievedKeyMapConfig.layers = new Array<Layer>();
     retrievedKeyMapConfig.behaviors = new Array<Behavior>();
