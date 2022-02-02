@@ -1,4 +1,4 @@
-import { Codes } from './codes';
+import { Codes } from './codes.ts.orig';
 
 describe('Codes', () => {
   it('should create an instance', () => {

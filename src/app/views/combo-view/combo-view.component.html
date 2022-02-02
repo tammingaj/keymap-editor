@@ -6,7 +6,8 @@
   <div class="col-4">
     <h2>Combos</h2>
     <button *ngFor="let combo of keyMapService.combos$ | async"
-            class="btn btn-block btn-secondary"
+            class="btn btn-block"
+            [ngClass]="combo.name===selectedCombo.name?'btn-primary':'btn-secondary'"
             (click)="keyMapService.selectCombo(combo)">
       {{combo.name}}
       <fa-icon [icon]="faTrash"

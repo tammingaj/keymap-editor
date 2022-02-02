@@ -4,9 +4,37 @@
     <input [(ngModel)]="combo.name" id="comboName" name="comboName" type="text" >
   </div>
 
-  <div class="form-group m-1">
+  <div ngbDropdown class="form-group m-1 form-inline">
+    <label for="dropdownBasic1" class="col-lg-2 text-left" style="justify-content: left">Type</label>
+    <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{combo.selectedBehaviorType}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem (click)="selectBehaviorType('&bt ')">Bluetooth</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&lt ')" *ngIf="layers.length > 1">Layer tap</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&mo ')" *ngIf="layers.length > 1">Momentary layer</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&sk ')">Sticky key</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&sl ')" *ngIf="layers.length > 1">Sticky layer</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&to ')" *ngIf="layers.length > 1">To layer</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&tog ')" *ngIf="layers.length > 1">Toggle layer</button>
+      <button ngbDropdownItem (click)="selectBehaviorType('&trans')">Transparent</button>
+    </div>
+  </div>
+
+  <div class="form-group m-1" *ngIf="combo.selectedBehaviorType !== '&bt '">
     <label for="comboBinding" class="col-lg-2">Binding</label>
     <button id="comboBinding" class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{combo.binding||'Select binding'}}</button>
+  </div>
+
+  <div *ngIf="combo.selectedBehaviorType === '&bt '">
+    <div ngbDropdown class="form-group m-1 form-inline">
+      <label for="dropdownBluetooth" class="col-lg-2 text-left" style="justify-content: left">Bluetooth</label>
+      <button class="btn btn-outline-primary" id="dropdownBluetooth" ngbDropdownToggle>{{combo.binding}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBluetooth">
+        <button *ngFor="let value of getBluetoothValues()" ngbDropdownItem (click)="selectBluetoothBehavior(value)">{{value}}</button>
+      </div>
+    </div>
   </div>
 
   <div class="form-group m-1">

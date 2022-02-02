@@ -7,6 +7,7 @@ import {KeyConfig} from "../../classes/key-config";
 import {Combo} from "../../classes/combo";
 import {KeycodeSelectorComponent} from "../keycode-selector/keycode-selector.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Behavior} from "../../classes/behavior";
 
 @Component({
   selector: 'combo-form',
@@ -19,8 +20,9 @@ export class ComboFormComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
   public layers: Array<Layer> = new Array<Layer>();
   private activeKeys: KeyConfig[] = [];
-  public combo: Combo = new Combo(0,'',50,'', '',[],[]);
+  public combo: Combo = new Combo(0,'',50,'','', '',[],[]);
   public checkedLayerIds: Array<string> = new Array<string>();
+  public getBluetoothValues = Behavior.getBluetoothValues
 
   constructor(private formBuilder: FormBuilder, private keyMapService: KeyMapService, private modalService: NgbModal) {
   }
@@ -62,6 +64,14 @@ export class ComboFormComponent implements OnInit {
 
   public isLayerChecked(layer: Layer): boolean {
     return this.combo.layers.indexOf(layer.id) > -1;
+  }
+
+  public selectBehaviorType(type: string): void {
+    this.combo.selectedBehaviorType = type;
+  }
+
+  selectBluetoothBehavior(value: string): void {
+    this.combo.binding = value;
   }
 
   showKeycodeSelector(): void {

@@ -18,7 +18,7 @@ export class ComboViewComponent implements OnInit {
   private activeKeys: KeyConfig[] = [];
   private combos: Combo[] = [];
   public newComboName: string = "";
-  public selectedCombo: Combo = new Combo(0,'',50,'', '',[],[]);
+  public selectedCombo: Combo = new Combo(0,'',50,'','', '',[],[]);
   public faTrash = faTrash;
   public faArrowRight = faArrowRight;
   public faArrowLeft = faArrowLeft;
@@ -56,7 +56,7 @@ export class ComboViewComponent implements OnInit {
 
   addCombo(): void {
     if (this.newComboName.length > 0){
-      let newCombo = new Combo(0,this.newComboName,50,'', '',[],[]);
+      let newCombo = new Combo(0,this.newComboName,50,'','', '',[],[]);
       this.keyMapService.addCombo(newCombo);
       this.newComboName = "";
     }

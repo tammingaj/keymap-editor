@@ -14,10 +14,10 @@ export class ComboDisplayComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
   private width: number = 40;
-  public selectedCombo: Combo = new Combo(0,'',50,'', '', [],[]);
+  public selectedCombo: Combo = new Combo(0,'',50,'','', '', [],[]);
   constructor(public keyMapService: KeyMapService) { }
 
-  @Input() combo: Combo = new Combo(0,'',50,'', '', [],[]);
+  @Input() combo: Combo = new Combo(0,'',50,'','', '', [],[]);
   @Input() arena = {width: 0, height: 0};
 
   ngOnInit(): void {

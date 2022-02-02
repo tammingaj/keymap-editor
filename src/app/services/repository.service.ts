@@ -87,13 +87,14 @@ export class RepositoryService {
 
     // convert the behaviors to typed Behavior objects
     jsBehaviorObjects.forEach((obj)=>{
-      let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.values, obj.keys, obj.layerId, obj.targetLayerId, obj.targetLayerName);
+      let behavior: Behavior = new Behavior(obj.keyNumber, obj.type, obj.values, obj.keys, obj.codeId, obj.layerId, obj.targetLayerId, obj.targetLayerName);
+      console.log('reading behavior: ', behavior);
       retrievedKeyMapConfig.addBehavior(behavior);
     });
 
     // convert the combos to typed Combo objects
     jsComboObjects.forEach((obj)=>{
-      let combo: Combo = new Combo(obj.id, obj.name, obj.timeout, obj.binding, obj.color, obj.keys, obj.layers);
+      let combo: Combo = new Combo(obj.id, obj.name, obj.timeout, obj.selectedBehaviorType, obj.binding, obj.color, obj.keys, obj.layers);
       retrievedKeyMapConfig.addCombo(combo);
     });
     return retrievedKeyMapConfig;

@@ -111,9 +111,11 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile.push('    ' + layer.name + '_layer {');
     this.kbdConfigCodeFile.push('      bindings = <');
     let bindings: string = '        ';
-    this.behaviors.filter(behavior => behavior.layerId === layer.id).forEach(behavior => {
-      bindings += this.substituteLayerIdsWithConstant(behavior.generateCode()) + ' ';
-    });
+    this.behaviors
+      .filter(behavior => behavior.layerId === layer.id)
+      .forEach(behavior => {
+        bindings += this.substituteLayerIdsWithConstant(behavior.generateCode()) + ' ';
+      });
     this.kbdConfigCodeFile.push(bindings);
     this.kbdConfigCodeFile.push('      >;');
     this.kbdConfigCodeFile.push('    };');

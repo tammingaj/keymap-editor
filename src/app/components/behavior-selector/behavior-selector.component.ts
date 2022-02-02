@@ -15,9 +15,10 @@ export class BehaviorSelectorComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
 
-  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],'','', '');
+  public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[], '','','', '');
   public layers: Array<Layer> = new Array<Layer>();
   public currentLayer: Layer = new Layer('','');
+  public getBluetoothValues = Behavior.getBluetoothValues;
 
   constructor(public keyMapService: KeyMapService, private modalService: NgbModal) { }
 
@@ -61,6 +62,11 @@ export class BehaviorSelectorComponent implements OnInit {
     this.selectedBehavior.values[1] = value;
   }
 
+  selectBluetoothBehavior(value: string): void {
+    this.selectedBehavior.type = Behavior.BEHAVIOR_TYPE_BLUETOOTH;
+    this.selectedBehavior.values[0] = value;
+  }
+
   showKeycodeSelector(): void {
     console.log('showKeycodeSelector');
     const modalRef = this.modalService.open(KeycodeSelectorComponent, {size: 'xl', centered: true, backdrop: "static", scrollable: true});
@@ -71,7 +77,8 @@ export class BehaviorSelectorComponent implements OnInit {
     });
     modalRef.closed.subscribe((value => {
       console.log('closed modal', value);
-      this.selectedBehavior.values[0] = value.label || value.codes[0];
+      this.selectedBehavior.codeId = value.id;
+      this.selectedBehavior.values[0] = value.codes[0];
     }));
   }
 }

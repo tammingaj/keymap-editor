@@ -2,15 +2,17 @@ export class Combo {
   public id: number;
   public name: string;
   public timeout: number;
+  public selectedBehaviorType: string;
   public binding: string;
   public color: string;
   public keys: number[];
   public layers: string[];
 
-  constructor (id: number, name: string, timeout: number, binding: string, color: string, keys: number[], layers: string[]) {
+  constructor (id: number, name: string, timeout: number, selectedBehaviorType: string, binding: string, color: string, keys: number[], layers: string[]) {
     this.id = id;
     this.name = name;
     this.timeout = timeout;
+    this.selectedBehaviorType = selectedBehaviorType;
     this.binding = binding;
     this.color = color;
     this.keys = keys;
@@ -26,8 +28,8 @@ export class Combo {
       '      timeout-ms = <' + this.timeout + '>;\n' +
       '      layers = <' + layers + '>;\n' +
       '      key-positions = <' + this.keys.join(' ') + '>;\n' +
-      '      bindings = <&bt BT_CLR>; \n' +
-    '    };';
+      '      bindings = <' + this.selectedBehaviorType + this.binding + '>; \n' +
+      '    };';
     return fragment;
   }
 }

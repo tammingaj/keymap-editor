@@ -5,6 +5,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NewKeymapModalComponent} from "./components/new-keymap-modal/new-keymap-modal.component";
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCopyright, faBug, faCog} from '@fortawesome/free-solid-svg-icons';
+import {v4 as uuidv4} from "uuid";
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
 
   private theme: string = AppComponent.DARK;
   private selectedFile: File = new File(['', ''], '', {type: 'text/plain'});
+  private transform: boolean = false;
 
   constructor(private renderer: Renderer2, private router: Router, public route: ActivatedRoute, public keyMapService: KeyMapService, private modalService: NgbModal) {
     this.renderer.addClass(document.body, this.theme);
@@ -89,11 +91,31 @@ export class AppComponent {
     fileReader.onload = () => {
       let result: any = fileReader.result || '';
       console.log('loaded file: ' + result);
-      this.keyMapService.importKeyMap(result);
+      if (this.transform) {
+        const altered = result.replace(/id: ""/g, (match: any, key: any) => {
+          return 'id: "' + uuidv4() + '"';
+        });
+        let blob = new Blob([altered], {type: 'txt/plain'});
+        let e = document.createEvent('MouseEvents'), a = document.createElement('a');
+        a.download = 'codes.js.altered';
+        a.href = window.URL.createObjectURL(blob);
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+        e.initEvent('click', true, false);
+        a.dispatchEvent(e);
+        window.URL.revokeObjectURL(a.href); // clean the url.createObjectURL resource
+        this.transform = false;
+      } else {
+        this.keyMapService.importKeyMap(result);
+      }
     }
     fileReader.onerror = (error) => {
       console.log(error);
     }
+  }
+
+  doTransform(): void {
+    console.log('doTransform');
+    this.transform = true;
   }
 
   save(): void {

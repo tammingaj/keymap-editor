@@ -3,6 +3,7 @@
   <label for="dropdownBasic1" class="col-3 text-left" style="justify-content: left">Type</label>
   <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getType()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem (click)="selectBehaviorType('&bt ')">Bluetooth</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&lt ')" *ngIf="layers.length > 1">Layer tap</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
@@ -35,10 +36,19 @@
   </div>
 </div>
 
+<div *ngIf="selectedBehavior.type === '&bt '">
+  <div ngbDropdown class="row form-group form-inline">
+    <label for="dropdownBluetooth" class="col-3 text-left" style="justify-content: left">Bluetooth</label>
+    <button class="btn btn-outline-primary" id="dropdownBluetooth" ngbDropdownToggle>{{selectedBehavior.values[0]}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBluetooth">
+      <button *ngFor="let value of getBluetoothValues()" ngbDropdownItem (click)="selectBluetoothBehavior(value)">{{value}}</button>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="selectedBehavior.type === '&kp ' || selectedBehavior.type === '&lt ' || selectedBehavior.type === '&sk ' || selectedBehavior.type === '&hm '"
      class="row form-group form-inline">
   <label for="dropdownBasic1" class="col-3 text-left" style="justify-content: left">Keycode</label>
   <button class="btn btn-outline-primary" (click)="showKeycodeSelector()">{{selectedBehavior.values[0]||'Select keycode'}}</button>
-
 </div>
 

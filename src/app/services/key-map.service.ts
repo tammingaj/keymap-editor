@@ -31,7 +31,7 @@ export class KeyMapService {
   public behaviors$ = new BehaviorSubject<Array<Behavior>>(this.behaviors);
 
   // contains the selected behavior
-  private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[],'', '', '');
+  private selectedBehavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[], '','', '', '');
   public selectedBehavior$ = new BehaviorSubject<Behavior>(this.selectedBehavior);
 
   // contains the behaviors for the current key
@@ -51,7 +51,7 @@ export class KeyMapService {
   public combos$ = new BehaviorSubject<Array<Combo>>(this.combos);
 
   // contains the current combo
-  private selectedCombo = new Combo(0,'',50,'', '',[],[]);
+  private selectedCombo = new Combo(0,'',50,'','', '',[],[]);
   public selectedCombo$ = new BehaviorSubject<Combo>(this.selectedCombo);
 
   public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
@@ -150,7 +150,7 @@ export class KeyMapService {
           .filter(behavior => behavior.keyNumber === key.keyNumber)
           .filter(behavior => behavior.layerId === layer.id);
         if (keyBehaviorsForLayer.length === 0) {
-          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], layer.id, '', ''));
+          this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], '', layer.id, '', ''));
         }
       })
     })
@@ -180,7 +180,7 @@ export class KeyMapService {
 
   public toggleActive(keyConfig: KeyConfig): void {
     if (this.singleSelect) {
-      console.log('single select mode');
+      // console.log('single select mode');
       this.deselectKeys();
     }
     keyConfig.active = !keyConfig.active;
@@ -192,7 +192,7 @@ export class KeyMapService {
   }
 
   public selectKey(config: KeyConfig): void {
-    console.log('service signals selection of key: ',config);
+    // console.log('service signals selection of key: ',config);
     this.currentKey = config;
     this.currentKey$.next(config);
     this.currentKeyAvailable = true;
@@ -209,47 +209,39 @@ export class KeyMapService {
     this.currentKeyAvailable = false;
   }
 
-  // public selectBehavior(behavior: Behavior): void {
-  //   console.log('service signals selection of behavior: ',behavior);
-  //   this.selectedBehavior$.next(behavior)
-  // }
-
   public selectLayer(layer: Layer): void {
-    console.log('service signals selection of layer: ',layer);
+    // console.log('service signals selection of layer: ',layer);
     this.currentLayer = layer;
     this.currentLayer$.next(layer);
     this.selectBehaviorsForKeyAndLayer();
   }
 
   private selectBehaviorsForKeyAndLayer(): void {
-    console.log('selecting relevant behaviors for layer ' + this.currentLayer.name + ' and key ' + this.currentKey.keyNumber + ' from ',this.behaviors);
+    // console.log('selecting relevant behaviors for layer ' + this.currentLayer.name + ' and key ' + this.currentKey.keyNumber + ' from ',this.behaviors);
     this.currentKeyBehaviors = this.behaviors
       .filter(behavior => behavior.keyNumber === this.currentKey.keyNumber)
       .filter(behavior => behavior.layerId === this.currentLayer.id);
-    console.log('The relevant behaviors: ',this.currentKeyBehaviors);
+    // console.log('The relevant behaviors: ',this.currentKeyBehaviors);
     this.currentKeyBehaviors$.next(this.currentKeyBehaviors);
     this.selectedBehavior = this.currentKeyBehaviors[0];
     this.selectedBehavior$.next(this.selectedBehavior);
   }
 
   public addLayer(layerName:string): void {
-    console.log('service is adding a new layer with behaviors for all keys');
     // TODO: check for duplicate layer names
     let newLayer = new Layer(layerName,uuidv4());
     this.layers.push(newLayer);
     // add behaviors for each key to this layer
     this.keys.forEach(key => {
-      let newBehavior = new Behavior(key.keyNumber,Behavior.BEHAVIOR_TYPE_NONE,[],[], newLayer.id, '','');
+      let newBehavior = new Behavior(key.keyNumber,Behavior.BEHAVIOR_TYPE_NONE,[],[], '', newLayer.id, '','');
       this.behaviors.push(newBehavior);
     })
     this.behaviors$.next(this.behaviors);
     this.layers$.next(this.layers);
     this.selectLayer(newLayer);
-    console.log('the behaviors for the new layer: ',this.behaviors);
   }
 
   public deleteLayer(layer: Layer) {
-    console.log('service is deleting layer: ',layer);
     if (this.layers.length > 1) { // don't delete the last layer
       // remove the behaviors that only occur in the layer that is deleted
       this.behaviors = this.behaviors.filter(behavior => behavior.layerId !== layer.id );
@@ -421,7 +413,7 @@ export class KeyMapService {
 
   deleteCombo(combo: Combo): void {
     if (this.selectedCombo === combo) {
-      this.selectedCombo = new Combo(0,'',50,'', '',[],[]);
+      this.selectedCombo = new Combo(0,'',50,'','', '',[],[]);
       this.selectedCombo$.next(this.selectedCombo);
     }
     let idx = this.combos.indexOf(combo);
@@ -431,7 +423,7 @@ export class KeyMapService {
 
   selectCombo(combo: Combo): void {
     if (this.selectedCombo === combo) {
-      this.selectedCombo = new Combo(0,'',50,'', '',[],[]);
+      this.selectedCombo = new Combo(0,'',50,'','', '',[],[]);
     } else {
       this.selectedCombo = combo;
     }
@@ -442,7 +434,7 @@ export class KeyMapService {
   }
 
   deselectCombo(): void {
-    this.selectedCombo = new Combo(0,'',50,'', '',[],[]);
+    this.selectedCombo = new Combo(0,'',50,'','', '',[],[]);
     this.selectedCombo$.next(this.selectedCombo);
     this.keys.forEach(key => {
       key.active = false;
@@ -458,6 +450,9 @@ export class KeyMapService {
     if (behavior) {
       if (behavior.type === '&hm ' ) {
         return behavior.values[1];
+      }
+      if (behavior.type === '&bt ' ) {
+        return behavior.values[0];
       }
       if ('&mo &lt &to &tog &sl '.indexOf(behavior.type) > -1 ) {
         return behavior.targetLayerName;
