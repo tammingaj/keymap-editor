@@ -26,8 +26,8 @@ export class Combo {
     let fragment: string = '\n' +
       '    combo_' + this.name + ' {\n' +
       '      timeout-ms = <' + this.timeout + '>;\n' +
-      '      layers = <' + layers + '>;\n' +
       '      key-positions = <' + this.keys.join(' ') + '>;\n' +
+      '      layers = <' + layers + '>;\n' +
       '      bindings = <' + this.selectedBehaviorType + this.binding + '>; \n' +
       '    };';
     return fragment;

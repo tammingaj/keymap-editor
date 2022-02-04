@@ -91,8 +91,8 @@ export class ZmkConfigGeneratorService {
       this.kbdConfigCodeFile.push('      quick_tap_ms = <0>;');
       this.kbdConfigCodeFile.push('      flavor = "tap-preferred";');
       this.kbdConfigCodeFile.push('      bindings = <&kp>, <&kp>;');
+      this.kbdConfigCodeFile.push('    };');
       this.kbdConfigCodeFile.push('  };');
-      this.kbdConfigCodeFile.push('');
     }
 
     // keymap definition
