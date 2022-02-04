@@ -11,10 +11,9 @@
         load a starter keymap by clicking one of these:
       </p>
       <ul>
-        <li>Corne</li>
-        <li>Miniki v3</li>
-        <li>SoftRubbing</li>
-        <li>Fumble board</li>
+        <li><a href="" (click)="load('corne')">Corne</a></li>
+        <li><a href="" (click)="load('miniki')">Miniki v2</a></li>
+        <li><a href="" (click)="load('fumble')">Fumble board</a></li>
       </ul>
       <hr>
     </div>
@@ -31,7 +30,7 @@
 
       <div class="form-group row">
         <label for="name" class="col-5">Name</label>
-        <input id="name" type="text" formControlName="name" required minlength="1" (keypress)="keyPressAlphanumeric($event)">
+        <input #name id="name" type="text" formControlName="name" required minlength="1" (keypress)="keyPressAlphanumeric($event)">
       </div>
 
       <div class="form-group row">

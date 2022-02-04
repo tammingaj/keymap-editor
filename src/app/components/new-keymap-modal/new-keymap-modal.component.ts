@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder} from "@angular/forms";
 import {KeyMapService} from "../../services/key-map.service";
 import {Validators} from "../../classes/validators";
+import {ActivatedRoute, Router} from "@angular/router";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'new-keymap-modal',
@@ -10,6 +12,9 @@ import {Validators} from "../../classes/validators";
   styleUrls: ['./new-keymap-modal.component.css']
 })
 export class NewKeymapModalComponent implements OnInit {
+
+  // @ts-ignore
+  @ViewChild('name') nameInputElement: ElementRef;
 
   keymapForm = this.formBuilder.group({
     name: '',
@@ -19,12 +24,15 @@ export class NewKeymapModalComponent implements OnInit {
     nofCols: 0
   });
 
-  constructor(private activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService) {
+  constructor(private http: HttpClient, private activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService, private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.nameInputElement.nativeElement.focus();
+  }
   create(): void {
     console.log('form values: ',this.keymapForm);
     this.keyMapService.createNewKeymap(this.keymapForm.value);
@@ -34,6 +42,16 @@ export class NewKeymapModalComponent implements OnInit {
   cancel(): void {
     console.log('form values: ',this.keymapForm);
     this.activeModal.dismiss('cancel click');
+  }
+
+  load(configName: string): boolean {
+    this.http.get('./assets/' + configName + '.json').subscribe(data => {
+      this.keyMapService.importKeyMap(JSON.stringify(data));
+      this.keyMapService.saveKeyMapConfig();
+      this.activeModal.close('load keymap ' + configName);
+      this.router.navigate(['/layout']);
+    });
+    return false;
   }
 
   keyPressAlphanumeric = Validators.keyPressAlphanumeric;
