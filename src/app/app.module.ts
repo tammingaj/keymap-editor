@@ -22,6 +22,7 @@ import { SettingsViewComponent } from './views/settings-view/settings-view.compo
 import { LayerViewComponent } from './views/layer-view/layer-view.component';
 import { KeycodeSelectorComponent } from './components/keycode-selector/keycode-selector.component';
 import {AceEditorModule} from "ng2-ace-editor";
+import {HttpClientModule} from "@angular/common/http";
 
 const appRoutes: Routes = [
   { path: 'layout', component: LayoutViewComponent },
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     FontAwesomeModule,
-    AceEditorModule
+    AceEditorModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

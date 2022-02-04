@@ -55,12 +55,8 @@ export class AppComponent {
   }
 
   newKeymap(): void {
-    console.log('newKeyMap');
     const modalRef = this.modalService.open(NewKeymapModalComponent, {centered: true, backdrop: "static"});
     modalRef.componentInstance.name = 'world';
-    // modalRef.dismissed.subscribe((value) => {
-    //   console.log('dismissed ' + value);
-    // });
     modalRef.closed.subscribe((value => {
       this.router.navigate(['/layout']);
     }));
