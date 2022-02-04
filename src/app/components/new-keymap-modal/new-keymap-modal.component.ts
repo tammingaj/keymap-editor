@@ -3,8 +3,8 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder} from "@angular/forms";
 import {KeyMapService} from "../../services/key-map.service";
 import {Validators} from "../../classes/validators";
-import {ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'new-keymap-modal',
