@@ -121,11 +121,15 @@ export class Behavior {
         break;
       case Behavior.BEHAVIOR_TYPE_MODIFIER :
         code = Codes.getById(this.codeId);
-        if (code) label = code.label || code.hasOwnProperty('codes') ? code.codes[0] : 'X';
+        if (code) {
+          label = code.label || (code.hasOwnProperty('codes') ? code.codes[0] : 'X');
+        }
         break;
       case Behavior.BEHAVIOR_TYPE_LAYER_TAP :
         code = Codes.getById(this.codeId);
-        if (code) label = code.label || code.hasOwnProperty('codes') ? code.codes[0] : 'X';
+        if (code) {
+          label = code.label || (code.hasOwnProperty('codes') ? code.codes[0] : 'X');
+        }
         break;
       case Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER :
         label = this.values[0];

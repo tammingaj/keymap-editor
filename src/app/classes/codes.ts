@@ -676,7 +676,8 @@ export class Codes {
       id: "f968898a-ad88-4cb7-aa4a-066eef977251",
       codes: ["PG_UP", "PAGE_UP"],
       description: "Page Up",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "P_UP"
     },
     {
       id: "16d9992b-3374-4e4a-926d-2b779a0695e4",
@@ -694,35 +695,36 @@ export class Codes {
       id: "33ba417a-4441-4cfd-912e-30faec5e0e4a",
       codes: ["PG_DN", "PAGE_DOWN"],
       description: "Page Down",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "P_DN"
     },
     {
       id: "0de74fdb-924c-4bc5-8ee3-8dd0d13d6b62",
       codes: ["RIGHT_ARROW", "RIGHT"],
       description: "⮕ [Right Arrow]",
       group: "Keyboard",
-      label: "⮕"
+      label: "→"
     },
     {
       id: "4d675fa4-e7c2-4a56-b1ae-37bdb75de8f9",
       codes: ["LEFT_ARROW", "LEFT"],
       description: "⬅ [Left Arrow]",
       group: "Keyboard",
-      label: "⬅"
+      label: "←"
     },
     {
       id: "9b5c4f2b-b54d-4f96-b53f-9e81c5e748ea",
       codes: ["DOWN_ARROW", "DOWN"],
       description: "⬇ [Down Arrow]",
       group: "Keyboard",
-      label: "⬇"
+      label: "↓"
     },
     {
       id: "a6b9e317-2a81-43b5-81b6-2e4b08cc1f98",
       codes: ["UP_ARROW", "UP"],
       description: "⬆ [Up Arrow]",
       group: "Keyboard",
-      label: "⬆"
+      label: "↑"
     },
     {
       id: "d4c78d5a-57e5-41ca-8e4c-95d371381826",
