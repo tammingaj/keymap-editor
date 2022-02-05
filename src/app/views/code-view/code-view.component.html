@@ -31,7 +31,7 @@
                  [checked]="isAutoUpdate()"
                  id="'flexCheckDefault'+idx"
                  name="'flexCheckDefault'+idx">
-          <button class="btn btn-info m-1" (click)="copy()">
+          <button class="btn btn-info m-1" (click)="copy()" ngbTooltip="Copied!" #copyTooltip="ngbTooltip" triggers="manual">
             Copy&nbsp;
             <fa-icon [icon]="faCopy"></fa-icon>
           </button>

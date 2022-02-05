@@ -3,6 +3,7 @@ import {Subscription} from "rxjs";
 import {ZmkConfigGeneratorService} from "../../services/zmk-config-generator.service";
 import {faArrowLeft, faCopy, faFileDownload} from '@fortawesome/free-solid-svg-icons';
 import {KeyMapService} from "../../services/key-map.service";
+import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'code-view',
@@ -13,6 +14,9 @@ export class CodeViewComponent implements OnInit {
 
   // @ts-ignore
   @ViewChild('editor') editor;
+
+  // @ts-ignore
+  @ViewChild('copyTooltip', {static: false}) copyTooltip: NgbTooltip;
 
   @Input()  theCode: any | undefined;
   @Output() theCodeChange = new EventEmitter<string>();
@@ -57,6 +61,10 @@ export class CodeViewComponent implements OnInit {
   async copy() {
     console.log('copy');
     await navigator.clipboard.writeText(this.theCode);
+    this.copyTooltip.open();
+    setTimeout(()=>{
+      this.copyTooltip.close();
+    }, 2000);
   }
 
   download() {
