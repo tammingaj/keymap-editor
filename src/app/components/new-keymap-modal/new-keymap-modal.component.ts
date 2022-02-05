@@ -17,11 +17,11 @@ export class NewKeymapModalComponent implements OnInit {
   @ViewChild('name') nameInputElement: ElementRef;
 
   keymapForm = this.formBuilder.group({
-    name: '',
+    name: [''],
     githubUrl: '',
     split: true,
-    nofRows: 0,
-    nofCols: 0
+    nofRows: 1,
+    nofCols: 1
   });
 
   constructor(private http: HttpClient, private activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService, private router: Router) {
@@ -54,6 +54,10 @@ export class NewKeymapModalComponent implements OnInit {
     return false;
   }
 
-  keyPressAlphanumeric = Validators.keyPressAlphanumeric;
+  clearBrowserStorage(): void {
+    this.keyMapService.clear();
+  }
+
+  keyPressAlphanumeric = Customvalidators.keyPressAlphanumeric;
 
 }

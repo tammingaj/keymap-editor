@@ -102,4 +102,11 @@ export class RepositoryService {
     return retrievedKeyMapConfig;
   }
 
+  clear() {
+    localStorage.removeItem('zmk-keyConfigs');
+    localStorage.removeItem('zmk-behaviors');
+    localStorage.removeItem('zmk-layers');
+    localStorage.removeItem('zmk-combos');
+    localStorage.removeItem('zmk-keymapConfig');
+  }
 }

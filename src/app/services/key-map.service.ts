@@ -54,7 +54,7 @@ export class KeyMapService {
   private selectedCombo = new Combo(0,'',50,'','', '',[],[]);
   public selectedCombo$ = new BehaviorSubject<Combo>(this.selectedCombo);
 
-  public keyMapConfig: KeyMapConfig = new KeyMapConfig('corne');
+  public keyMapConfig: KeyMapConfig = new KeyMapConfig('');
   public minX: number = 0;
   public minY: number = 0;
   public maxX: number = 0;
@@ -115,7 +115,7 @@ export class KeyMapService {
   }
 
   private createInitialKeyMapConfig(options: any): void {
-    this.keyMapConfig = new KeyMapConfig(options.name || 'Corne');
+    this.keyMapConfig = new KeyMapConfig(options.name || ' ');
     this.keyMapConfig.split = options.split;
     this.keyMapConfig.githubUrl = options.githubUrl;
     this.keyMapConfig.cols = options.nofCols;
@@ -475,5 +475,10 @@ export class KeyMapService {
 
   setSingleSelect(value: boolean) {
     this.singleSelect = value;
+  }
+
+  clear() {
+    this.repositoryService.clear();
+    this.createNewKeymap('');
   }
 }
