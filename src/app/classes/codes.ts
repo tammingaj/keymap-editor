@@ -5,6 +5,7 @@ export class Codes {
     {
       id: "f2132607-cbdc-410f-90d9-3d19113528f4",
       codes: ["BT_CLR"],
+      label: "BTCLR",
       description: "Clear the current bluetooth profile",
       group: "Bluetooth"
     },
@@ -1160,19 +1161,22 @@ export class Codes {
       id: "8beb1c0e-ebfa-486d-967b-0157b13e90ae",
       codes: ["LEFT_CONTROL", "LCTRL", "LC(code)"],
       description: "Left Control",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "LCTL"
     },
     {
       id: "d8bbb848-974a-4089-99c2-f98c663e983a",
       codes: ["LEFT_SHIFT", "LSHIFT", "LSHFT", "LS(code)"],
       description: "Left Shift ⇧",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "LSFT"
     },
     {
       id: "5cd6b7b9-b596-4600-92a1-67054af8663a",
       codes: ["LEFT_ALT", "LALT", "LA(code)"],
       description: "Left Alt",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "LALT"
     },
     {
       id: "7bdbaa7e-80b7-4276-9962-ca03869b4546",
@@ -1188,25 +1192,29 @@ export class Codes {
         "LMETA",
       ],
       description: "Left GUI (Windows / Command / Meta)",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "LGUI"
     },
     {
       id: "66010cf3-72d2-4371-9774-d517585044d8",
       codes: ["RIGHT_CONTROL", "RCTRL", "RC(code)"],
       description: "Right Control",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "RCTL"
     },
     {
       id: "545ae1f2-d19d-49b3-9905-199f0b2887a0",
       codes: ["RIGHT_SHIFT", "RSHIFT", "RSHFT", "RS(code)"],
       description: "Right Shift ⇧",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "RSFT"
     },
     {
       id: "010acc2f-271e-4d39-a03a-8c5f7c47ad7a",
       codes: ["RIGHT_ALT", "RALT", "RA(code)"],
       description: "Right Alt",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "RALT"
     },
     {
       id: "5feb1413-1511-46c9-8455-5c0688496c36",
@@ -1222,7 +1230,8 @@ export class Codes {
         "RMETA",
       ],
       description: "Right GUI (Windows / Command / Meta)",
-      group: "Keyboard"
+      group: "Keyboard",
+      label: "RGUI"
     },
     {
       id: "d7503c63-b9eb-4148-925b-74ec50d32286",

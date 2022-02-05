@@ -451,13 +451,10 @@ export class KeyMapService {
       if (behavior.type === '&hm ' ) {
         return behavior.values[1];
       }
-      if (behavior.type === '&bt ' ) {
-        return behavior.values[0];
-      }
       if ('&mo &lt &to &tog &sl '.indexOf(behavior.type) > -1 ) {
         return behavior.targetLayerName;
       }
-      if (behavior.type !== '&kp ' && behavior.type !== '&none' ) {
+      if (behavior.type !== '&kp ' && behavior.type !== '&none' && behavior.type !== '&bt ' ) {
         return behavior.type.trim();
       }
     }

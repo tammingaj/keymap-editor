@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {Layer} from "../../classes/layer";
 import {KeycodeSelectorComponent} from "../keycode-selector/keycode-selector.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Codes} from "../../classes/codes";
 
 @Component({
   selector: 'behavior-selector',
@@ -18,7 +19,7 @@ export class BehaviorSelectorComponent implements OnInit {
   public selectedBehavior: Behavior = new Behavior(-1,Behavior.BEHAVIOR_TYPE_NONE,[],[], '','','', '');
   public layers: Array<Layer> = new Array<Layer>();
   public currentLayer: Layer = new Layer('','');
-  public getBluetoothValues = Behavior.getBluetoothValues;
+  public getBluetoothValues = Codes.groupBluetooth;
 
   constructor(public keyMapService: KeyMapService, private modalService: NgbModal) { }
 
@@ -62,21 +63,19 @@ export class BehaviorSelectorComponent implements OnInit {
     this.selectedBehavior.values[1] = value;
   }
 
-  selectBluetoothBehavior(value: string): void {
+  selectBluetoothBehavior(value: any): void {
     this.selectedBehavior.type = Behavior.BEHAVIOR_TYPE_BLUETOOTH;
-    this.selectedBehavior.values[0] = value;
+    this.selectedBehavior.codeId = value.id;
+    this.selectedBehavior.values[0] = value.codes[0];
   }
 
   showKeycodeSelector(): void {
-    console.log('showKeycodeSelector');
     const modalRef = this.modalService.open(KeycodeSelectorComponent, {size: 'xl', centered: true, backdrop: "static", scrollable: true});
     modalRef.componentInstance.name = 'KeycodeSelector';
     modalRef.dismissed.subscribe((value) => {
-      console.log('dismissed modal' + value);
       delete this.selectedBehavior.values[0];
     });
     modalRef.closed.subscribe((value => {
-      console.log('closed modal', value);
       this.selectedBehavior.codeId = value.id;
       this.selectedBehavior.values[0] = value.codes[0];
     }));

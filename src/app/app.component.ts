@@ -86,7 +86,6 @@ export class AppComponent {
     fileReader.readAsText(this.selectedFile, "UTF-8");
     fileReader.onload = () => {
       let result: any = fileReader.result || '';
-      console.log('loaded file: ' + result);
       if (this.transform) {
         const altered = result.replace(/id: ""/g, (match: any, key: any) => {
           return 'id: "' + uuidv4() + '"';

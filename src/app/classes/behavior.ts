@@ -45,7 +45,7 @@ export class Behavior {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
       type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_LAYER_TAP || type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER ||
       type === Behavior.BEHAVIOR_TYPE_TO_LAYER || type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER || type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER ||
-      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY) {
+      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY || type === Behavior.BEHAVIOR_TYPE_BLUETOOTH) {
       this.keyNumber = keyNumber;
       this.type = type;
       this.values = values;
@@ -105,7 +105,8 @@ export class Behavior {
 
     switch (this.type) {
       case Behavior.BEHAVIOR_TYPE_BLUETOOTH :
-        label = ' ';
+        code = Codes.getById(this.codeId);
+        label = code.label || (code.hasOwnProperty('codes') ? code.codes[0] : 'X');
         break;
       case Behavior.BEHAVIOR_TYPE_NONE :
         label = ' ';
@@ -156,14 +157,11 @@ export class Behavior {
     return[Behavior.MODIFIER_LGUI, Behavior.MODIFIER_LALT, Behavior.MODIFIER_LSHFT, Behavior.MODIFIER_LCTRL, Behavior.MODIFIER_RGUI, Behavior.MODIFIER_RALT, Behavior.MODIFIER_RSHFT, Behavior.MODIFIER_RCTRL];
   }
 
-  public static getBluetoothValues(): string[] {
-    return[Behavior.BLUETOOTH_1, Behavior.BLUETOOTH_2, Behavior.BLUETOOTH_3, Behavior.BLUETOOTH_4, Behavior.BLUETOOTH_5, Behavior.BLUETOOTH_CLR, Behavior.BLUETOOTH_NXT, Behavior.BLUETOOTH_PRV];
-  }
-
   public generateCode(): string {
+    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + this.values[0];
+    if (this.type === Behavior.BEHAVIOR_TYPE_BLUETOOTH) return Behavior.BEHAVIOR_TYPE_BLUETOOTH + this.values[0];
     if (this.type === Behavior.BEHAVIOR_TYPE_NONE) return Behavior.BEHAVIOR_TYPE_NONE;
     if (this.type === Behavior.BEHAVIOR_TYPE_TRANSPARENT) return Behavior.BEHAVIOR_TYPE_TRANSPARENT;
-    if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + this.values[0];
     if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) {
       return  Behavior.BEHAVIOR_TYPE_MODIFIER + this.values[1] + ' '+ this.values[0];
     }

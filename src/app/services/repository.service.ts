@@ -18,6 +18,9 @@ export class RepositoryService {
   // ultimately this should save the configuration to github
   saveKeyMapConfig = function(keyMapConfig: KeyMapConfig) {
     console.log('saving');
+    // clean up behaviors with no layer
+    keyMapConfig.behaviors = keyMapConfig.behaviors.filter(behavior => behavior.layerId.length > 0);
+
     localStorage.setItem('zmk-keyConfigs', JSON.stringify(keyMapConfig.getKeyConfigs()));
     localStorage.setItem('zmk-behaviors', JSON.stringify(keyMapConfig.getBehaviors()));
     localStorage.setItem('zmk-layers', JSON.stringify(keyMapConfig.getLayers()));
