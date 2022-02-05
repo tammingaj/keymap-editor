@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder} from "@angular/forms";
 import {KeyMapService} from "../../services/key-map.service";
-import {Validators} from "../../classes/validators";
+import {Customvalidators} from "../../classes/customvalidators";
 import { HttpClient } from '@angular/common/http';
 import {Router} from "@angular/router";
 

@@ -30,15 +30,19 @@
 
       <div class="form-group row">
         <label for="name" class="col-5">Name</label>
-        <input #name id="name" type="text" formControlName="name" required minlength="1" (keypress)="keyPressAlphanumeric($event)">
+        <input #name id="name" type="text" formControlName="name"
+               required
+               minlength="1"
+               (keypress)="keyPressAlphanumeric($event)">
       </div>
 
       <div class="form-group row">
+        <div class="col-5">&nbsp;</div>
         <div class="form-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="split">
           <label ngbButtonLabel class="btn-primary" name="split" id="split">
             <input ngbButton type="radio" [value]="true" checked> Split
           </label>
-          <label ngbButtonLabel class="btn-primary">
+          <label ngbButtonLabel class="btn-primary ml-1">
             <input ngbButton type="radio" [value]="false"> Non-Split
           </label>
         </div>
@@ -46,12 +50,12 @@
 
       <div class="form-group row">
         <label for="nofRows" class="col-5">Number of rows</label>
-        <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" required minlength="4">
+        <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" required min="1">
       </div>
 
       <div class="form-group row">
         <label for="nofCols" class="col-5">Number of columns</label>
-        <input id="nofCols" formControlName="nofCols" name="nofCols" type="number" >
+        <input id="nofCols" formControlName="nofCols" name="nofCols" type="number" required min="1">
       </div>
 
       <div class="form-group row">

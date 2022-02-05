@@ -1,4 +1,4 @@
-export class Validators {
+export class Customvalidators {
 
   public static keyPressAlphanumeric(event: any) {
     let inp = String.fromCharCode(event.keyCode);

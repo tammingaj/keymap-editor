@@ -3,7 +3,7 @@ import {KeyMapService} from "../../services/key-map.service";
 import {KeyConfig} from "../../classes/key-config";
 import {Subscription} from "rxjs";
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import {Validators} from "../../classes/validators";
+import {Customvalidators} from "../../classes/customvalidators";
 
 @Component({
   selector: 'layout-view',
@@ -42,5 +42,5 @@ export class LayoutViewComponent implements OnInit {
     }
   }
 
-  keyPressAlphanumeric = Validators.keyPressAlphanumeric;
+  keyPressAlphanumeric = Customvalidators.keyPressAlphanumeric;
 }
