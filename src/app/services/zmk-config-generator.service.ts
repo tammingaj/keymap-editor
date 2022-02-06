@@ -43,7 +43,7 @@ export class ZmkConfigGeneratorService {
 
   bluetoothUsed(): boolean {
     return (this.behaviors.find(behavior => behavior.type === "&bt ") !== undefined) ||
-      (this.combos.find(combo => combo.binding.startsWith("&bt ")) !== undefined);
+      (this.combos.find(combo => combo.selectedBehaviorType.startsWith("&bt ")) !== undefined);
   }
 
   generateCode(): void {
