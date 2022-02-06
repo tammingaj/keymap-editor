@@ -58,6 +58,18 @@ export class NewKeymapModalComponent implements OnInit {
     this.keyMapService.clear();
   }
 
+  download(): void {
+    let filename = 'keymap-' + this.keyMapService.getKeymapName() + '-' + new Date().toJSON() + '.json';
+    let blob = new Blob([this.keyMapService.getKeymapAsJSON()], {type: 'application/json'});
+    let e = document.createEvent('MouseEvents'), a = document.createElement('a');
+    a.download = filename;
+    a.href = window.URL.createObjectURL(blob);
+    a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+    e.initEvent('click', true, false);
+    a.dispatchEvent(e);
+    window.URL.revokeObjectURL(a.href); // clean the url.createObjectURL resource
+  }
+
   keyPressAlphanumeric = Customvalidators.keyPressAlphanumeric;
 
 }
