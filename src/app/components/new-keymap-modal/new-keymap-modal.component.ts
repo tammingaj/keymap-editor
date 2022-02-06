@@ -44,16 +44,6 @@ export class NewKeymapModalComponent implements OnInit {
     this.activeModal.dismiss('cancel click');
   }
 
-  load(configName: string): boolean {
-    this.http.get('./assets/' + configName + '.json').subscribe(data => {
-      this.keyMapService.importKeyMap(JSON.stringify(data));
-      this.keyMapService.saveKeyMapConfig();
-      this.activeModal.close('load keymap ' + configName);
-      this.router.navigate(['/layout']);
-    });
-    return false;
-  }
-
   clearBrowserStorage(): void {
     this.keyMapService.clear();
   }

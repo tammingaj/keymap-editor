@@ -41,6 +41,7 @@ export class CodeViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.keyMapService.autoSave();
     this.subscriptions.add(this.zmkConfigGeneratorService.codeLines$.subscribe(codeLines => {
       if (this.zmkConfigGeneratorService.autoUpdate) {
         this.codeLines = codeLines;

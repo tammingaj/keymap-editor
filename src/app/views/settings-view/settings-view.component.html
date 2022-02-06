@@ -1,8 +1,22 @@
-<p>settings-view works!</p>
+<h1>Settings</h1>
+<form>
+  <div class="form-group m-1">
+    <label class="col-3">Save to local storage automatically</label>
+    <div class="form-check-inline">
+      <input type="checkbox"
+             class="form-check-input"
+             (change)="onAutosaveChange(settingsService.settings.autoSave,$event)"
+             [checked]="settingsService.settings.autoSave"
+             id="'flexCheckDefault'+idx"
+             name="'flexCheckDefault'+idx">
+      <label class="form-check-label" for="'flexCheckDefault'+idx">&nbsp;</label>
+    </div>
+  </div>
+</form>
+
+
+
 <ul>
-  <li>
-    Save to local storage automatically
-  </li>
   <li>
     Remember github token
   </li>

@@ -7,6 +7,9 @@ import {Layer} from "../classes/layer";
 import {BehaviorSubject} from "rxjs";
 import {v4 as uuidv4} from 'uuid';
 import {Combo} from "../classes/combo";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {SettingsService} from "./settings.service";
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +70,7 @@ export class KeyMapService {
     'side': false
   }
 
-  constructor(private repositoryService: RepositoryService) {
+  constructor(private repositoryService: RepositoryService, private settingsService: SettingsService, private http: HttpClient, private router: Router) {
     this.keyMapConfig = repositoryService.loadKeyMapConfig('');
     if(this.keyMapConfig.name !== ' ') {
       this.keys = this.keyMapConfig.getKeyConfigs();
@@ -92,6 +95,7 @@ export class KeyMapService {
     this.replenishKeyMap();
     this.updateSubscriptions();
     this.calculateMinMax();
+    this.autoSave();
   }
 
   private updateSubscriptions(): void {
@@ -112,6 +116,7 @@ export class KeyMapService {
     }
     this.currentLayer = this.layers[0];
     this.currentLayer$.next(this.currentLayer);
+    this.autoSave();
   }
 
   private createInitialKeyMapConfig(options: any): void {
@@ -152,8 +157,8 @@ export class KeyMapService {
         if (keyBehaviorsForLayer.length === 0) {
           this.behaviors.push(new Behavior(key.keyNumber, Behavior.BEHAVIOR_TYPE_NONE, [], [], '', layer.id, '', ''));
         }
-      })
-    })
+      });
+    });
   }
 
   public importKeyMap(keyMapConfigString: string): void {
@@ -239,6 +244,7 @@ export class KeyMapService {
     this.behaviors$.next(this.behaviors);
     this.layers$.next(this.layers);
     this.selectLayer(newLayer);
+    this.autoSave();
   }
 
   public deleteLayer(layer: Layer) {
@@ -287,6 +293,7 @@ export class KeyMapService {
       this.combos$.next(this.combos);
       this.layers$.next(this.layers);
       this.behaviors$.next(this.behaviors);
+      this.autoSave();
     }
   }
 
@@ -327,6 +334,7 @@ export class KeyMapService {
 
     // remove the key from the keys array
     this.keyMapConfig.deleteKeyConfig(config);
+    this.autoSave();
   }
 
   public right(amount: number){
@@ -409,6 +417,7 @@ export class KeyMapService {
     this.selectedCombo = newCombo;
     this.selectedCombo$.next(this.selectedCombo);
     this.combos$.next(this.combos);
+    this.autoSave();
   }
 
   deleteCombo(combo: Combo): void {
@@ -419,6 +428,7 @@ export class KeyMapService {
     let idx = this.combos.indexOf(combo);
     this.combos.splice(idx,1);
     this.combos$.next(this.combos);
+    this.autoSave();
   }
 
   selectCombo(combo: Combo): void {
@@ -481,4 +491,22 @@ export class KeyMapService {
     this.repositoryService.clear();
     this.createNewKeymap('');
   }
+
+  load(configName: string): boolean {
+    this.http.get('./assets/' + configName + '.json').subscribe(data => {
+      this.importKeyMap(JSON.stringify(data));
+      this.saveKeyMapConfig();
+      this.autoSave();
+      this.router.navigate(['/layout']);
+    });
+    return false;
+  }
+
+  autoSave() {
+    if (this.settingsService.settings.autoSave) {
+      console.log('autosaving');
+      this.saveKeyMapConfig();
+    }
+  }
+
 }

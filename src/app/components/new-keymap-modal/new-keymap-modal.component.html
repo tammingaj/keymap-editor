@@ -11,9 +11,9 @@
         load a starter keymap by clicking one of these:
       </p>
       <ul>
-        <li><a href="" (click)="load('corne')">Corne</a></li>
-        <li><a href="" (click)="load('miniki')">Miniki v2</a></li>
-        <li><a href="" (click)="load('fumble')">Fumble board</a></li>
+        <li><a href="" (click)="keyMapService.load('corne')">Corne</a></li>
+        <li><a href="" (click)="keyMapService.load('miniki')">Miniki v2</a></li>
+        <li><a href="" (click)="keyMapService.load('fumble')">Fumble board</a></li>
       </ul>
       <hr>
     </div>
@@ -69,7 +69,7 @@
 
   <div class="modal-footer">
     <button class="btn btn-primary m-1" (click)="create()">Create</button>
-    <button class="btn btn-secondary m-1" (click)="cancel()">Cancel</button>
+    <button class="btn btn-secondary m-1" (click)="cancel()">Close</button>
   </div>
 
 </div>

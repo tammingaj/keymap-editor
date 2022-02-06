@@ -9,10 +9,19 @@
 <!--        <a class="nav-item nav-link dropdown-toggle-split float-left ml-n2" id="dropdownMenu1" ngbDropdownToggle> </a>-->
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <button class="dropdown-item" (click)="newKeymap()">New keymap</button>
-          <button class="dropdown-item" (click)="save()">Keep for next time</button>
-          <button class="dropdown-item" (click)="fileInput.click()">Import configuration</button>
-          <button class="dropdown-item" (click)="export()">Export configuration</button>
-          <button class="dropdown-item" (click)="doTransform();fileInput.click()">transform</button>
+          <button *ngIf="!settingsService.settings.autoSave"
+                  class="dropdown-item"
+                  (click)="save()"
+                  title="Stores the current state in the browser, for later sessions.">Keep for next time</button>
+          <button class="dropdown-item"
+                  (click)="fileInput.click()"
+                  title="Load a keymap configuration from the filesystem. Note that a configuration is a .json file, not
+                        a .keymap">Import configuration</button>
+          <button class="dropdown-item"
+                  (click)="export()"
+                  title="Save a keymap configuration to the filesystem. Note that a configuration is a .json file, not
+                  a .keymap">Export configuration</button>
+<!--          <button class="dropdown-item" (click)="doTransform();fileInput.click()">transform</button>-->
         </div>
       </div>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -65,11 +74,10 @@
             <span>Project initiation by The</span><span class="theo">o</span><span>&nbsp;Ther</span><span class="theo">one</span>
           <li>
             © 2022 Copyright:
-            <a href="https://github.com/tammingaj/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>
+            <a href="https://github.com/ththerone/keymap-editor/graphs/contributors"> Keymap Editor contributors</a>
           </li>
         </ul>
       </div>
-
       <div class="col-md-3 mb-md-0 mb-3">
         <ul class="list-unstyled">
           <li>
@@ -90,13 +98,13 @@
       <div class="col-md-2 mb-md-0 mb-3">
         <ul class="list-unstyled">
           <li>
-            <a href='https://github.com/tammingaj/keymap-editor' target='_blank'>
+            <a href='https://github.com/ththerone/keymap-editor' target='_blank'>
               <fa-icon [icon]="faGithub" class="float-left mr-2"></fa-icon>
               Source code
             </a>
           </li>
           <li>
-            <a href='https://github.com/tammingaj/keymap-editor/issues' target='_blank'>
+            <a href='https://github.com/ththerone/keymap-editor/issues' target='_blank'>
               <fa-icon [icon]="faBug" class="float-left mr-2"></fa-icon>
               Have an issue?
             </a>

@@ -6,6 +6,7 @@ import {NewKeymapModalComponent} from "./components/new-keymap-modal/new-keymap-
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCopyright, faBug, faCog} from '@fortawesome/free-solid-svg-icons';
 import {v4 as uuidv4} from "uuid";
+import {SettingsService} from "./services/settings.service";
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,10 @@ export class AppComponent {
   private selectedFile: File = new File(['', ''], '', {type: 'text/plain'});
   private transform: boolean = false;
 
-  constructor(private renderer: Renderer2, private router: Router, public route: ActivatedRoute, public keyMapService: KeyMapService, private modalService: NgbModal) {
+  constructor(private renderer: Renderer2, private router: Router, public route: ActivatedRoute,
+              public keyMapService: KeyMapService,
+              public settingsService: SettingsService,
+              private modalService: NgbModal) {
     this.renderer.addClass(document.body, this.theme);
     if (this.keyMapService.noKeyMapAvailable()) {
       this.newKeymap();

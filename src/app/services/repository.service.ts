@@ -4,13 +4,12 @@ import {KeyConfig} from "../classes/key-config";
 import {Behavior} from "../classes/behavior";
 import {Layer} from "../classes/layer";
 import {Combo} from "../classes/combo";
+import {Settings} from "../classes/settings";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepositoryService {
-
-  // TODO: subscribe to the subjects in the keyMapService, and save when an update is received.
 
   constructor() {
   }
@@ -102,11 +101,24 @@ export class RepositoryService {
     return retrievedKeyMapConfig;
   }
 
-  clear() {
+  clear():void {
     localStorage.removeItem('zmk-keyConfigs');
     localStorage.removeItem('zmk-behaviors');
     localStorage.removeItem('zmk-layers');
     localStorage.removeItem('zmk-combos');
     localStorage.removeItem('zmk-keymapConfig');
+  }
+
+  loadSettings(): Settings {
+    let settingsString: string = localStorage["zmk-settings"];
+    if ( typeof settingsString === 'undefined') {
+      return new Settings();
+    }
+    return Object.assign(new Settings(), JSON.parse(settingsString));
+  }
+
+  saveSettings(settings: Settings): void {
+    console.log('saving settings', settings);
+    localStorage.setItem('zmk-settings', JSON.stringify(settings));
   }
 }

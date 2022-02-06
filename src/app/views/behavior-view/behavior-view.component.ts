@@ -24,6 +24,7 @@ export class BehaviorViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.keyMapService.autoSave();
     this.keyMapService.setSingleSelect(true);
     this.subscriptions.add(this.keyMapService.layers$.subscribe(layers => {
       this.layers = layers;
