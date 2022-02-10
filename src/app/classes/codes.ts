@@ -527,21 +527,21 @@ export class Codes {
     },
     {
       id: "5a27e6ef-91cf-47a3-b8d9-ccf868a15e09",
-      codes: ["LESS_THAN", "LT"],
+      codes: ["LT","LESS_THAN"],
       description: "< [Less Than]",
       group: "Keyboard",
       label: "<"
     },
     {
       id: "9cb5ca18-f5e3-4f27-9c88-7d9bf9bbeb2f",
-      codes: ["PERIOD", "DOT"],
+      codes: ["DOT","PERIOD"],
       description: ". [Period] and > [Greater Than]",
       group: "Keyboard",
       label: "."
     },
     {
       id: "e44e44df-aced-4d80-a698-3751b6ca6fd4",
-      codes: ["GREATER_THAN", "GT"],
+      codes: ["GT","GREATER_THAN"],
       description: "> [Greater Than]",
       group: "Keyboard",
       label: ">"
@@ -701,28 +701,28 @@ export class Codes {
     },
     {
       id: "0de74fdb-924c-4bc5-8ee3-8dd0d13d6b62",
-      codes: ["RIGHT_ARROW", "RIGHT"],
+      codes: ["RIGHT","RIGHT_ARROW"],
       description: "⮕ [Right Arrow]",
       group: "Keyboard",
       label: "→"
     },
     {
       id: "4d675fa4-e7c2-4a56-b1ae-37bdb75de8f9",
-      codes: ["LEFT_ARROW", "LEFT"],
+      codes: ["LEFT","LEFT_ARROW"],
       description: "⬅ [Left Arrow]",
       group: "Keyboard",
       label: "←"
     },
     {
       id: "9b5c4f2b-b54d-4f96-b53f-9e81c5e748ea",
-      codes: ["DOWN_ARROW", "DOWN"],
+      codes: ["DOWN","DOWN_ARROW"],
       description: "⬇ [Down Arrow]",
       group: "Keyboard",
       label: "↓"
     },
     {
       id: "a6b9e317-2a81-43b5-81b6-2e4b08cc1f98",
-      codes: ["UP_ARROW", "UP"],
+      codes: ["UP","UP_ARROW"],
       description: "⬆ [Up Arrow]",
       group: "Keyboard",
       label: "↑"
