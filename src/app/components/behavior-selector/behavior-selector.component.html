@@ -6,6 +6,7 @@
     <button ngbDropdownItem (click)="selectBehaviorType('&bt ')">Bluetooth</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&lt ')" *ngIf="layers.length > 1">Layer tap</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('man ')">Manual</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&mo ')" *ngIf="layers.length > 1">Momentary layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
@@ -24,6 +25,14 @@
   <div ngbDropdownMenu aria-labelledby="dropdownLayer">
     <button *ngFor="let layer of targetLayers()" ngbDropdownItem (click)="selectTargetLayer(layer)">{{layer.name}}</button>
   </div>
+</div>
+
+<div *ngIf="selectedBehavior.type === 'man '" class="row form-group form-inline">
+  <label for="manualBehavior" class="col-3 text-left" style="justify-content: left">Behavior</label>
+  <input #name id="manualBehavior" type="text"
+         required
+         minlength="1"
+         [(ngModel)]="selectedBehavior.values[0]">
 </div>
 
 <div *ngIf="selectedBehavior.type === '&hm '">

@@ -6,6 +6,7 @@ export class Behavior {
   public static readonly BEHAVIOR_TYPE_NONE: string = '&none';
   public static readonly BEHAVIOR_TYPE_TRANSPARENT: string = '&trans';
   public static readonly BEHAVIOR_TYPE_KEYPRESS: string = '&kp ';
+  public static readonly BEHAVIOR_TYPE_MANUAL: string = 'man ';
   public static readonly BEHAVIOR_TYPE_MODIFIER: string = '&hm ';
   public static readonly BEHAVIOR_TYPE_LAYER_TAP: string = '&lt ';
   public static readonly BEHAVIOR_TYPE_MOMENTARY_LAYER: string = '&mo ';
@@ -45,7 +46,7 @@ export class Behavior {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
       type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_LAYER_TAP || type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER ||
       type === Behavior.BEHAVIOR_TYPE_TO_LAYER || type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER || type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER ||
-      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY || type === Behavior.BEHAVIOR_TYPE_BLUETOOTH) {
+      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY || type === Behavior.BEHAVIOR_TYPE_BLUETOOTH || type === Behavior.BEHAVIOR_TYPE_MANUAL) {
       this.keyNumber = keyNumber;
       this.type = type;
       this.values = values;
@@ -65,6 +66,9 @@ export class Behavior {
         break;
       case Behavior.BEHAVIOR_TYPE_NONE :
         label = 'None';
+        break;
+      case Behavior.BEHAVIOR_TYPE_MANUAL :
+        label = 'Manual';
         break;
       case Behavior.BEHAVIOR_TYPE_KEYPRESS :
         label = 'Keypress';
@@ -110,6 +114,9 @@ export class Behavior {
         break;
       case Behavior.BEHAVIOR_TYPE_NONE :
         label = ' ';
+        break;
+      case Behavior.BEHAVIOR_TYPE_MANUAL :
+        label = '🞋';
         break;
       case Behavior.BEHAVIOR_TYPE_KEYPRESS :
         code = Codes.getById(this.codeId);
@@ -160,6 +167,7 @@ export class Behavior {
   public generateCode(): string {
     if (this.type === Behavior.BEHAVIOR_TYPE_KEYPRESS) return Behavior.BEHAVIOR_TYPE_KEYPRESS + this.values[0];
     if (this.type === Behavior.BEHAVIOR_TYPE_BLUETOOTH) return Behavior.BEHAVIOR_TYPE_BLUETOOTH + this.values[0];
+    if (this.type === Behavior.BEHAVIOR_TYPE_MANUAL) return this.values[0];
     if (this.type === Behavior.BEHAVIOR_TYPE_NONE) return Behavior.BEHAVIOR_TYPE_NONE;
     if (this.type === Behavior.BEHAVIOR_TYPE_TRANSPARENT) return Behavior.BEHAVIOR_TYPE_TRANSPARENT;
     if (this.type === Behavior.BEHAVIOR_TYPE_MODIFIER) {
