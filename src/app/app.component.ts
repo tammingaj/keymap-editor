@@ -33,7 +33,8 @@ export class AppComponent {
               private modalService: NgbModal) {
     this.renderer.addClass(document.body, this.theme);
     if (this.keyMapService.noKeyMapAvailable()) {
-      this.newKeymap();
+      // this.newKeymap();
+      this.router.navigate(['/about']);
     }
   }
 

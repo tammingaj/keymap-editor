@@ -4,6 +4,10 @@
   color: #f8fa6d;
 }
 
+a:hover .theo {
+  text-decoration: underline;
+}
+
 @keyframes theo {
   0%, 100% {transform: translateX(0);}
   50% {transform: translateX(.3em);}

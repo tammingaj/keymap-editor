@@ -1,23 +1,24 @@
-<h1>Settings</h1>
-<form>
-  <div class="form-group m-1">
-    <label class="col-3">Save to local storage automatically</label>
-    <div class="form-check-inline">
-      <input type="checkbox"
-             class="form-check-input"
-             (change)="onAutosaveChange(settingsService.settings.autoSave,$event)"
-             [checked]="settingsService.settings.autoSave"
-             id="'flexCheckDefault'+idx"
-             name="'flexCheckDefault'+idx">
-      <label class="form-check-label" for="'flexCheckDefault'+idx">&nbsp;</label>
-    </div>
-  </div>
-</form>
+<div class="row" style="margin: 0rem 1rem 1rem 1rem">
+  <article>
+    <h1>Settings</h1>
+    <form>
+      <div class="form-group m-1">
+        <label>Save to local storage automatically&nbsp;</label>
+        <div class="form-check-inline">
+          <input type="checkbox"
+                 class="form-check-input"
+                 (change)="onAutosaveChange(settingsService.settings.autoSave,$event)"
+                 [checked]="settingsService.settings.autoSave"
+                 id="'flexCheckDefault'+idx"
+                 name="'flexCheckDefault'+idx">
+          <label class="form-check-label" for="'flexCheckDefault'+idx">&nbsp;</label>
+        </div>
+      </div>
+    </form>
+  </article>
+</div>
 
 
 
-<ul>
-  <li>
-    Remember github token
-  </li>
-</ul>
+
+
