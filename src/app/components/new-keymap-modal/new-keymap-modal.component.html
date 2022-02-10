@@ -10,11 +10,26 @@
         A previous keymap could not be found in the browsers' storage. Use the form to create a new keymap from scratch, or
         load a starter keymap by clicking one of these:
       </p>
-      <ul>
-        <li><a href="" (click)="load('corne')">Corne</a></li>
-        <li><a href="" (click)="load('miniki')">Miniki v2</a></li>
-        <li><a href="" (click)="load('fumble')">Fumble board</a></li>
-      </ul>
+      <div class="row text-center">
+        <div class="col-4 border border-2 rounded">
+          <a href="" (click)="keyMapService.load('miniki')">
+            <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
+            Miniki v2
+          </a>
+        </div>
+        <div class="col-4 border border-2 rounded">
+          <a href="" (click)="keyMapService.load('corne')">
+            <img src="/assets/corne-layout.png" alt="" class="img-fluid">
+            Corne
+          </a>
+        </div>
+        <div class="col-4 border border-2 rounded">
+          <a href="" (click)="keyMapService.load('fumble')">
+            <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
+            Fumble board
+          </a>
+        </div>
+      </div>
       <hr>
     </div>
 

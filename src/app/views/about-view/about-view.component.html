@@ -16,19 +16,30 @@
     <p>When the code is to your liking just copy it to the clipboard or download it to a local file to further process
       it in your ZMK project.</p>
 
-    <p>The menu lets you import or export the configuration in a .json file, to facilitate sharing. Note that this is not
-    the .keymap file for your ZMK project.</p>
-
-    <p>The source code for this application is <a target="_blank" href="https://github.com/ththerone/keymap-editor">
-      hosted on Github&nbsp;<fa-icon [icon]="faExternalLinkAlt"></fa-icon></a></p>
+    <p>The menu lets you import or export the configuration in the form of a .json file, to facilitate sharing.</p>
 
     <p>Click one of the links below to load a sample keymap to start playing around, but <em>note that it will replace
-      the currently active keymap!</em></p>
+      the currently active keymap (if any)!</em></p>
 
-    <ul>
-      <li><a href="" (click)="keyMapService.load('corne')">Corne</a></li>
-      <li><a href="" (click)="keyMapService.load('miniki')">Miniki v2</a></li>
-      <li><a href="" (click)="keyMapService.load('fumble')">Fumble board</a></li>
-    </ul>
+    <div class="row text-center">
+      <div class="col-4 border border-2 rounded">
+        <a href="" (click)="keyMapService.load('miniki')">
+          <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
+          Miniki v2
+        </a>
+      </div>
+      <div class="col-4 border border-2 rounded">
+        <a href="" (click)="keyMapService.load('corne')">
+          <img src="/assets/corne-layout.png" alt="" class="img-fluid">
+          Corne
+        </a>
+      </div>
+      <div class="col-4 border border-2 rounded">
+        <a href="" (click)="keyMapService.load('fumble')">
+          <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
+          Fumble board
+        </a>
+      </div>
+    </div>
   </article>
 </div>
