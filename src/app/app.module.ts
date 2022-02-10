@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   { path: 'code', component: CodeViewComponent },
   { path: 'about', component: AboutViewComponent },
   { path: 'settings', component: SettingsViewComponent },
-  { path: '',   redirectTo: '/about', pathMatch: 'full' },
+  { path: '',   redirectTo: '/layout', pathMatch: 'full' },
   { path: '**',   redirectTo: '/about', pathMatch: 'full' }
 ];
 
