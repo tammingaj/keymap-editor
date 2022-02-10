@@ -16,6 +16,8 @@ export class NewKeymapModalComponent implements OnInit {
   // @ts-ignore
   @ViewChild('name') nameInputElement: ElementRef;
 
+  keyPressAlphanumeric = Customvalidators.keyPressAlphanumeric;
+
   keymapForm = this.formBuilder.group({
     name: [''],
     githubUrl: '',
@@ -24,7 +26,7 @@ export class NewKeymapModalComponent implements OnInit {
     nofCols: 1
   });
 
-  constructor(private http: HttpClient, private activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService, private router: Router) {
+  constructor(private http: HttpClient, public activeModal: NgbActiveModal, private formBuilder: FormBuilder, public keyMapService: KeyMapService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -33,14 +35,14 @@ export class NewKeymapModalComponent implements OnInit {
   ngAfterViewInit() {
     this.nameInputElement.nativeElement.focus();
   }
+
   create(): void {
-    console.log('form values: ',this.keymapForm);
+    console.log('create and close modal');
     this.keyMapService.createNewKeymap(this.keymapForm.value);
     this.activeModal.close('create click');
   }
 
   cancel(): void {
-    console.log('form values: ',this.keymapForm);
     this.activeModal.dismiss('cancel click');
   }
 
@@ -60,6 +62,9 @@ export class NewKeymapModalComponent implements OnInit {
     window.URL.revokeObjectURL(a.href); // clean the url.createObjectURL resource
   }
 
-  keyPressAlphanumeric = Customvalidators.keyPressAlphanumeric;
 
+  load(keymapName: string): void {
+    this.keyMapService.load(keymapName);
+    this.activeModal.close('load click');
+  }
 }
