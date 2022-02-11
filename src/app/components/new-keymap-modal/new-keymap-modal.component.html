@@ -1,90 +1,86 @@
-<div class="container m-3">
-  <div class="modal-header">
-    <h3>Create a new keymap</h3>
+<div class="modal-header">
+  <h3>Create a new keymap</h3>
+</div>
+
+<div class="modal-body">
+  <div *ngIf="keyMapService.noKeyMapAvailable()" class="container">
+    <p>
+      A previous keymap could not be found in the browsers' storage. Use the form to create a new keymap from scratch, or
+      load a starter keymap by clicking one of these:
+    </p>
+    <div class="row text-center">
+      <div class="col-4 border border-2 pt-2 rounded">
+        <a href="" (click)="load('miniki')">
+          <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
+          Miniki v2
+        </a>
+      </div>
+      <div class="col-4 border border-2 pt-2 rounded">
+        <a href="" (click)="load('corne')">
+          <img src="/assets/corne-layout.png" alt="" class="img-fluid">
+          Corne
+        </a>
+      </div>
+      <div class="col-4 border border-2 pt-2 rounded">
+        <a href="" (click)="load('fumble')">
+          <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
+          Fumble board
+        </a>
+      </div>
+    </div>
+    <hr>
   </div>
 
-  <div class="modal-body">
+  <div *ngIf="!keyMapService.noKeyMapAvailable()">
+    <p>
+      There already is a keymap in the browsers' storage. It will be overwritten when you create a new keymap. Optionally click
+      the button below to download it to your computer. You can then later import it again via the menu.</p>
+    <button class="btn btn-primary" (click)="download()">Download keymap</button>
+    <button class="btn btn-primary ml-1" (click)="clearBrowserStorage()">Clear browser storage</button>
+    <hr>
+  </div>
 
-    <div *ngIf="keyMapService.noKeyMapAvailable()">
-      <p>
-        A previous keymap could not be found in the browsers' storage. Use the form to create a new keymap from scratch, or
-        load a starter keymap by clicking one of these:
-      </p>
-      <div class="row text-center">
-        <div class="col-4 border border-2 pt-2 rounded">
-          <a href="" (click)="keyMapService.load('miniki')">
-            <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
-            Miniki v2
-          </a>
-        </div>
-        <div class="col-4 border border-2 pt-2 rounded">
-          <a href="" (click)="keyMapService.load('corne')">
-            <img src="/assets/corne-layout.png" alt="" class="img-fluid">
-            Corne
-          </a>
-        </div>
-        <div class="col-4 border border-2 pt-2 rounded">
-          <a href="" (click)="keyMapService.load('fumble')">
-            <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
-            Fumble board
-          </a>
-        </div>
-      </div>
-      <hr>
+  <form [formGroup]="keymapForm" >
+
+    <div class="form-group row">
+      <label for="name" class="col-5">Name</label>
+      <input #name id="name" type="text" formControlName="name"
+             required
+             minlength="1"
+             (keypress)="keyPressAlphanumeric($event)">
     </div>
 
-    <div *ngIf="!keyMapService.noKeyMapAvailable()">
-      <p>
-        There already is a keymap in the browsers' storage. It will be overwritten when you create a new keymap. Optionally click
-        the button below to download it to your computer. You can then later import it again via the menu.</p>
-      <button class="btn btn-primary" (click)="download()">Download keymap</button>
-      <button class="btn btn-primary ml-1" (click)="clearBrowserStorage()">Clear browser storage</button>
-      <hr>
+    <div class="form-group row">
+      <div class="col-5">&nbsp;</div>
+      <div class="form-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="split">
+        <label ngbButtonLabel class="btn-primary" name="split" id="split">
+          <input ngbButton type="radio" [value]="true" checked> Split
+        </label>
+        <label ngbButtonLabel class="btn-primary ml-1">
+          <input ngbButton type="radio" [value]="false"> Non-Split
+        </label>
+      </div>
     </div>
 
-    <form [formGroup]="keymapForm" >
+    <div class="form-group row">
+      <label for="nofRows" class="col-5">Number of rows</label>
+      <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" required min="1">
+    </div>
 
-      <div class="form-group row">
-        <label for="name" class="col-5">Name</label>
-        <input #name id="name" type="text" formControlName="name"
-               required
-               minlength="1"
-               (keypress)="keyPressAlphanumeric($event)">
-      </div>
+    <div class="form-group row">
+      <label for="nofCols" class="col-5">Number of columns</label>
+      <input id="nofCols" formControlName="nofCols" name="nofCols" type="number" required min="1">
+    </div>
 
-      <div class="form-group row">
-        <div class="col-5">&nbsp;</div>
-        <div class="form-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="split">
-          <label ngbButtonLabel class="btn-primary" name="split" id="split">
-            <input ngbButton type="radio" [value]="true" checked> Split
-          </label>
-          <label ngbButtonLabel class="btn-primary ml-1">
-            <input ngbButton type="radio" [value]="false"> Non-Split
-          </label>
-        </div>
-      </div>
+    <div class="form-group row">
+      <label for="repo" class="col-5">Github repo</label>
+      <input id="repo" type="text" formControlName="githubUrl">
+    </div>
 
-      <div class="form-group row">
-        <label for="nofRows" class="col-5">Number of rows</label>
-        <input id="nofRows" formControlName="nofRows" name="nofRows" type="number" required min="1">
-      </div>
+  </form>
+</div>
 
-      <div class="form-group row">
-        <label for="nofCols" class="col-5">Number of columns</label>
-        <input id="nofCols" formControlName="nofCols" name="nofCols" type="number" required min="1">
-      </div>
-
-      <div class="form-group row">
-        <label for="repo" class="col-5">Github repo</label>
-        <input id="repo" type="text" formControlName="githubUrl">
-      </div>
-
-    </form>
-  </div>
-
-  <div class="modal-footer">
-    <button class="btn btn-primary m-1" (click)="create()">Create</button>
-    <button class="btn btn-secondary m-1" (click)="cancel()">Close</button>
-  </div>
-
+<div class="modal-footer">
+  <button class="btn btn-primary m-1" (click)="create()">Create</button>
+  <button class="btn btn-secondary m-1" (click)="cancel()">Close</button>
 </div>

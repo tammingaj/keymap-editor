@@ -62,7 +62,6 @@ export class NewKeymapModalComponent implements OnInit {
     window.URL.revokeObjectURL(a.href); // clean the url.createObjectURL resource
   }
 
-
   load(keymapName: string): void {
     this.keyMapService.load(keymapName);
     this.activeModal.close('load click');
