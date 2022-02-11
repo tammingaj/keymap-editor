@@ -24,7 +24,7 @@ export class ComboFormComponent implements OnInit {
   public checkedLayerIds: Array<string> = new Array<string>();
   public bluetoothValues = Codes.groupBluetooth;
 
-  constructor(private formBuilder: FormBuilder, private keyMapService: KeyMapService, private modalService: NgbModal) {
+  constructor(private formBuilder: FormBuilder, public keyMapService: KeyMapService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -60,6 +60,7 @@ export class ComboFormComponent implements OnInit {
     } else {
       this.combo.layers.splice(this.combo.layers.indexOf(layer.id), 1);
     }
+    this.keyMapService.autoSave();
   }
 
   public isLayerChecked(layer: Layer): boolean {
@@ -68,10 +69,12 @@ export class ComboFormComponent implements OnInit {
 
   public selectBehaviorType(type: string): void {
     this.combo.selectedBehaviorType = type;
+    this.keyMapService.autoSave();
   }
 
   selectBluetoothBehavior(value: any): void {
     this.combo.binding = value.codes[0];
+    this.keyMapService.autoSave();
   }
 
   showKeycodeSelector(): void {
@@ -81,10 +84,12 @@ export class ComboFormComponent implements OnInit {
     modalRef.dismissed.subscribe((value) => {
       console.log('dismissed modal' + value);
       //delete this.selectedBehavior.values[0];
+      this.keyMapService.autoSave();
     });
     modalRef.closed.subscribe((value => {
       console.log('closed modal', value);
       this.combo.binding = value.label || value.codes[0];
+      this.keyMapService.autoSave();
     }));
   }
 }

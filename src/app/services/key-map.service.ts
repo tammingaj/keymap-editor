@@ -194,6 +194,7 @@ export class KeyMapService {
       this.selectKey(activeKeys[0]);
     }
     this.activeKeys$.next(activeKeys);
+    this.autoSave();
   }
 
   public selectKey(config: KeyConfig): void {
@@ -202,6 +203,7 @@ export class KeyMapService {
     this.currentKey$.next(config);
     this.currentKeyAvailable = true;
     this.selectBehaviorsForKeyAndLayer();
+    this.autoSave();
   }
 
   public deselectKeys(): void {
@@ -212,6 +214,7 @@ export class KeyMapService {
     });
     this.activeKeys$.next([]);
     this.currentKeyAvailable = false;
+    this.autoSave();
   }
 
   public selectLayer(layer: Layer): void {
@@ -219,6 +222,7 @@ export class KeyMapService {
     this.currentLayer = layer;
     this.currentLayer$.next(layer);
     this.selectBehaviorsForKeyAndLayer();
+    this.autoSave();
   }
 
   private selectBehaviorsForKeyAndLayer(): void {
@@ -359,6 +363,7 @@ export class KeyMapService {
         key.angle = key.angle + 1;
       }
     });
+    this.autoSave();
   }
 
   public counterClockwise(){
@@ -367,6 +372,7 @@ export class KeyMapService {
         key.angle = key.angle - 1;
       }
     });
+    this.autoSave();
   }
 
   // calculate the minimum and maximum x and y values for the key configs
@@ -399,6 +405,7 @@ export class KeyMapService {
         this.calculateMinMax()
       }
     });
+    this.autoSave();
   }
 
   getKeymapName() {
@@ -441,6 +448,7 @@ export class KeyMapService {
     this.keys.forEach(key => {
       key.active = (combo.keys && combo.keys.includes(key.keyNumber));
     });
+    this.autoSave();
   }
 
   deselectCombo(): void {
@@ -449,6 +457,7 @@ export class KeyMapService {
     this.keys.forEach(key => {
       key.active = false;
     });
+    this.autoSave();
   }
 
   getComboKeys(combo: Combo) : KeyConfig[] {
@@ -496,7 +505,6 @@ export class KeyMapService {
 
   autoSave() {
     if (this.settingsService.settings.autoSave) {
-      console.log('autosaving');
       this.saveKeyMapConfig();
     }
   }

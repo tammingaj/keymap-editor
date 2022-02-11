@@ -49,24 +49,28 @@ export class BehaviorSelectorComponent implements OnInit {
   public selectBehaviorType(type: string): void {
     if (this.selectedBehavior) {
       this.selectedBehavior.type = type;
+      this.keyMapService.autoSave();
     }
   }
 
   selectTargetLayer(layer: Layer): void {
     this.selectedBehavior.targetLayerId = layer.id;
     this.selectedBehavior.targetLayerName = layer.name;
+    this.keyMapService.autoSave();
     console.log(this.selectedBehavior);
     console.log(this.selectedBehavior.generateCode());
   }
 
   selectModifierKeypress(value: string): void {
     this.selectedBehavior.values[1] = value;
+    this.keyMapService.autoSave();
   }
 
   selectBluetoothBehavior(value: any): void {
     this.selectedBehavior.type = Behavior.BEHAVIOR_TYPE_BLUETOOTH;
     this.selectedBehavior.codeId = value.id;
     this.selectedBehavior.values[0] = value.codes[0];
+    this.keyMapService.autoSave();
   }
 
   showKeycodeSelector(): void {
@@ -74,10 +78,12 @@ export class BehaviorSelectorComponent implements OnInit {
     modalRef.componentInstance.name = 'KeycodeSelector';
     modalRef.dismissed.subscribe((value) => {
       delete this.selectedBehavior.values[0];
+      this.keyMapService.autoSave();
     });
     modalRef.closed.subscribe((value => {
       this.selectedBehavior.codeId = value.id;
       this.selectedBehavior.values[0] = value.codes[0];
+      this.keyMapService.autoSave();
     }));
   }
 }

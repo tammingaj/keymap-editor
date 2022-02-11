@@ -1,7 +1,7 @@
 <form>
   <div class="form-group m-1">
     <label for="comboName" class="col-lg-2">Name</label>
-    <input [(ngModel)]="combo.name" id="comboName" name="comboName" type="text" >
+    <input [(ngModel)]="combo.name" id="comboName" name="comboName" type="text" (ngModelChange)="keyMapService.autoSave()">
   </div>
 
   <div ngbDropdown class="form-group m-1 form-inline">
@@ -57,11 +57,11 @@
 
   <div class="form-group m-1">
     <label for="comboColor" class="col-lg-2">Color</label>
-    <input id="comboColor" [(ngModel)]="combo.color" name="comboColor" type="color">
+    <input id="comboColor" [(ngModel)]="combo.color" name="comboColor" type="color" (ngModelChange)="keyMapService.autoSave()">
   </div>
 
   <div class="form-group m-1">
     <label for="comboTimeout" class="col-lg-2">Timeout (ms)</label>
-    <input [(ngModel)]="combo.timeout" id="comboTimeout" name="comboTimeout" type="number" >
+    <input [(ngModel)]="combo.timeout" id="comboTimeout" name="comboTimeout" type="number" (ngModelChange)="keyMapService.autoSave()">
   </div>
 </form>
