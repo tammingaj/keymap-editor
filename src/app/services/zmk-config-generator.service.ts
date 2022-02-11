@@ -46,6 +46,11 @@ export class ZmkConfigGeneratorService {
       (this.combos.find(combo => combo.selectedBehaviorType.startsWith("&bt ")) !== undefined);
   }
 
+  includeReset(): boolean {
+    return (this.behaviors.find(behavior => (behavior.type === "&reset")||(behavior.type === "&bootloader")) !== undefined) ||
+      (this.combos.find(combo => (combo.selectedBehaviorType === "&reset")||(combo.selectedBehaviorType === "&bootloader")) !== undefined);
+  }
+
   generateCode(): void {
     // todo: use proper templating engine
     this.kbdConfigCodeFile = [];
@@ -55,6 +60,9 @@ export class ZmkConfigGeneratorService {
     this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/keys.h>');
     if (this.bluetoothUsed()) {
       this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/bt.h>');
+    }
+    if (this.includeReset()) {
+      this.kbdConfigCodeFile.push('#include <dt-bindings/zmk/reset.h>');
     }
 
     this.kbdConfigCodeFile.push('');

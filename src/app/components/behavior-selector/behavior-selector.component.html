@@ -4,12 +4,14 @@
   <button class="btn btn-outline-primary form-control" id="dropdownBasic1" ngbDropdownToggle>{{selectedBehavior.getType()}}</button>
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
     <button ngbDropdownItem (click)="selectBehaviorType('&bt ')">Bluetooth</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&bootloader')">Bootloader</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&kp ')">Keypress</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&lt ')" *ngIf="layers.length > 1">Layer tap</button>
     <button ngbDropdownItem (click)="selectBehaviorType('man ')">Manual</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&hm ')">Modifier</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&mo ')" *ngIf="layers.length > 1">Momentary layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&none')">None</button>
+    <button ngbDropdownItem (click)="selectBehaviorType('&reset')">Reset</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&sk ')">Sticky key</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&sl ')" *ngIf="layers.length > 1">Sticky layer</button>
     <button ngbDropdownItem (click)="selectBehaviorType('&to ')" *ngIf="layers.length > 1">To layer</button>

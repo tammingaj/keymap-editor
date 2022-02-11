@@ -458,15 +458,7 @@ export class KeyMapService {
   getModifierLabel(key: KeyConfig): string {
     let behavior = this.behaviors.find(behavior => behavior.keyNumber == key.keyNumber && behavior.layerId === this.currentLayer.id);
     if (behavior) {
-      if (behavior.type === '&hm ' ) {
-        return behavior.values[1];
-      }
-      if ('&mo &lt &to &tog &sl '.indexOf(behavior.type) > -1 ) {
-        return behavior.targetLayerName;
-      }
-      if (behavior.type !== '&kp ' && behavior.type !== '&none' && behavior.type !== '&bt ' ) {
-        return behavior.type.trim();
-      }
+      return behavior.getModifierLabel();
     }
     return '';
   }

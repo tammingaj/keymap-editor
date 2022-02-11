@@ -14,6 +14,8 @@ export class Behavior {
   public static readonly BEHAVIOR_TYPE_TOGGLE_LAYER: string = '&tog ';
   public static readonly BEHAVIOR_TYPE_STICKY_LAYER: string = '&sl ';
   public static readonly BEHAVIOR_TYPE_STICKY_KEY: string = '&sk ';
+  public static readonly BEHAVIOR_TYPE_RESET: string = '&reset';
+  public static readonly BEHAVIOR_TYPE_BOOTLOADER: string = '&bootloader';
 
   public static readonly BLUETOOTH_CLR: string = 'BT_CLR';
   public static readonly BLUETOOTH_PRV: string = 'BT_PRV';
@@ -46,7 +48,8 @@ export class Behavior {
     if (type === Behavior.BEHAVIOR_TYPE_KEYPRESS || type === Behavior.BEHAVIOR_TYPE_TRANSPARENT || type === Behavior.BEHAVIOR_TYPE_NONE ||
       type === Behavior.BEHAVIOR_TYPE_MODIFIER || type === Behavior.BEHAVIOR_TYPE_LAYER_TAP || type === Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER ||
       type === Behavior.BEHAVIOR_TYPE_TO_LAYER || type === Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER || type === Behavior.BEHAVIOR_TYPE_STICKY_LAYER ||
-      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY || type === Behavior.BEHAVIOR_TYPE_BLUETOOTH || type === Behavior.BEHAVIOR_TYPE_MANUAL) {
+      type === Behavior.BEHAVIOR_TYPE_STICKY_KEY || type === Behavior.BEHAVIOR_TYPE_BLUETOOTH || type === Behavior.BEHAVIOR_TYPE_MANUAL
+      || type === Behavior.BEHAVIOR_TYPE_RESET || type === Behavior.BEHAVIOR_TYPE_BOOTLOADER) {
       this.keyNumber = keyNumber;
       this.type = type;
       this.values = values;
@@ -97,10 +100,32 @@ export class Behavior {
       case Behavior.BEHAVIOR_TYPE_STICKY_KEY :
         label = 'Sticky Key';
         break;
+      case Behavior.BEHAVIOR_TYPE_RESET :
+        label = 'Reset';
+        break;
+      case Behavior.BEHAVIOR_TYPE_BOOTLOADER :
+        label = 'Bootloader';
+        break;
       default:
         label = 'None';
     }
     return label;
+  }
+
+  public getModifierLabel(): string {
+    if (this.type === '&hm ' ) {
+      return this.values[1];
+    }
+    if ('&mo &lt &to &tog &sl '.indexOf(this.type) > -1 ) {
+      return this.targetLayerName;
+    }
+    if (this.type === '&bootloader') {
+      return '&boot';
+    }
+    if (this.type !== '&kp ' && this.type !== '&none' && this.type !== '&bt ' ) {
+      return this.type.trim();
+    }
+    return '';
   }
 
   public getLabel(): string {
@@ -140,19 +165,25 @@ export class Behavior {
         }
         break;
       case Behavior.BEHAVIOR_TYPE_MOMENTARY_LAYER :
-        label = this.values[0];
+        label = 'MO>';
         break;
       case Behavior.BEHAVIOR_TYPE_TO_LAYER :
-        label = this.values[0];
+        label = 'TO>';
         break;
       case Behavior.BEHAVIOR_TYPE_TOGGLE_LAYER :
-        label = this.values[0];
+        label = 'TOG>';
         break;
       case Behavior.BEHAVIOR_TYPE_STICKY_LAYER :
-        label = this.values[0];
+        label = 'SL>';
         break;
       case Behavior.BEHAVIOR_TYPE_STICKY_KEY :
         label = this.values[0];
+        break;
+      case Behavior.BEHAVIOR_TYPE_RESET :
+        label = '🔄';
+        break;
+      case Behavior.BEHAVIOR_TYPE_BOOTLOADER :
+        label = '🔄';
         break;
       default:
         label = 'None';
@@ -190,6 +221,12 @@ export class Behavior {
     }
     if (this.type === Behavior.BEHAVIOR_TYPE_STICKY_KEY) {
       return Behavior.BEHAVIOR_TYPE_STICKY_KEY + this.values[0];
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_RESET) {
+      return Behavior.BEHAVIOR_TYPE_RESET;
+    }
+    if (this.type === Behavior.BEHAVIOR_TYPE_BOOTLOADER) {
+      return Behavior.BEHAVIOR_TYPE_BOOTLOADER;
     }
 
     return ' ??? ';
