@@ -49,6 +49,7 @@ export class KeycodeSelectorComponent implements OnInit {
       case 'Keyboard': codes = Codes.groupKeyboard; break;
       case 'Keypad': codes = Codes.groupKeypad; break;
       case 'Bluetooth': codes = Codes.groupBluetooth; break;
+      case 'Consumer': codes = Codes.groupConsumer; break;
       case 'Consumer Menu': codes = Codes.groupConsumerMenu; break;
       case 'Consumer Media': codes = Codes.groupConsumerMedia; break;
       case 'Consumer AL': codes = Codes.groupConsumerAL; break;

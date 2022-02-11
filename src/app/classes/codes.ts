@@ -1619,49 +1619,57 @@ export class Codes {
       id: "d234f77b-41cd-4de9-b557-cc99a09a5977",
       codes: ["C_PLAY"],
       description: "Play",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏵"
     },
     {
       id: "b24f55a2-7889-4223-8f16-7b44fee2d8e0",
       codes: ["C_PAUSE"],
       description: "Pause",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏸"
     },
     {
       id: "1a1cc533-e8f3-4a5c-963d-6daf0bb35ae0",
       codes: ["C_RECORD", "C_REC"],
       description: "Record",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏺"
     },
     {
       id: "7cc0c0cc-a432-40af-988c-6d88f93cc4e7",
       codes: ["C_FAST_FORWARD", "C_FF"],
       description: "Fast Forward",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏩"
     },
     {
       id: "10988f3b-3058-407c-b5dd-7dd1fa982ba4",
       codes: ["C_REWIND", "C_RW"],
       description: "Rewind",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏪"
     },
     {
       id: "56ed495e-7f01-4481-b7e2-9e0d943a47a9",
       codes: ["C_NEXT"],
       description: "Next",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏭"
     },
     {
       id: "dfb34b66-d3c3-462a-ba3e-7b8f81adeb28",
       codes: ["C_PREVIOUS", "C_PREV"],
       description: "Previous",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏮"
     },
     {
       id: "84fe69a6-15b6-4339-8c8c-b51dd99fa31f",
       codes: ["C_STOP"],
       description: "Stop",
-      group: "Consumer"
+      group: "Consumer",
+      label: "■"
     },
     {
       id: "70a6dbe0-a3e3-4eb1-84ea-93cb4214696b",
@@ -1697,7 +1705,8 @@ export class Codes {
       id: "359d5cd9-42b7-4cab-94cd-df8a09a57ac5",
       codes: ["C_PLAY_PAUSE", "C_PP"],
       description: "Play / Pause",
-      group: "Consumer"
+      group: "Consumer",
+      label: "⏯"
     },
     {
       id: "9866caa1-7bda-4695-ab4b-5bfc030fd79e",
