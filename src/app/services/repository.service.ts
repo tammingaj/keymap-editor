@@ -16,7 +16,6 @@ export class RepositoryService {
 
   // ultimately this should save the configuration to github
   saveKeyMapConfig = function(keyMapConfig: KeyMapConfig) {
-    console.log('saving');
     // clean up behaviors with no layer
     keyMapConfig.behaviors = keyMapConfig.behaviors.filter(behavior => behavior.layerId.length > 0);
 
@@ -37,12 +36,11 @@ export class RepositoryService {
   // temporary function, remove when github functionality works
   loadKeyMapConfig = function(configParam: string): KeyMapConfig {
     let fromLocalStorage = configParam === '';
-    console.log('loading from ' + (fromLocalStorage ? 'localStorage' : 'configParam'));
+    // console.log('loading from ' + (fromLocalStorage ? 'localStorage' : 'configParam'));
 
     let keyMapConfigString: string = fromLocalStorage ? localStorage["zmk-keymapConfig"] : configParam;
 
     if ( typeof keyMapConfigString === 'undefined') {
-      console.log('creating dummy keymapconfig');
       return new KeyMapConfig(' ');
     }
 
@@ -118,7 +116,6 @@ export class RepositoryService {
   }
 
   saveSettings(settings: Settings): void {
-    console.log('saving settings', settings);
     localStorage.setItem('zmk-settings', JSON.stringify(settings));
   }
 }

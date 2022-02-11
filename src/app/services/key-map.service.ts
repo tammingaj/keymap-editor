@@ -185,7 +185,6 @@ export class KeyMapService {
 
   public toggleActive(keyConfig: KeyConfig): void {
     if (this.singleSelect) {
-      // console.log('single select mode');
       this.deselectKeys();
     }
     keyConfig.active = !keyConfig.active;
@@ -198,7 +197,6 @@ export class KeyMapService {
   }
 
   public selectKey(config: KeyConfig): void {
-    // console.log('service signals selection of key: ',config);
     this.currentKey = config;
     this.currentKey$.next(config);
     this.currentKeyAvailable = true;
@@ -218,7 +216,6 @@ export class KeyMapService {
   }
 
   public selectLayer(layer: Layer): void {
-    // console.log('service signals selection of layer: ',layer);
     this.currentLayer = layer;
     this.currentLayer$.next(layer);
     this.selectBehaviorsForKeyAndLayer();
@@ -226,11 +223,9 @@ export class KeyMapService {
   }
 
   private selectBehaviorsForKeyAndLayer(): void {
-    // console.log('selecting relevant behaviors for layer ' + this.currentLayer.name + ' and key ' + this.currentKey.keyNumber + ' from ',this.behaviors);
     this.currentKeyBehaviors = this.behaviors
       .filter(behavior => behavior.keyNumber === this.currentKey.keyNumber)
       .filter(behavior => behavior.layerId === this.currentLayer.id);
-    // console.log('The relevant behaviors: ',this.currentKeyBehaviors);
     this.currentKeyBehaviors$.next(this.currentKeyBehaviors);
     this.selectedBehavior = this.currentKeyBehaviors[0];
     this.selectedBehavior$.next(this.selectedBehavior);
