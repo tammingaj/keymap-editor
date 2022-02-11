@@ -4,8 +4,8 @@
     <img style="width: 50%; margin-left: 15px;" align="right" src="./assets/corne.png" alt="Corne keyboard layout">
     <p>
       Do you like aligning all those columns in your <a href="https://zmk.dev/" target="_blank">
-      ZMK&nbsp;<fa-icon [icon]="faExternalLinkAlt"></fa-icon></a> keymap files? Well I know I didn't, and that is why I started the
-      keymapper.dev webapp.</p>
+      ZMK&nbsp;<fa-icon [icon]="faExternalLinkAlt"></fa-icon></a> keymap files?  If you don't, then the keymapper.dev webapp
+      may be useful to you.</p>
 
     <p>The application lets you graphically order the keys so that the layout on screen more or less resembles the
       physical layout of the keyboard. Then you can define the layers that you need and assign a behavior to each key in
@@ -21,19 +21,19 @@
     <p>Click one of the links below to load a sample keymap to start playing around.</p>
 
     <div class="row text-center">
-      <div class="col-4 border border-2 rounded">
+      <div class="col-4 border border-2 pt-2 rounded">
         <a href="" (click)="keyMapService.load('miniki')">
           <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
           Miniki v2
         </a>
       </div>
-      <div class="col-4 border border-2 rounded">
+      <div class="col-4 border border-2 pt-2 rounded">
         <a href="" (click)="keyMapService.load('corne')">
           <img src="/assets/corne-layout.png" alt="" class="img-fluid">
           Corne
         </a>
       </div>
-      <div class="col-4 border border-2 rounded">
+      <div class="col-4 border border-2 pt-2 rounded">
         <a href="" (click)="keyMapService.load('fumble')">
           <img src="/assets/miniki-layout.png" alt="" class="img-fluid">
           Fumble board
