@@ -36,7 +36,6 @@ export class RepositoryService {
   // temporary function, remove when github functionality works
   loadKeyMapConfig = function(configParam: string): KeyMapConfig {
     let fromLocalStorage = configParam === '';
-    // console.log('loading from ' + (fromLocalStorage ? 'localStorage' : 'configParam'));
 
     let keyMapConfigString: string = fromLocalStorage ? localStorage["zmk-keymapConfig"] : configParam;
 

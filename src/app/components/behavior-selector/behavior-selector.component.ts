@@ -57,8 +57,6 @@ export class BehaviorSelectorComponent implements OnInit {
     this.selectedBehavior.targetLayerId = layer.id;
     this.selectedBehavior.targetLayerName = layer.name;
     this.keyMapService.autoSave();
-    console.log(this.selectedBehavior);
-    console.log(this.selectedBehavior.generateCode());
   }
 
   selectModifierKeypress(value: string): void {

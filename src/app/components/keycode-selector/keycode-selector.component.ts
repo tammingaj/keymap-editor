@@ -26,12 +26,10 @@ export class KeycodeSelectorComponent implements OnInit {
   }
 
   select(keycode: any): void {
-    console.log('chosen keycode: ',keycode);
     this.activeModal.close(keycode);
   }
 
   cancel(): void {
-    console.log('form values: ');
     this.activeModal.dismiss('cancel click');
   }
 

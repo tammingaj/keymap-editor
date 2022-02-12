@@ -37,7 +37,6 @@ export class NewKeymapModalComponent implements OnInit {
   }
 
   create(): void {
-    console.log('create and close modal');
     this.keyMapService.createNewKeymap(this.keymapForm.value);
     this.activeModal.close('create click');
   }

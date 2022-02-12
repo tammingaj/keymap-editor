@@ -60,7 +60,6 @@ export class CodeViewComponent implements OnInit {
   }
 
   async copy() {
-    console.log('copy');
     await navigator.clipboard.writeText(this.theCode);
     this.copyTooltip.open();
     setTimeout(()=>{

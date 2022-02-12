@@ -78,16 +78,13 @@ export class ComboFormComponent implements OnInit {
   }
 
   showKeycodeSelector(): void {
-    console.log('showKeycodeSelector');
     const modalRef = this.modalService.open(KeycodeSelectorComponent, {size: 'xl', centered: true, backdrop: "static", scrollable: true});
     modalRef.componentInstance.name = 'KeycodeSelector';
     modalRef.dismissed.subscribe((value) => {
-      console.log('dismissed modal' + value);
       //delete this.selectedBehavior.values[0];
       this.keyMapService.autoSave();
     });
     modalRef.closed.subscribe((value => {
-      console.log('closed modal', value);
       this.combo.binding = value.label || value.codes[0];
       this.keyMapService.autoSave();
     }));

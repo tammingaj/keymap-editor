@@ -45,7 +45,6 @@ export class KeyComponent implements OnInit {
   @HostListener('dblclick',['$event'])
   onDoubleClick($event:any): void {
     $event.stopPropagation();
-    console.log('double clicked');
     this.keyMapService.deleteConfig(this.config);
   }
 
@@ -55,7 +54,6 @@ export class KeyComponent implements OnInit {
   }
 
   delete(): boolean {
-    console.log('deleting');
     this.keyMapService.deleteConfig(this.config);
     return false;
   }

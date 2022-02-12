@@ -28,36 +28,28 @@ export class LayoutEditorComponent implements OnInit {
   keyEvent(event: KeyboardEvent) {
     event.stopPropagation();
     event.preventDefault();
-    console.log('keycode: ' + event.key);
     if (this.mode === 'layout') {
       if (event.key === 'ArrowRight') {
-        console.log('rechts');
         this.keyMapService.right(this.STEP);
       }
       if (event.key === 'ArrowLeft') {
-        console.log('links');
         this.keyMapService.left(this.STEP);
       }
       if (event.key === 'ArrowUp') {
-        console.log('up');
         this.keyMapService.up(this.STEP);
       }
       if (event.key === 'ArrowDown') {
-        console.log('down');
         this.keyMapService.down(this.STEP);
       }
       if (event.key === 'End') {
-        console.log('clockwise');
         this.keyMapService.clockwise();
       }
       if (event.key === 'Home') {
-        console.log('counterclockwise');
         this.keyMapService.counterClockwise();
       }
     }
 
     if (event.key === 'Escape') {
-      console.log('escape');
       this.keyMapService.deselectKeys();
     }
   }
