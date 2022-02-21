@@ -32,7 +32,7 @@
       <label for="dropdownBluetooth" class="col-lg-2 text-left" style="justify-content: left">Bluetooth</label>
       <button class="btn btn-outline-primary" id="dropdownBluetooth" ngbDropdownToggle>{{combo.binding}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBluetooth">
-        <button *ngFor="let value of bluetoothValues" ngbDropdownItem (click)="selectBluetoothBehavior(value)">{{value}}</button>
+        <button *ngFor="let value of bluetoothValues" ngbDropdownItem (click)="selectBluetoothBehavior(value)">{{value.label}}</button>
       </div>
     </div>
   </div>
